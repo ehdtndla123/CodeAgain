@@ -22,7 +22,7 @@ public class NoteService {
     private final ModelMapper modelMapper;
 
     public NoteResponse createNote(NoteCreateRequest noteCreateRequest){
-        // Note 도메인에 setter가 없어서 modelMapper 사용 불가
+        // Note 도메인에 setter가 없어서 modelMapper 사용 불가 modelMapper는 setter를 이용한다
         Note note= Note.builder()
                 .number(noteCreateRequest.getNumber())
                 .subject(noteCreateRequest.getSubject())
