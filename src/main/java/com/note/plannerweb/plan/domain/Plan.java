@@ -19,7 +19,6 @@ public class Plan {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "planner")
     private Planner planner;
 
     private String category;

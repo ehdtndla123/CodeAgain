@@ -1,4 +1,4 @@
-package com.note.plannerweb;
+package com.note.plannerweb.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

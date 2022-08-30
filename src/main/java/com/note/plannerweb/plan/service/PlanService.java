@@ -1,6 +1,6 @@
 package com.note.plannerweb.plan.service;
 
-import com.note.plannerweb.plan.repository.PlannerRepository;
+import com.note.plannerweb.plan.repository.PlanRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PlanService {
 
-    private final PlannerRepository plannerRepository;
+    private final PlanRepository planRepository;
 
 
 }

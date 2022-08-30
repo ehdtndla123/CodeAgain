@@ -2,16 +2,17 @@ package com.note.plannerweb.note.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.note.plannerweb.member.domain.Member;
+import com.note.plannerweb.note.dto.NoteUpdateRequest;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,32 +22,52 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int number;
+    @Column(nullable = false)
+    private Long number;//문제 번호
 
-    private String subject;
+    @Column(nullable = false)
+    private String subject;//문제 제목
 
-    private String description;
+    @Column(nullable = false)
+    private String description;//문제 설명
 
-    private String category;
+    @Column(nullable = false)
+    private String category;//오답 유형
 
-    private String code;
+    @Column(nullable = false)
+    private String code;//코드 내용
 
-    private String memo;
+    private String memo;//메모
 
-    private String repeat;
+    private String repeat_complete;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime repeat_time;
 
+    @ManyToOne
+    @JoinColumn(name="member_id")
+    private Member member;
+
     @Builder
-    public Note(int number,String subject,String description,String category,String code,String memo,String repeat,LocalDateTime repeat_time){
+    public Note(Long number,String subject,String description,String category,String code,String memo,String repeat_complete,LocalDateTime repeat_time){
         this.number=number;
         this.subject=subject;
         this.description=description;
         this.category=category;
         this.code=code;
         this.memo=memo;
-        this.repeat=repeat;
+        this.repeat_complete=repeat_complete;
+        this.repeat_time=repeat_time;
+    }
+
+    public void update(Long number,String subject,String description,String category,String code,String memo,String repeat_complete,LocalDateTime repeat_time){
+        this.number=number;
+        this.subject=subject;
+        this.description=description;
+        this.category=category;
+        this.code=code;
+        this.memo=memo;
+        this.repeat_complete=repeat_complete;
         this.repeat_time=repeat_time;
     }
 

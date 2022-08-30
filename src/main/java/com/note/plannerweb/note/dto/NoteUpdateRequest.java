@@ -2,18 +2,17 @@ package com.note.plannerweb.note.dto;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class NoteCreateResponse {
+@NoArgsConstructor
+@Builder
+public class NoteUpdateRequest {
+    private Long id;
+
     private Long number;
 
     private String subject;

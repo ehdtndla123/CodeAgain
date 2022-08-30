@@ -17,10 +17,9 @@ public class Planner {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "planner")
+    @OneToMany(mappedBy = "planner",cascade = CascadeType.REMOVE)
     private List<Plan> plans=new ArrayList<>();
 
-    @Builder
     public Planner(List<Plan> plans){
         this.plans=plans;
     }

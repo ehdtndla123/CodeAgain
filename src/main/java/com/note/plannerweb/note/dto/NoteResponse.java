@@ -14,9 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NoteResponse {
-    private Long id;
-
-    private int number;
+    private Long number;
 
     private String subject;
 
@@ -28,7 +26,7 @@ public class NoteResponse {
 
     private String memo;
 
-    private String repeat;
+    private String repeat_complete;
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime repeat_time;

@@ -3,17 +3,14 @@ package com.note.plannerweb.note.service;
 import com.note.plannerweb.note.domain.Note;
 import com.note.plannerweb.note.dto.NoteCreateRequest;
 import com.note.plannerweb.note.dto.NoteResponse;
+import com.note.plannerweb.note.dto.NoteUpdateRequest;
 import com.note.plannerweb.note.repository.NoteRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -30,11 +27,25 @@ public class NoteService {
                 .category(noteCreateRequest.getCategory())
                 .code(noteCreateRequest.getCode())
                 .memo(noteCreateRequest.getMemo())
-                .repeat(noteCreateRequest.getMemo())
+                .repeat_complete(noteCreateRequest.getRepeat_complete())
                 .repeat_time(noteCreateRequest.getRepeat_time())
                 .build();
         Note save = this.noteRepository.save(note);
         return getNoteResponse(save);
+    }
+
+    public NoteResponse updateNote(Long id,NoteCreateRequest noteCreateRequest){
+        Note note=this.noteRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 오답노트가 없습니다. id="+id));
+        note.update(noteCreateRequest.getNumber(), noteCreateRequest.getSubject(), noteCreateRequest.getDescription(), noteCreateRequest.getCategory()
+                ,noteCreateRequest.getCode(), noteCreateRequest.getMemo(), noteCreateRequest.getRepeat_complete(), noteCreateRequest.getRepeat_time());
+
+        return this.modelMapper.map(this.noteRepository.save(note),NoteResponse.class);
+    }
+
+    public void deleteNote(Long id){
+        Note note=this.noteRepository.findById(id).orElseThrow(()->new IllegalArgumentException("해당 오답노트가 없습니다. id="+id));
+
+        this.noteRepository.delete(note);
     }
 
     public NoteResponse getNoteResponse(Note note){
@@ -42,11 +53,16 @@ public class NoteService {
     }
 
     //page 12개 note list
-    public Page<Note> getNoteList(int page){
-        List<Sort.Order> list=new ArrayList<>();
-        list.add(Sort.Order.by("id"));
-        Pageable pageable= PageRequest.of(page,12,Sort.by(list));
-        return this.noteRepository.findAll(pageable);
+//    public Page<Note> getNoteList(int page){
+//        List<Sort.Order> list=new ArrayList<>();
+//        list.add(Sort.Order.by("id"));
+//        Pageable pageable= PageRequest.of(page,12,Sort.by(list));
+//        return this.noteRepository.findAll(pageable);
+//    }
+    public List<NoteResponse> getNoteList(){
+        return this.noteRepository.findAll().stream()
+                .map(m->this.modelMapper.map(m,NoteResponse.class))
+                .collect(Collectors.toList());
     }
 
     public NoteResponse getNoteById(Long noteId){
