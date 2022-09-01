@@ -1,13 +1,11 @@
 package com.note.plannerweb.note.controller;
 
-import com.note.plannerweb.note.domain.Note;
 import com.note.plannerweb.note.dto.NoteCreateRequest;
 import com.note.plannerweb.note.dto.NoteResponse;
 import com.note.plannerweb.note.service.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
