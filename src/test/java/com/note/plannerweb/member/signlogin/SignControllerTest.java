@@ -69,6 +69,7 @@ public class SignControllerTest {
                 .email(email)
                 .password(password)
                 .build());
+        String asdd="asdas";
 
         //given
        ResultActions actions= mockMvc.perform(post("/api/login")
