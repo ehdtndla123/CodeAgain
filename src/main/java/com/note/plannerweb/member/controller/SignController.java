@@ -43,15 +43,8 @@ public class SignController {
 
     @ApiOperation(value = "회원가입",notes = "이메일로 회원가입을 합니다.")
     @PostMapping("/signup")
-    public Long signup(@ApiParam(value="회원가입 아이디: 이메일",required = true)@RequestParam String email,
-                       @ApiParam(value="회원가입 아이디: 비밀번호",required = true)@RequestParam String password,
-                       @ApiParam(value="회원가입 아이디: 이름",required = true)@RequestParam String name){
-        MemberSignupRequestDto memberSignupRequestDto=MemberSignupRequestDto.builder()
-                .email(email)
-                .password(passwordEncoder.encode(password))
-                .name(name)
-                .build();
-
+    public Long signup(@ApiParam(value = "로그인 요청 DTO",required = true)
+                           @RequestBody MemberSignupRequestDto memberSignupRequestDto){
         return this.memberService.signup(memberSignupRequestDto);
     }
 

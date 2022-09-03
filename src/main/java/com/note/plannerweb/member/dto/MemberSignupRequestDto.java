@@ -4,6 +4,8 @@ import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.note.domain.Note;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
@@ -11,6 +13,8 @@ import java.util.Collections;
 import java.util.List;
 
 @Getter
+@Setter
+@NoArgsConstructor
 public class MemberSignupRequestDto {
     private String email;
     private String password;
