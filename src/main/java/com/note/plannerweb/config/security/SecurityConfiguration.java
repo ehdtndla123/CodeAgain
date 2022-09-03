@@ -2,6 +2,7 @@ package com.note.plannerweb.config.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -17,11 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private final JwtProvider jwtProvider;
     // 암호화에 필요한 PasswordEncoder 를 Bean 등록합니다.
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-    // authenticationManager를 Bean 등록합니다.
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -37,12 +34,12 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // 토큰 기반 인증이므로 세션 역시 사용하지 않습니다.
                 .and()
                 .authorizeRequests() // 요청에 대한 사용권한 체크
-                .antMatchers("/admin/").hasRole("ADMIN")
-                .antMatchers("/user/").hasRole("USER")
+                .antMatchers("/*/login","/*/signup").permitAll()
+                .antMatchers(HttpMethod.GET,"/exception/**").permitAll()
                 .antMatchers(
                         "/h2-console/**"    // 여기!
                 ).permitAll()
-                .anyRequest().permitAll() // 그외 나머지 요청은 누구나 접근 가능
+                .anyRequest().permitAll()//hasRole("USER")
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
                         UsernamePasswordAuthenticationFilter.class);
@@ -50,6 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Override
     public void configure(WebSecurity web) throws Exception{
-        web.ignoring().antMatchers("/v2/api-docs","/swagger-resources/**","/swagger-ui.html","/webjrs/**","/swagger/**");
+        web.ignoring().antMatchers("/v2/api-docs","/swagger-resources/**","/swagger-ui.html","/webjars/**","/swagger/**");
     }
+
 }

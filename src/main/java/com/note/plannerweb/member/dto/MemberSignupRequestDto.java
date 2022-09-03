@@ -4,6 +4,7 @@ import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.note.domain.Note;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -4,9 +4,7 @@ import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.dto.*;
 import com.note.plannerweb.member.repository.MemberRepository;
 import com.note.plannerweb.member.service.MemberService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,6 +69,13 @@ public class MemberController {
         return this.memberService.getMemberList();
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
     @ApiOperation(value="회원 삭제",notes = "회원을 삭제합니다.")
     @DeleteMapping("/members/{id}")
     public MemberResponseDto deleteMember(@PathVariable Long id){

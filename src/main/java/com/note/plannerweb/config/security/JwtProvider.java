@@ -1,7 +1,9 @@
 package com.note.plannerweb.config.security;
 
 
+import com.note.plannerweb.except.CAuthenticationEntryPointException;
 import com.note.plannerweb.member.service.CustomMemberDetailService;
+import com.note.plannerweb.token.dto.tokenDto;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,14 +19,18 @@ import java.util.Date;
 import java.util.List;
 
 
+
 @RequiredArgsConstructor
 @Component
 public class JwtProvider {
     @Value("spring.jwt.secret")
     private String secretKey;
+    private String ROLES="roles";
 
     //토큰 유효시간
-    private Long tokenValidMillisecond=60*60*100L;
+//    private Long tokenValidMillisecond=60*60*100L;
+    private final Long accessTokenValidMillisecond=60*60*1000L; // 1 hour
+    private final Long refreshTokenValidMillisecond=14*24*60*60*1000L; // 14 day
 
     private final CustomMemberDetailService customMemberDetailService;
 
@@ -35,26 +41,59 @@ public class JwtProvider {
     }
 
     // 생성
-    public String createToken(String userPk, List<String> roles){
+    public tokenDto createTokenDto(Long userPk, List<String> roles){
 
         // user 구분을 위해 Claims에 User Pk값 넣어줌
-        Claims claims = Jwts.claims().setSubject(userPk);
-        claims.put("roles",roles);
+        Claims claims = Jwts.claims().setSubject(String.valueOf(userPk));
+        claims.put(ROLES,roles);
         // 생성날짜, 만료날짜를 위한 Date
         Date now=new Date();
-
-        return Jwts.builder()
+        System.out.println("createTokenDto test");
+        String accessToken=Jwts.builder()
+                .setHeaderParam(Header.TYPE,Header.JWT_TYPE)
                 .setClaims(claims)
                 .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime()+tokenValidMillisecond))
+                .setExpiration(new Date(now.getTime()+accessTokenValidMillisecond))
                 .signWith(SignatureAlgorithm.HS256,secretKey)
                 .compact();
+        System.out.println("createTokenDto test");
+        String refreshToken=Jwts.builder()
+                .setHeaderParam(Header.TYPE,Header.JWT_TYPE)
+                .setExpiration(new Date(now.getTime()+refreshTokenValidMillisecond))
+                .signWith(SignatureAlgorithm.HS256,secretKey)
+                .compact();
+        System.out.println("createTokenDto test");
+        return tokenDto.builder()
+                .grantType("bearer")
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .accessTokenExpireDate(accessTokenValidMillisecond)
+                .build();
     }
 
     //Jwt 로 인증정보를 조회
     public Authentication getAuthentication (String token){
-        UserDetails userDetails=customMemberDetailService.loadUserByUsername(this.getUserPk(token));
+
+        // Jwt 에서 claims 추출
+        Claims claims=parseClaims(token);
+
+        // 권한 정보가 없음
+        if(claims.get(ROLES)==null){
+            throw new CAuthenticationEntryPointException();
+        }
+        UserDetails userDetails= customMemberDetailService.loadUserByUsername(claims.getSubject());
+       // UserDetails userDetails=customMemberDetailService.loadUserByUsername(this.getUserPk(token));
+
         return new UsernamePasswordAuthenticationToken(userDetails,"",userDetails.getAuthorities());
+    }
+
+    // Jwt 토큰 복호화해서 가져오기
+    private Claims parseClaims(String token){
+        try{
+            return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
+        }catch(ExpiredJwtException e){
+            return e.getClaims();
+        }
     }
 
     // 토큰에서 회원 정보 추출
@@ -69,10 +108,17 @@ public class JwtProvider {
 
     // 토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String jwtToken) {
-        try {
-            Jws<Claims> claimsJws= Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
-            return !claimsJws.getBody().getExpiration().before(new Date());
-        } catch (Exception e) {
+//        try {
+//            Jws<Claims> claimsJws= Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+//            return !claimsJws.getBody().getExpiration().before(new Date());
+//        } catch (Exception e) {
+//            return false;
+//        }
+        try{
+            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);
+            return true;
+        }catch(JwtException | IllegalArgumentException e){
+            // log.error(e.toString());
             return false;
         }
     }
