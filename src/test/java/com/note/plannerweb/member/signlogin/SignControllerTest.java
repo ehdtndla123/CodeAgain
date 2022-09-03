@@ -71,6 +71,7 @@ public class SignControllerTest {
                 .build());
         String asdd="asdas";
 
+        String adaddad="12312313";
         //given
        ResultActions actions= mockMvc.perform(post("/api/login")
                .content(object)
