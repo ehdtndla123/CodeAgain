@@ -40,6 +40,7 @@ public class MemberService {
         return new MemberResponseDto(member);
     }
 
+
     @Transactional
     public List<MemberResponseDto> getMemberList(){
        return this.memberRepository.findAll().stream()
