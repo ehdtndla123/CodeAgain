@@ -90,7 +90,7 @@ public class MemberService {
 //        else throw new IllegalArgumentException();
         if(this.memberRepository.findByEmail(memberSignupRequestDto.getEmail()).isPresent())
             throw new IllegalArgumentException(); // CEmailSignupFailedException()
-        return this.memberRepository.save(memberSignupRequestDto.toEntity()).getId();
+        return this.memberRepository.save(memberSignupRequestDto.toEntity(passwordEncoder)).getId();
     }
 
     @Transactional

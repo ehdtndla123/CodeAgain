@@ -28,10 +28,10 @@ public class MemberSignupRequestDto {
         this.name=name;
     }
 
-    public Member toEntity(){
+    public Member toEntity(PasswordEncoder passwordEncoder){
         return Member.builder()
                 .email(email)
-                .password(password)
+                .password(passwordEncoder.encode(password))
                 .name(name)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build();
