@@ -71,5 +71,8 @@ public class Note {
         this.repeat_time=repeat_time;
     }
 
+    public void setMember(Member member){
+        this.member=member;
+    }
 
 }

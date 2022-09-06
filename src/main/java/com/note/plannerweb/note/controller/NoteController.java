@@ -1,57 +1,99 @@
 package com.note.plannerweb.note.controller;
 
+import com.note.plannerweb.config.model.response.ListResult;
+import com.note.plannerweb.config.model.response.SingleResult;
+import com.note.plannerweb.config.model.service.ResponseService;
+import com.note.plannerweb.config.security.JwtProvider;
 import com.note.plannerweb.note.dto.NoteCreateRequest;
 import com.note.plannerweb.note.dto.NoteResponse;
 import com.note.plannerweb.note.service.NoteService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Api(tags = {"2. Note"})
 @RestController
-@RequestMapping(value="/api/notes",produces = "application/json; charset=UTF8")
+@RequestMapping(value="/api/notes")
 @RequiredArgsConstructor
 public class NoteController {
 
     private final NoteService noteService;
+    private final ResponseService responseService;
 
-    @ApiOperation(value = "오답노트 리스트 조회",notes = "오답노트 목록을 조회합니다.")
-    @GetMapping
-    public List<NoteResponse> getNoteList(){
-        return this.noteService.getNoteList();
+    private final JwtProvider jwtProvider;
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
+    @ApiOperation(value="자신의 오답노트 조회",notes = "자신의 오답노트를 조회합니다.")
+    @GetMapping("")
+    public ListResult<NoteResponse> getNoteListByToken(HttpServletRequest request){
+        return responseService.getListResult(noteService.getNoteMyList(request.getHeader("X-AUTH-TOKEN")));
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
     @ApiOperation(value="오답노트 생성",notes="오답노트를 생성합니다.")
     @PostMapping
-    public NoteResponse createNote(@RequestBody NoteCreateRequest noteCreateRequest){
-        return this.noteService.createNote(noteCreateRequest);
+    public SingleResult<NoteResponse> createNote(@RequestBody NoteCreateRequest noteCreateRequest,HttpServletRequest request){
+        return this.responseService.getSingleResult(this.noteService.createNote(noteCreateRequest,request.getHeader("X-AUTH-TOKEN")));
     }
 
-
-//    @GetMapping(value ="/{page}")
-//    public Object getNoteList(@PathVariable("page") Integer page){
-//        return this.noteService.getNoteList(page);
-//    }
-
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
     @ApiOperation(value = "오답노트 조회 (Id)",notes = "Id를 이용해 오답노트를 조회합니다.")
     @GetMapping(value="/{noteId}")
-    public NoteResponse getNoteById(@PathVariable Long noteId){
-        return noteService.getNoteById(noteId);
+    public SingleResult<NoteResponse> getNoteById(@PathVariable Long noteId,HttpServletRequest request) {
+        return responseService.getSingleResult(noteService.getNoteById(noteId, jwtProvider.resolveToken(request)));
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
     @ApiOperation(value = "오답노트 수정",notes = "Id를 이용해 오답노트를 수정합니다.")
     @PutMapping(value = "/{noteId}")
-    public NoteResponse updateNoteById(@PathVariable Long noteId,@RequestBody NoteCreateRequest noteCreateRequest){
-        return this.noteService.updateNote(noteId,noteCreateRequest);
+    public SingleResult<NoteResponse> updateNoteById(@PathVariable Long noteId,@RequestBody NoteCreateRequest noteCreateRequest,HttpServletRequest request){
+        return responseService.getSingleResult(noteService.updateNote(noteId,noteCreateRequest, jwtProvider.resolveToken(request)));
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
     @ApiOperation(value = "오답노트 삭제",notes="Id를 이용해 오답노트를 삭제합니다.")
     @DeleteMapping(value="/{noteId}")
-    public Long deleteNoteById(@PathVariable Long noteId){
-        this.noteService.deleteNote(noteId);
-        return noteId;
+    public SingleResult<Long> deleteNoteById(@PathVariable Long noteId,HttpServletRequest request) {
+        return responseService.getSingleResult(noteService.deleteNote(noteId,jwtProvider.resolveToken(request)));
     }
+
+
+
+
 }

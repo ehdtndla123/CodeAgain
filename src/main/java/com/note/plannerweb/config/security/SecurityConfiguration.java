@@ -1,5 +1,8 @@
 package com.note.plannerweb.config.security;
 
+import com.note.plannerweb.except.CAuthenticationEntryPointException;
+import com.note.plannerweb.except.CustomAccessDeniedHandler;
+import com.note.plannerweb.except.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
@@ -39,7 +42,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/h2-console/**"    // 여기!
                 ).permitAll()
-                .anyRequest().permitAll()//hasRole("USER")
+                .anyRequest().hasRole("USER")
+                .and()
+                .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
+                .and()
+                .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtProvider),
                         UsernamePasswordAuthenticationFilter.class);

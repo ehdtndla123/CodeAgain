@@ -1,5 +1,8 @@
 package com.note.plannerweb.member.controller;
 
+import com.note.plannerweb.config.model.response.ListResult;
+import com.note.plannerweb.config.model.response.SingleResult;
+import com.note.plannerweb.config.model.service.ResponseService;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.dto.*;
 import com.note.plannerweb.member.repository.MemberRepository;
@@ -21,6 +24,8 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
+
+    private final ResponseService responseService;
 
 //    /**
 //     * 회원정보수정
@@ -59,14 +64,25 @@ public class MemberController {
      */
     @ApiOperation(value = "회원정보조회",notes = "회원정보를 조회합니다.")
     @GetMapping("/members/{id}")
-    public MemberResponseDto getMember(@Valid @PathVariable("id") Long id){
-        return this.memberService.findById(id);
+    public SingleResult<MemberResponseDto> getMember(@Valid @PathVariable("id") Long id){
+        return this.responseService.getSingleResult(this.memberService.findById(id));
     }
+
+    @ApiOperation(value="회원정보조회 : 이메일",notes = "이메일로 회원정보를 조회합니다.")
+    @GetMapping("/members/email/{email}")
+    public SingleResult<MemberResponseDto> findMemberByEmail(@Valid @PathVariable("email")String email){
+        return this.responseService.getSingleResult(this.memberService.findByEmail(email));
+    }
+
+//    @ApiOperation(value="회원 수정 : Id",notes = "회원정보를 수정합니다.")
+//    @PutMapping("/members/{id}")
+//    public SingleResult<Long> updateMember(@Valid @PathVariable("id")Long id){
+//    }
 
     @ApiOperation(value = "회원정보 목록조회",notes = "회원종보 목록을 조회합니다.")
     @GetMapping("/members")
-    public List<MemberResponseDto> getMemberList(){
-        return this.memberService.getMemberList();
+    public ListResult<MemberResponseDto> getMemberList(){
+        return this.responseService.getListResult(this.memberService.getMemberList());
     }
 
     @ApiImplicitParams({
@@ -78,10 +94,10 @@ public class MemberController {
     })
     @ApiOperation(value="회원 삭제",notes = "회원을 삭제합니다.")
     @DeleteMapping("/members/{id}")
-    public MemberResponseDto deleteMember(@PathVariable Long id){
+    public SingleResult<MemberResponseDto> deleteMember(@PathVariable Long id){
         MemberResponseDto responseDto=this.memberService.findById(id);
         this.memberService.deleteById(id);
-        return responseDto;
+        return this.responseService.getSingleResult(responseDto);
     }
 
 //    /**

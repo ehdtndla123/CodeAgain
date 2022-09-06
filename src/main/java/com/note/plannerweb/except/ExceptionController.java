@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExceptionController {
     @GetMapping("/entrypoint")
     public Exception entryPointException(){
-        throw new IllegalArgumentException();
+        throw new CAuthenticationEntryPointException();
     }
 
     @GetMapping("/accessDenied")

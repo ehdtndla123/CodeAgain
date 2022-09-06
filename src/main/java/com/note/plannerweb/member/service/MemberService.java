@@ -1,6 +1,8 @@
 package com.note.plannerweb.member.service;
 
 import com.note.plannerweb.config.security.JwtProvider;
+import com.note.plannerweb.except.EmailLoginFailedCException;
+import com.note.plannerweb.except.MemberNotFoundCException;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.dto.*;
 import com.note.plannerweb.member.repository.MemberRepository;
@@ -10,7 +12,7 @@ import com.note.plannerweb.token.dto.tokenDto;
 import com.note.plannerweb.token.repository.RefreshTokenRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.el.stream.Optional;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -35,62 +37,54 @@ public class MemberService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Transactional
-    public MemberResponseDto findById(Long id){
-        Member member=this.memberRepository.findById(id).orElseThrow(()->new IllegalArgumentException());
+    public MemberResponseDto findById(Long id) {
+        Member member=this.memberRepository.findById(id).orElseThrow(MemberNotFoundCException::new);
+        return new MemberResponseDto(member);
+    }
+
+    @Transactional
+    public MemberResponseDto findByEmail(String email){
+        Member member=this.memberRepository.findByEmail(email).orElseThrow(MemberNotFoundCException::new);
         return new MemberResponseDto(member);
     }
 
 
     @Transactional
-    public List<MemberResponseDto> getMemberList(){
+    public List<MemberResponseDto> getMemberList() throws MemberNotFoundCException {
        return this.memberRepository.findAll().stream()
                 .map(o->modelMapper.map(o,MemberResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     @Transactional
-    public void deleteById(Long id){
+    public void deleteById(Long id) throws MemberNotFoundCException{
         this.memberRepository.deleteById(id);
     }
 
     @Transactional
     public tokenDto login(MemberLoginRequestDto memberLoginRequestDto){
-//        Member member=this.memberRepository.findByEmail(email).orElseThrow(IllegalArgumentException::new);
-//        if(!passwordEncoder.matches(password,member.getPassword()))
-//            throw new IllegalArgumentException();
-//        return new MemberLoginResponseDto(member);
         // 회원 정보 존재하는지 확인
-        System.out.println("This point ");
         Member member=this.memberRepository.findByEmail(memberLoginRequestDto.getEmail())
-                .orElseThrow(IllegalArgumentException::new); //CEmailLoginFailedException
-        System.out.println("This point ");
+                .orElseThrow(EmailLoginFailedCException::new); //CEmailLoginFailedException
         //회원 패스워드 일치 여부 확인
         if(!passwordEncoder.matches(memberLoginRequestDto.getPassword(),member.getPassword()))
-            throw new IllegalArgumentException(); //CEmailLoginFailedException
+            throw new EmailLoginFailedCException(); //CEmailLoginFailedException
 
         //AccessToken, RefreshToken 발급
         tokenDto tokendto=jwtProvider.createTokenDto(member.getId(),member.getRoles());
-        System.out.println("This point ");
         //RefreshToken 저장
         RefreshToken refreshToken= RefreshToken.builder()
                 .key(member.getId())
                 .token(tokendto.getRefreshToken())
                 .build();
-        System.out.println(refreshToken);
-        System.out.println("This point end");
         this.refreshTokenRepository.save(refreshToken);
-        System.out.println("createTokenDto test");
         return tokendto;
     }
 
     @Transactional
     public Long signup(MemberSignupRequestDto memberSignupRequestDto){
-//        if(this.memberRepository.findByEmail(memberSignupRequestDto.getEmail()).orElse(null)==null){
-//            return this.memberRepository.save(memberSignupRequestDto.toEntity()).getId();
-//        }
-//        else throw new IllegalArgumentException();
         if(this.memberRepository.findByEmail(memberSignupRequestDto.getEmail()).isPresent())
-            throw new IllegalArgumentException(); // CEmailSignupFailedException()
+            throw new EmailLoginFailedCException(); // CEmailSignupFailedException()
         return this.memberRepository.save(memberSignupRequestDto.toEntity(passwordEncoder)).getId();
     }
 
@@ -122,5 +116,12 @@ public class MemberService {
 
         return newCreatedToken;
 
+    }
+    @Transactional
+    public Boolean checkEmail(String email){
+        if(memberRepository.findByEmail(email).isPresent()){
+            return false;
+        }
+        return true;
     }
 }
