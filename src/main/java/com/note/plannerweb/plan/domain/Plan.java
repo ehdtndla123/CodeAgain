@@ -30,4 +30,10 @@ public class Plan {
         this.planner=planner;
     }
 
+    public void update(String category,String content,Boolean completion){
+        this.category=category;
+        this.content=content;
+        this.completion=completion;
+    }
+
 }

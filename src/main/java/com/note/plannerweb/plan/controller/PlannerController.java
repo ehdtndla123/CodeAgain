@@ -97,6 +97,31 @@ public class PlannerController {
         return responseService.getSingleResult(planId);
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
+    @ApiOperation(value="플래너 날짜 수정",notes = "플래너 날짜를 수정합니다")
+    @PutMapping("/{plannerId}")
+    public SingleResult<PlannerResponse> updatePlanner(HttpServletRequest request, @PathVariable Long plannerId, @RequestBody PlannerUpdateRequest plannerUpdateRequest){
+        return responseService.getSingleResult(plannerService.updatePlanner(plannerUpdateRequest,plannerId,jwtProvider.resolveToken(request)));
+    }
 
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
+    @ApiOperation(value="플랜 수정",notes = "플랜을 수정합니다")
+    @PutMapping("/plan/{planId}")
+    public SingleResult<PlanResponse> updatePlan(HttpServletRequest request,@PathVariable Long planId,@RequestBody PlanUpdateRequest planUpdateRequest){
+        return responseService.getSingleResult(plannerService.updatePlan(planUpdateRequest,planId,jwtProvider.resolveToken(request)));
+    }
 
 }

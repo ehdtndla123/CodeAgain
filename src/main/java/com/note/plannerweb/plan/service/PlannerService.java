@@ -10,10 +10,7 @@ import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.repository.MemberRepository;
 import com.note.plannerweb.plan.domain.Plan;
 import com.note.plannerweb.plan.domain.Planner;
-import com.note.plannerweb.plan.dto.PlanCreateRequest;
-import com.note.plannerweb.plan.dto.PlannerCreateRequest;
-import com.note.plannerweb.plan.dto.PlannerResponse;
-import com.note.plannerweb.plan.dto.PlannerUpdateRequest;
+import com.note.plannerweb.plan.dto.*;
 import com.note.plannerweb.plan.repository.PlanRepository;
 import com.note.plannerweb.plan.repository.PlannerRepository;
 import lombok.RequiredArgsConstructor;
@@ -126,6 +123,16 @@ public class PlannerService {
         planner.update(plannerUpdateRequest.getTargetDate());
 
         return modelMapper.map(plannerRepository.save(planner),PlannerResponse.class);
+    }
+
+    public PlanResponse updatePlan(PlanUpdateRequest planUpdateRequest,Long planId,String token){
+        if(!jwtProvider.validateToken(token))
+            throw new CAuthenticationEntryPointException();
+
+        Plan plan=planRepository.findById(planId).orElseThrow(PlanNotFoundException::new);
+        plan.update(planUpdateRequest.getCategory(),planUpdateRequest.getContent(),planUpdateRequest.getCompletion());
+
+        return modelMapper.map(planRepository.save(plan),PlanResponse.class);
     }
 
 
