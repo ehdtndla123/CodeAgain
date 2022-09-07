@@ -2,10 +2,7 @@ package com.note.plannerweb.plan.domain;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,12 +10,14 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Plan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @ManyToOne
+    @JoinColumn(name="planner_id")
     private Planner planner;
 
     private String category;
@@ -27,12 +26,8 @@ public class Plan {
 
     private Boolean completion;
 
-    @Builder
-    public Plan(Planner planner,String category,String content,Boolean completion){
+    public void setPlanner(Planner planner){
         this.planner=planner;
-        this.category=category;
-        this.content=content;
-        this.completion=completion;
     }
 
 }

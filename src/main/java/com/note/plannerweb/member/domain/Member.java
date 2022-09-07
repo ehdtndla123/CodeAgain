@@ -2,6 +2,8 @@ package com.note.plannerweb.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.note.plannerweb.note.domain.Note;
+import com.note.plannerweb.plan.domain.Plan;
+import com.note.plannerweb.plan.domain.Planner;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,6 +44,9 @@ public class Member implements UserDetails {
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.REMOVE)
     private List<Note> notes=new ArrayList<>();
+
+    @OneToMany(mappedBy = "member",cascade = CascadeType.REMOVE)
+    private List<Planner> plans=new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

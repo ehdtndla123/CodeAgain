@@ -1,5 +1,6 @@
 package com.note.plannerweb.plan.dto;
 
+import com.note.plannerweb.plan.domain.Plan;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,5 +17,12 @@ public class PlanCreateRequest {
 
     private Boolean completion;
 
+    public Plan toEntity(){
+        return Plan.builder()
+                .category(category)
+                .content(content)
+                .completion(completion)
+                .build();
+    }
 
 }

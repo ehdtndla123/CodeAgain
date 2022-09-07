@@ -59,5 +59,11 @@ public class ExceptionAdvice {
         return responseService.getFailResult("해당 노트가 존재하지 않습니다.");
     }
 
+    @ExceptionHandler(PlannerNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected  CommonResult plannerNotFoundException(HttpServletRequest request,PlannerNotFoundException e){
+        return responseService.getFailResult("해당 플래너가 존재하지 않습니다.");
+    }
+
 
 }
