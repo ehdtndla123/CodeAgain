@@ -5,9 +5,7 @@ import com.note.plannerweb.config.model.response.SingleResult;
 import com.note.plannerweb.config.model.service.ResponseService;
 import com.note.plannerweb.config.security.JwtProvider;
 import com.note.plannerweb.plan.domain.Planner;
-import com.note.plannerweb.plan.dto.PlanCreateRequest;
-import com.note.plannerweb.plan.dto.PlannerCreateRequest;
-import com.note.plannerweb.plan.dto.PlannerResponse;
+import com.note.plannerweb.plan.dto.*;
 import com.note.plannerweb.plan.service.PlannerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -70,6 +68,34 @@ public class PlannerController {
         return responseService.getSingleResult(plannerService.createPlan(planCreateRequest,plannerId,jwtProvider.resolveToken(request)));
     }
 
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
+    @ApiOperation(value="플래너 삭제",notes = "플래너를 삭제합니다")
+    @DeleteMapping("/{plannerId}")
+    public SingleResult<Long> deletePlanner(HttpServletRequest request,@PathVariable Long plannerId){
+        plannerService.deletePlanner(plannerId,jwtProvider.resolveToken(request));
+        return responseService.getSingleResult(plannerId);
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
+    @ApiOperation(value="플랜 삭제",notes = "플랜을 삭제합니다")
+    @DeleteMapping("/plan/{planId}")
+    public SingleResult<Long> deletePlan(HttpServletRequest request,@PathVariable Long planId){
+        plannerService.deletePlan(planId,jwtProvider.resolveToken(request));
+        return responseService.getSingleResult(planId);
+    }
 
 
 

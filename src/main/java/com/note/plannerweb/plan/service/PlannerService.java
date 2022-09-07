@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.note.plannerweb.config.security.JwtProvider;
 import com.note.plannerweb.except.CAuthenticationEntryPointException;
 import com.note.plannerweb.except.MemberNotFoundCException;
+import com.note.plannerweb.except.PlanNotFoundException;
 import com.note.plannerweb.except.PlannerNotFoundException;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.repository.MemberRepository;
@@ -12,6 +13,7 @@ import com.note.plannerweb.plan.domain.Planner;
 import com.note.plannerweb.plan.dto.PlanCreateRequest;
 import com.note.plannerweb.plan.dto.PlannerCreateRequest;
 import com.note.plannerweb.plan.dto.PlannerResponse;
+import com.note.plannerweb.plan.dto.PlannerUpdateRequest;
 import com.note.plannerweb.plan.repository.PlanRepository;
 import com.note.plannerweb.plan.repository.PlannerRepository;
 import lombok.RequiredArgsConstructor;
@@ -100,6 +102,31 @@ public class PlannerService {
         return this.planRepository.save(plan).getId();
     }
 
+    public void deletePlanner(Long plannerId,String token){
+        if(!jwtProvider.validateToken(token))
+            throw new CAuthenticationEntryPointException();
+
+        plannerRepository.delete(plannerRepository.findById(plannerId).orElseThrow(PlannerNotFoundException::new));
+
+    }
+
+    public void deletePlan(Long planId,String token){
+        if(!jwtProvider.validateToken(token))
+            throw new CAuthenticationEntryPointException();
+
+        planRepository.delete(planRepository.findById(planId).orElseThrow(PlanNotFoundException::new));
+
+    }
+
+    public PlannerResponse updatePlanner(PlannerUpdateRequest plannerUpdateRequest, Long plannerId, String token){
+        if(!jwtProvider.validateToken(token))
+            throw new CAuthenticationEntryPointException();
+
+        Planner planner=plannerRepository.findById(plannerId).orElseThrow(PlannerNotFoundException::new);
+        planner.update(plannerUpdateRequest.getTargetDate());
+
+        return modelMapper.map(plannerRepository.save(planner),PlannerResponse.class);
+    }
 
 
 

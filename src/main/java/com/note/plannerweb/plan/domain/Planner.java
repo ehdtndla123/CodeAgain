@@ -33,4 +33,8 @@ public class Planner {
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime targetDate;
 
+
+    public void update(LocalDateTime targetDate){
+        this.targetDate=targetDate;
+    }
 }

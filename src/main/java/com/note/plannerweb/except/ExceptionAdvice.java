@@ -65,5 +65,10 @@ public class ExceptionAdvice {
         return responseService.getFailResult("해당 플래너가 존재하지 않습니다.");
     }
 
+    @ExceptionHandler(PlanNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected  CommonResult planNotFoundException(HttpServletRequest request,PlanNotFoundException e){
+        return responseService.getFailResult("해당 플랜이 존재하지 않습니다.");
+    }
 
 }
