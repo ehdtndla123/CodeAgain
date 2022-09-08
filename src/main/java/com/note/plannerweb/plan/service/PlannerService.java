@@ -134,14 +134,7 @@ public class PlannerService {
 
         return modelMapper.map(planRepository.save(plan),PlanResponse.class);
     }
-
-
-
-    public Planner findPlannerById(Long id){
-        return this.plannerRepository.findById(id).get();
-    }
-
-
+    
     public Member getMemberByToken(String token){
         String userPk = this.jwtProvider.getUserPk(token);
         Long userLongPk=Long.parseLong(userPk);
