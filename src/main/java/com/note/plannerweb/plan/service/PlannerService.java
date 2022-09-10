@@ -46,15 +46,12 @@ public class PlannerService {
 
     public Long createPlanner(PlannerCreateRequest plannerCreateRequest,String token){
         Member member=getMemberByToken(token);
-        System.out.println("?????");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         List<Plan> planList=plannerCreateRequest.getPlans().stream()
                 .map(o->o.toEntity())
                 .collect(Collectors.toList());
 
         planRepository.saveAll(planList);
-
 
         Planner planner=Planner.builder()
                 .plans(planList)
