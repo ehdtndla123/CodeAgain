@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PlannerWebApplication {
 
     public static void main(String[] args) {
+
+        System.out.println("test");
         SpringApplication.run(PlannerWebApplication.class, args);
     }
 
