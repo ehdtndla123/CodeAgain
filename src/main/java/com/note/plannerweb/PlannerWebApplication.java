@@ -13,7 +13,7 @@ public class PlannerWebApplication {
 
     public static void main(String[] args) {
 
-        System.out.println("test");
+        System.out.println("te2st");
         SpringApplication.run(PlannerWebApplication.class, args);
     }
 
