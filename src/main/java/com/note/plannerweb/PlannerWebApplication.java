@@ -14,6 +14,7 @@ public class PlannerWebApplication {
     public static void main(String[] args) {
 
         System.out.println("te23st");
+        System.out.println("1233123");
         SpringApplication.run(PlannerWebApplication.class, args);
     }
 
