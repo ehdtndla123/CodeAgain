@@ -51,7 +51,7 @@ public class SignController {
 
     @ApiOperation(value = "회원가입 이메일 중복 확인",notes = "이메일 중복을 확인합니다.")
     @PostMapping("/check/email")
-    public SingleResult<Boolean> checkEmail(@RequestBody String email){
+    public SingleResult<Boolean> checkEmail(@ApiParam(value="이메일 요청",required = true) @RequestBody String email){
         return responseService.getSingleResult(memberService.checkEmail(email));
     }
 
