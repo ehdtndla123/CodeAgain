@@ -11,7 +11,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("*")
                 .allowedMethods("*")
-                .exposedHeaders("X-AUTH-TOKEN")
                 .allowCredentials(true);
     }
 }
