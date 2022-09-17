@@ -14,6 +14,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,8 @@ public class SignController {
     private final JwtProvider jwtProvider;
     private final PasswordEncoder passwordEncoder;
     private final ResponseService responseService;
+
+    private final Logger logger= LoggerFactory.getLogger("GREEMA LOG");
 
     @ApiOperation(value ="로그인", notes = "이메일로 로그인을 합니다.")
     @PostMapping("/login")
@@ -46,13 +50,13 @@ public class SignController {
     @PostMapping("/signup")
     public SingleResult<Long> signup(@ApiParam(value = "로그인 요청 DTO",required = true)
                            @RequestBody MemberSignupRequestDto memberSignupRequestDto){
-
         return this.responseService.getSingleResult(this.memberService.signup(memberSignupRequestDto));
     }
 
     @ApiOperation(value = "회원가입 이메일 중복 확인",notes = "이메일 중복을 확인합니다.")
     @PostMapping("/check/email")
     public SingleResult<Boolean> checkEmail(@ApiParam(value="이메일 요청",required = true) @RequestBody MemberDuplicateRequestDto memberDuplicateRequestDto){
+        logger.info(memberDuplicateRequestDto.getEmail());
         return responseService.getSingleResult(memberService.checkEmail(memberDuplicateRequestDto.getEmail()));
     }
 
