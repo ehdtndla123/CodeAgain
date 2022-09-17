@@ -3,6 +3,7 @@ package com.note.plannerweb.member.controller;
 import com.note.plannerweb.config.model.response.SingleResult;
 import com.note.plannerweb.config.model.service.ResponseService;
 import com.note.plannerweb.config.security.JwtProvider;
+import com.note.plannerweb.member.dto.MemberDuplicateRequestDto;
 import com.note.plannerweb.member.dto.MemberLoginRequestDto;
 import com.note.plannerweb.member.dto.MemberLoginResponseDto;
 import com.note.plannerweb.member.dto.MemberSignupRequestDto;
@@ -51,8 +52,8 @@ public class SignController {
 
     @ApiOperation(value = "회원가입 이메일 중복 확인",notes = "이메일 중복을 확인합니다.")
     @PostMapping("/check/email")
-    public SingleResult<Boolean> checkEmail(@ApiParam(value="이메일 요청",required = true) @RequestBody String email){
-        return responseService.getSingleResult(memberService.checkEmail(email));
+    public SingleResult<Boolean> checkEmail(@ApiParam(value="이메일 요청",required = true) @RequestBody MemberDuplicateRequestDto memberDuplicateRequestDto){
+        return responseService.getSingleResult(memberService.checkEmail(memberDuplicateRequestDto.getEmail()));
     }
 
     @ApiOperation(value="엑세스, 리프레시 토큰 재발급"
