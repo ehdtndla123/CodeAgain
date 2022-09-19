@@ -3,6 +3,7 @@ package com.note.plannerweb.member.service;
 import com.note.plannerweb.config.security.JwtProvider;
 import com.note.plannerweb.except.EmailLoginFailedCException;
 import com.note.plannerweb.except.MemberNotFoundCException;
+import com.note.plannerweb.except.SignUpFailedException;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.dto.*;
 import com.note.plannerweb.member.repository.MemberRepository;
@@ -84,7 +85,7 @@ public class MemberService {
     @Transactional
     public Long signup(MemberSignupRequestDto memberSignupRequestDto){
         if(this.memberRepository.findByEmail(memberSignupRequestDto.getEmail()).isPresent())
-            throw new EmailLoginFailedCException(); // CEmailSignupFailedException()
+            throw new SignUpFailedException(); // CEmailSignupFailedException()
         return this.memberRepository.save(memberSignupRequestDto.toEntity(passwordEncoder)).getId();
     }
 

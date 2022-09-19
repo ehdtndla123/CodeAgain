@@ -71,4 +71,9 @@ public class ExceptionAdvice {
         return responseService.getFailResult("해당 플랜이 존재하지 않습니다.");
     }
 
+    @ExceptionHandler(SignUpFailedException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult signUpFailedException(HttpServletRequest request,SignUpFailedException e){
+        return responseService.getFailResult("이미 존재하는 이메일입니다.");
+    }
 }
