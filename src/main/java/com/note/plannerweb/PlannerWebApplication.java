@@ -12,10 +12,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class PlannerWebApplication {
 
     public static void main(String[] args) {
-        System.out.println("test go");
-        System.out.println("te23st");
-        System.out.println("1233123");
-        System.out.println("123312122133");
         SpringApplication.run(PlannerWebApplication.class, args);
     }
 

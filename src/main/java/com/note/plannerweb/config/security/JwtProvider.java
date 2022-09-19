@@ -48,7 +48,7 @@ public class JwtProvider {
         claims.put(ROLES,roles);
         // 생성날짜, 만료날짜를 위한 Date
         Date now=new Date();
-        System.out.println("createTokenDto test");
+
         String accessToken=Jwts.builder()
                 .setHeaderParam(Header.TYPE,Header.JWT_TYPE)
                 .setClaims(claims)
@@ -56,13 +56,13 @@ public class JwtProvider {
                 .setExpiration(new Date(now.getTime()+accessTokenValidMillisecond))
                 .signWith(SignatureAlgorithm.HS256,secretKey)
                 .compact();
-        System.out.println("createTokenDto test");
+
         String refreshToken=Jwts.builder()
                 .setHeaderParam(Header.TYPE,Header.JWT_TYPE)
                 .setExpiration(new Date(now.getTime()+refreshTokenValidMillisecond))
                 .signWith(SignatureAlgorithm.HS256,secretKey)
                 .compact();
-        System.out.println("createTokenDto test");
+
         return tokenDto.builder()
                 .grantType("bearer")
                 .accessToken(accessToken)

@@ -56,6 +56,9 @@ dependencies {
     //junit
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+
+    //logback access
+    // implementation 'net.rakugakibox.spring.boot:logback-access-spring-boot-starter:2.12.0'
 }
 
 tasks.named('test') {
