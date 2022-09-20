@@ -3,6 +3,7 @@ package com.note.plannerweb.member.controller;
 import com.note.plannerweb.config.model.response.ListResult;
 import com.note.plannerweb.config.model.response.SingleResult;
 import com.note.plannerweb.config.model.service.ResponseService;
+import com.note.plannerweb.config.security.JwtProvider;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.dto.*;
 import com.note.plannerweb.member.repository.MemberRepository;
@@ -13,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
@@ -25,6 +27,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    private final JwtProvider jwtProvider;
     private final ResponseService responseService;
 
 //    /**
@@ -62,17 +65,25 @@ public class MemberController {
     /**
      * 회원정보조회
      */
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String",paramType = "header"
+            )
+    })
     @ApiOperation(value = "회원정보조회",notes = "회원정보를 조회합니다.")
-    @GetMapping("/members/{id}")
-    public SingleResult<MemberResponseDto> getMember(@Valid @PathVariable("id") Long id){
-        return this.responseService.getSingleResult(this.memberService.findById(id));
+    @GetMapping("/members/token")
+    public SingleResult<MemberResponseDto> getMember(HttpServletRequest request){
+        return this.responseService.getSingleResult(this.memberService.findByToken(jwtProvider.resolveToken(request)));
     }
 
-    @ApiOperation(value="회원정보조회 : 이메일",notes = "이메일로 회원정보를 조회합니다.")
-    @GetMapping("/members/email/{email}")
-    public SingleResult<MemberResponseDto> findMemberByEmail(@Valid @PathVariable("email")String email){
-        return this.responseService.getSingleResult(this.memberService.findByEmail(email));
-    }
+//    @ApiOperation(value="회원정보조회 : 이메일",notes = "이메일로 회원정보를 조회합니다.")
+//    @GetMapping("/members/email/{email}")
+//    public SingleResult<MemberResponseDto> findMemberByEmail(@Valid @PathVariable("email")String email){
+//        return this.responseService.getSingleResult(this.memberService.findByEmail(email));
+//    }
 
 //    @ApiOperation(value="회원 수정 : Id",notes = "회원정보를 수정합니다.")
 //    @PutMapping("/members/{id}")

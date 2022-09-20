@@ -44,6 +44,11 @@ public class MemberService {
     }
 
     @Transactional
+    public MemberResponseDto findByToken(String token){
+        return new MemberResponseDto(getMemberByToken(token));
+    }
+
+    @Transactional
     public MemberResponseDto findByEmail(String email){
         Member member=this.memberRepository.findByEmail(email).orElseThrow(MemberNotFoundCException::new);
         return new MemberResponseDto(member);
@@ -124,5 +129,11 @@ public class MemberService {
             return false;
         }
         return true;
+    }
+
+    public Member getMemberByToken(String token){
+        String userPk = this.jwtProvider.getUserPk(token);
+        Long userLongPk=Long.parseLong(userPk);
+        return this.memberRepository.findById(userLongPk).orElseThrow(MemberNotFoundCException::new);
     }
 }
