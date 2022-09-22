@@ -7,8 +7,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CommonResponse {
 
-    SUCCESS(0,"성공 하였습니다."),
-    FAIL(-1,"실패 하였습니다.");
+    SUCCESS(200,"성공 하였습니다."),
+    FAIL(500,"실패 하였습니다.");
 
     private int code;
     private String msg;
