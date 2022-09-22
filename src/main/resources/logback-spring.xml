@@ -5,8 +5,8 @@
     <springProfile name="prod">
         <property resource="logback-prod.properties"/>
     </springProfile>
-    <springProfile name="dev">
-        <property resource="logback-dev.properties"/>
+    <springProfile name="local">
+        <property resource="logback-local.properties"/>
     </springProfile>
     <!--Environment 내의 프로퍼티들을 개별적으로 설정할 수도 있다.-->
     <springProperty scope="context" name="LOG_LEVEL" source="logging.level.root"/>
