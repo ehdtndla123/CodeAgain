@@ -44,27 +44,23 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberResponseDto findByToken(String token){
-        return new MemberResponseDto(getMemberByToken(token));
+    public MemberResponseDto withdraw(String token){
+        Member member=getMemberByToken(token);
+        MemberResponseDto responseDto = new MemberResponseDto(member);
+        memberRepository.delete(member);
+        return responseDto;
     }
 
     @Transactional
-    public MemberResponseDto findByEmail(String email){
-        Member member=this.memberRepository.findByEmail(email).orElseThrow(MemberNotFoundCException::new);
-        return new MemberResponseDto(member);
+    public MemberResponseDto findByToken(String token){
+        return new MemberResponseDto(getMemberByToken(token));
     }
-
 
     @Transactional
     public List<MemberResponseDto> getMemberList() throws MemberNotFoundCException {
        return this.memberRepository.findAll().stream()
                 .map(o->modelMapper.map(o,MemberResponseDto.class))
                 .collect(Collectors.toList());
-    }
-
-    @Transactional
-    public void deleteById(Long id) throws MemberNotFoundCException{
-        this.memberRepository.deleteById(id);
     }
 
     @Transactional

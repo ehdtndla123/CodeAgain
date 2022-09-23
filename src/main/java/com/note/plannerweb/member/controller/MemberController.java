@@ -26,42 +26,20 @@ import java.util.List;
 public class MemberController {
 
     private final MemberService memberService;
-
     private final JwtProvider jwtProvider;
     private final ResponseService responseService;
 
-//    /**
-//     * 회원정보수정
-//     */
-//    @ApiOperation(value = "회원 정보 수정",notes = "회원정보를 수정합니다.")
-//    @PutMapping("/member")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void updateBasicInfo(@Valid @RequestBody MemberUpdateDto memberUpdateDto) throws Exception {
-//        memberService.update(memberUpdateDto);
-//    }
-//
-//    /**
-//     * 비밀번호 수정
-//     */
-//    @ApiOperation(value = "비밀번호 수정",notes = "비밀번호를 수정합니다.")
-//    @PutMapping("/member/password")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void updatePassword(@Valid @RequestBody UpdatePasswordDto updatePasswordDto) throws Exception {
-//        memberService.updatePassword(updatePasswordDto.checkPassword(),updatePasswordDto.toBePassword());
-//    }
-//
-//
-//    /**
-//     * 회원탈퇴
-//     */
-//    @ApiOperation(value = "회원탈퇴",notes = "회원탈퇴를 합니다.")
-//    @DeleteMapping("/member")
-//    @ResponseStatus(HttpStatus.OK)
-//    public void withdraw(@RequestBody MemberWithdrawDto memberWithdrawDto) throws Exception {
-//        memberService.withdraw(memberWithdrawDto.checkPassword());
-//    }
-//
-//
+    /**
+     * 회원정보 목록조회
+     */
+
+    @ApiOperation(value = "회원정보 목록조회",notes = "회원종보 목록을 조회합니다.")
+    @GetMapping("/members")
+    public ListResult<MemberResponseDto> getMemberList(){
+        return this.responseService.getListResult(this.memberService.getMemberList());
+    }
+
+
     /**
      * 회원정보조회
      */
@@ -76,26 +54,13 @@ public class MemberController {
     @ApiOperation(value = "회원정보조회",notes = "회원정보를 조회합니다.")
     @GetMapping("/members/token")
     public SingleResult<MemberResponseDto> getMember(HttpServletRequest request){
-        return this.responseService.getSingleResult(this.memberService.findByToken(jwtProvider.resolveToken(request)));
+        return this.responseService.getSingleResult(this.memberService.withdraw(jwtProvider.resolveToken(request)));
     }
 
-//    @ApiOperation(value="회원정보조회 : 이메일",notes = "이메일로 회원정보를 조회합니다.")
-//    @GetMapping("/members/email/{email}")
-//    public SingleResult<MemberResponseDto> findMemberByEmail(@Valid @PathVariable("email")String email){
-//        return this.responseService.getSingleResult(this.memberService.findByEmail(email));
-//    }
 
-//    @ApiOperation(value="회원 수정 : Id",notes = "회원정보를 수정합니다.")
-//    @PutMapping("/members/{id}")
-//    public SingleResult<Long> updateMember(@Valid @PathVariable("id")Long id){
-//    }
-
-    @ApiOperation(value = "회원정보 목록조회",notes = "회원종보 목록을 조회합니다.")
-    @GetMapping("/members")
-    public ListResult<MemberResponseDto> getMemberList(){
-        return this.responseService.getListResult(this.memberService.getMemberList());
-    }
-
+    /**
+     * 회원탈퇴
+     */
     @ApiImplicitParams({
             @ApiImplicitParam(
                     name = "X-AUTH-TOKEN",
@@ -103,22 +68,11 @@ public class MemberController {
                     required = true, dataType = "String",paramType = "header"
             )
     })
-    @ApiOperation(value="회원 삭제",notes = "회원을 삭제합니다.")
-    @DeleteMapping("/members/{id}")
-    public SingleResult<MemberResponseDto> deleteMember(@PathVariable Long id){
-        MemberResponseDto responseDto=this.memberService.findById(id);
-        this.memberService.deleteById(id);
-        return this.responseService.getSingleResult(responseDto);
+    @ApiOperation(value = "회원탈퇴",notes = "회원탈퇴를 합니다.")
+    @DeleteMapping("/members/token")
+    public SingleResult<MemberResponseDto> withdraw(HttpServletRequest request){
+        return responseService.getSingleResult(memberService.findByToken(jwtProvider.resolveToken(request)));
     }
 
-//    /**
-//     * 내정보조회
-//     */
-//    @ApiOperation(value = "내정보 조회",notes = "내정보를 조회 합니다.")
-//    @GetMapping("/member")
-//    public ResponseEntity getMyInfo(HttpServletResponse response) throws Exception {
-//
-//        MemberInfoDto info = memberService.getMyInfo();
-//        return new ResponseEntity(info, HttpStatus.OK);
-//    }
+
 }

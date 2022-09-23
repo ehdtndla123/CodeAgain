@@ -25,9 +25,7 @@ import java.util.List;
 public class PlannerController {
 
     private final PlannerService plannerService;
-
     private final JwtProvider jwtProvider;
-
     private final ResponseService responseService;
 
     @ApiImplicitParams({
