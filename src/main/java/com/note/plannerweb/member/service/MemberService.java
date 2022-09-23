@@ -52,6 +52,22 @@ public class MemberService {
     }
 
     @Transactional
+    public MemberResponseDto updatePassword(String token, MemberUpdatePasswordDto memberUpdatePasswordDto) {
+        Member memberByToken = getMemberByToken(token);
+        memberByToken.setPassword(passwordEncoder.encode(memberUpdatePasswordDto.getPassword()));
+        return new MemberResponseDto(memberByToken);
+    }
+
+    @Transactional
+    public Boolean checkPassword(String token, MemberUpdatePasswordDto memberUpdatePasswordDto) {
+        Member memberByToken = getMemberByToken(token);
+        if (!passwordEncoder.matches(memberUpdatePasswordDto.getPassword(), memberByToken.getPassword())) {
+            throw new EmailLoginFailedCException();
+        }
+        return true;
+    }
+
+    @Transactional
     public MemberResponseDto findByToken(String token){
         return new MemberResponseDto(getMemberByToken(token));
     }
