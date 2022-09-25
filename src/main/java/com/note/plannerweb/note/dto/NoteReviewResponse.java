@@ -5,31 +5,17 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class NoteResponse {
+public class NoteReviewResponse {
     private Long id;
 
-    private Long number;
-
-    private String subject;
-
-    private String description;
-
-    private String category;
-
-    private String code;
-
-    private String memo;
-
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime targetDate;
+    private LocalDateTime repeat_time;
 
-    private List<NoteReviewResponse> noteReviews = new ArrayList<>();
+    private Boolean repeat_complete;
 }

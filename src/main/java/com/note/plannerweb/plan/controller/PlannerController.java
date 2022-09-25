@@ -49,7 +49,7 @@ public class PlannerController {
     })
     @ApiOperation(value = "플래너 생성",notes = "플래너를 생성합니다.")
     @PostMapping
-    public SingleResult<Long> createPlanner(HttpServletRequest request, @RequestBody PlannerCreateRequest plannerCreateRequest){
+    public SingleResult<PlannerResponse> createPlanner(HttpServletRequest request, @RequestBody PlannerCreateRequest plannerCreateRequest){
         return responseService.getSingleResult(plannerService.createPlanner(plannerCreateRequest,jwtProvider.resolveToken(request)));
     }
 
@@ -62,8 +62,8 @@ public class PlannerController {
     })
     @ApiOperation(value="플랜 생성",notes = "플랜을 생성합니다.")
     @PostMapping("/{plannerId}")
-    public SingleResult<Long> createPlan(HttpServletRequest request,@PathVariable Long plannerId, @RequestBody PlanCreateRequest planCreateRequest){
-        return responseService.getSingleResult(plannerService.createPlan(planCreateRequest,plannerId,jwtProvider.resolveToken(request)));
+    public SingleResult<PlanResponse> createPlan(HttpServletRequest request,@PathVariable Long plannerId ,@RequestBody PlanCreateRequest planCreateRequest){
+        return responseService.getSingleResult(plannerService.createPlan(jwtProvider.resolveToken(request),plannerId, planCreateRequest));
     }
 
 
@@ -76,9 +76,8 @@ public class PlannerController {
     })
     @ApiOperation(value="플래너 삭제",notes = "플래너를 삭제합니다")
     @DeleteMapping("/{plannerId}")
-    public SingleResult<Long> deletePlanner(HttpServletRequest request,@PathVariable Long plannerId){
-        plannerService.deletePlanner(plannerId,jwtProvider.resolveToken(request));
-        return responseService.getSingleResult(plannerId);
+    public SingleResult<PlannerResponse> deletePlanner(HttpServletRequest request,@PathVariable Long plannerId){
+        return responseService.getSingleResult(plannerService.deletePlanner(jwtProvider.resolveToken(request), plannerId));
     }
 
     @ApiImplicitParams({
@@ -90,9 +89,8 @@ public class PlannerController {
     })
     @ApiOperation(value="플랜 삭제",notes = "플랜을 삭제합니다")
     @DeleteMapping("/plan/{planId}")
-    public SingleResult<Long> deletePlan(HttpServletRequest request,@PathVariable Long planId){
-        plannerService.deletePlan(planId,jwtProvider.resolveToken(request));
-        return responseService.getSingleResult(planId);
+    public SingleResult<PlanResponse> deletePlan(HttpServletRequest request,@PathVariable Long planId){
+        return responseService.getSingleResult(plannerService.deletePlan(jwtProvider.resolveToken(request), planId));
     }
 
     @ApiImplicitParams({
@@ -105,7 +103,7 @@ public class PlannerController {
     @ApiOperation(value="플래너 날짜 수정",notes = "플래너 날짜를 수정합니다")
     @PutMapping("/{plannerId}")
     public SingleResult<PlannerResponse> updatePlanner(HttpServletRequest request, @PathVariable Long plannerId, @RequestBody PlannerUpdateRequest plannerUpdateRequest){
-        return responseService.getSingleResult(plannerService.updatePlanner(plannerUpdateRequest,plannerId,jwtProvider.resolveToken(request)));
+        return responseService.getSingleResult(plannerService.updatePlanner(jwtProvider.resolveToken(request),plannerId,plannerUpdateRequest));
     }
 
 
@@ -119,7 +117,7 @@ public class PlannerController {
     @ApiOperation(value="플랜 수정",notes = "플랜을 수정합니다")
     @PutMapping("/plan/{planId}")
     public SingleResult<PlanResponse> updatePlan(HttpServletRequest request,@PathVariable Long planId,@RequestBody PlanUpdateRequest planUpdateRequest){
-        return responseService.getSingleResult(plannerService.updatePlan(planUpdateRequest,planId,jwtProvider.resolveToken(request)));
+        return responseService.getSingleResult(plannerService.updatePlan(jwtProvider.resolveToken(request),planId,planUpdateRequest));
     }
 
 }

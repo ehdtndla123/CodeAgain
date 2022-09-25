@@ -25,7 +25,6 @@ public class NoteController {
 
     private final NoteService noteService;
     private final ResponseService responseService;
-
     private final JwtProvider jwtProvider;
 
     @ApiImplicitParams({
@@ -36,9 +35,9 @@ public class NoteController {
             )
     })
     @ApiOperation(value="자신의 오답노트 조회",notes = "자신의 오답노트를 조회합니다.")
-    @GetMapping("")
+    @GetMapping
     public ListResult<NoteResponse> getNoteListByToken(HttpServletRequest request){
-        return responseService.getListResult(noteService.getNoteMyList(request.getHeader("X-AUTH-TOKEN")));
+        return responseService.getListResult(noteService.getNoteMyList(jwtProvider.resolveToken(request)));
     }
 
     @ApiImplicitParams({
@@ -50,8 +49,8 @@ public class NoteController {
     })
     @ApiOperation(value="오답노트 생성",notes="오답노트를 생성합니다.")
     @PostMapping
-    public SingleResult<NoteResponse> createNote(@RequestBody NoteCreateRequest noteCreateRequest,HttpServletRequest request){
-        return this.responseService.getSingleResult(this.noteService.createNote(noteCreateRequest,request.getHeader("X-AUTH-TOKEN")));
+    public SingleResult<NoteResponse> createNote(HttpServletRequest request,@RequestBody NoteCreateRequest noteCreateRequest){
+        return this.responseService.getSingleResult(noteService.createNote(jwtProvider.resolveToken(request),noteCreateRequest));
     }
 
     @ApiImplicitParams({
@@ -63,8 +62,8 @@ public class NoteController {
     })
     @ApiOperation(value = "오답노트 조회 (Id)",notes = "Id를 이용해 오답노트를 조회합니다.")
     @GetMapping(value="/{noteId}")
-    public SingleResult<NoteResponse> getNoteById(@PathVariable Long noteId,HttpServletRequest request) {
-        return responseService.getSingleResult(noteService.getNoteById(noteId, jwtProvider.resolveToken(request)));
+    public SingleResult<NoteResponse> getNoteById(HttpServletRequest request,@PathVariable Long noteId) {
+        return responseService.getSingleResult(noteService.getNoteById(jwtProvider.resolveToken(request),noteId));
     }
 
     @ApiImplicitParams({
@@ -76,8 +75,8 @@ public class NoteController {
     })
     @ApiOperation(value = "오답노트 수정",notes = "Id를 이용해 오답노트를 수정합니다.")
     @PutMapping(value = "/{noteId}")
-    public SingleResult<NoteResponse> updateNoteById(@PathVariable Long noteId,@RequestBody NoteCreateRequest noteCreateRequest,HttpServletRequest request){
-        return responseService.getSingleResult(noteService.updateNote(noteId,noteCreateRequest, jwtProvider.resolveToken(request)));
+    public SingleResult<NoteResponse> updateNoteById(HttpServletRequest request,@PathVariable Long noteId,@RequestBody NoteCreateRequest noteCreateRequest){
+        return responseService.getSingleResult(noteService.updateNote(jwtProvider.resolveToken(request),noteId,noteCreateRequest));
     }
 
     @ApiImplicitParams({
@@ -89,8 +88,8 @@ public class NoteController {
     })
     @ApiOperation(value = "오답노트 삭제",notes="Id를 이용해 오답노트를 삭제합니다.")
     @DeleteMapping(value="/{noteId}")
-    public SingleResult<Long> deleteNoteById(@PathVariable Long noteId,HttpServletRequest request) {
-        return responseService.getSingleResult(noteService.deleteNote(noteId,jwtProvider.resolveToken(request)));
+    public SingleResult<NoteResponse> deleteNoteById(HttpServletRequest request,@PathVariable Long noteId) {
+        return responseService.getSingleResult(noteService.deleteNote(jwtProvider.resolveToken(request),noteId));
     }
 
 

@@ -8,6 +8,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Builder
@@ -26,10 +28,10 @@ public class NoteCreateRequest {
 
     private String memo;
 
-    private String repeat_complete;
-
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime repeat_time;
+    private LocalDateTime targetDate;
+
+    private List<NoteReviewCreateRequest> noteReviews = new ArrayList<>();
 
 
 }

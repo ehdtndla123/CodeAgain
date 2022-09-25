@@ -44,7 +44,11 @@ public class PlannerService {
                 .collect(Collectors.toList());
     }
 
-    public Long createPlanner(PlannerCreateRequest plannerCreateRequest,String token){
+    public PlannerResponse createPlanner(PlannerCreateRequest plannerCreateRequest,String token){
+        if(!jwtProvider.validateToken(token)){
+            throw new CAuthenticationEntryPointException();
+        }
+
         Member member=getMemberByToken(token);
 
         List<Plan> planList=plannerCreateRequest.getPlans().stream()
@@ -69,20 +73,16 @@ public class PlannerService {
         plannerRepository.save(planner);
 
 
-        if(!jwtProvider.validateToken(token)){
-            throw new CAuthenticationEntryPointException();
-        }
-        return planner.getId();
+
+        return modelMapper.map(planner, PlannerResponse.class);
     }
 
 
-    public Long createPlan(PlanCreateRequest planCreateRequest,Long plannerId,String token){
+    public PlanResponse createPlan(String token,Long plannerId ,PlanCreateRequest planCreateRequest){
         if(!jwtProvider.validateToken(token))
             throw new CAuthenticationEntryPointException();
 
         Planner planner=plannerRepository.findById(plannerId).orElseThrow(PlannerNotFoundException::new);
-
-
 
         Plan plan=Plan.builder()
                 .planner(planner)
@@ -92,27 +92,30 @@ public class PlannerService {
                 .build();
 
         planner.getPlans().add(plan);
-
-        return this.planRepository.save(plan).getId();
+        planRepository.save(plan);
+        return modelMapper.map(plan,PlanResponse.class);
     }
 
-    public void deletePlanner(Long plannerId,String token){
+    public PlannerResponse deletePlanner(String token,Long plannerId){
         if(!jwtProvider.validateToken(token))
             throw new CAuthenticationEntryPointException();
 
-        plannerRepository.delete(plannerRepository.findById(plannerId).orElseThrow(PlannerNotFoundException::new));
-
+        Planner planner = plannerRepository.findById(plannerId).orElseThrow(PlannerNotFoundException::new);
+        PlannerResponse plannerResponse = modelMapper.map(planner, PlannerResponse.class);
+        plannerRepository.delete(planner);
+        return plannerResponse;
     }
 
-    public void deletePlan(Long planId,String token){
+    public PlanResponse deletePlan(String token,Long planId){
         if(!jwtProvider.validateToken(token))
             throw new CAuthenticationEntryPointException();
-
-        planRepository.delete(planRepository.findById(planId).orElseThrow(PlanNotFoundException::new));
-
+        Plan plan = planRepository.findById(planId).orElseThrow(PlanNotFoundException::new);
+        PlanResponse planResponse = modelMapper.map(plan, PlanResponse.class);
+        planRepository.delete(plan);
+        return planResponse;
     }
 
-    public PlannerResponse updatePlanner(PlannerUpdateRequest plannerUpdateRequest, Long plannerId, String token){
+    public PlannerResponse updatePlanner(String token,Long plannerId,PlannerUpdateRequest plannerUpdateRequest){
         if(!jwtProvider.validateToken(token))
             throw new CAuthenticationEntryPointException();
 
@@ -122,7 +125,7 @@ public class PlannerService {
         return modelMapper.map(plannerRepository.save(planner),PlannerResponse.class);
     }
 
-    public PlanResponse updatePlan(PlanUpdateRequest planUpdateRequest,Long planId,String token){
+    public PlanResponse updatePlan(String token,Long planId,PlanUpdateRequest planUpdateRequest){
         if(!jwtProvider.validateToken(token))
             throw new CAuthenticationEntryPointException();
 

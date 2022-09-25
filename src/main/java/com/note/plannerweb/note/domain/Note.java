@@ -4,10 +4,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.note.dto.NoteUpdateRequest;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,6 +14,8 @@ import java.util.List;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
+@Builder
 public class Note {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,36 +38,24 @@ public class Note {
 
     private String memo;//메모
 
-    private String repeat_complete;
-
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime repeat_time;
+    private LocalDateTime targetDate;
 
     @ManyToOne
     @JoinColumn(name="member_id")
     private Member member;
 
-    @Builder
-    public Note(Long number,String subject,String description,String category,String code,String memo,String repeat_complete,LocalDateTime repeat_time){
-        this.number=number;
-        this.subject=subject;
-        this.description=description;
-        this.category=category;
-        this.code=code;
-        this.memo=memo;
-        this.repeat_complete=repeat_complete;
-        this.repeat_time=repeat_time;
-    }
+    @OneToMany(mappedBy = "note",cascade = CascadeType.REMOVE)
+    private List<NoteReview> noteReviews=new ArrayList<>();
 
-    public void update(Long number,String subject,String description,String category,String code,String memo,String repeat_complete,LocalDateTime repeat_time){
+    public void update(Long number,String subject,String description,String category,String code,String memo,List<NoteReview> noteReviews){
         this.number=number;
         this.subject=subject;
         this.description=description;
         this.category=category;
         this.code=code;
         this.memo=memo;
-        this.repeat_complete=repeat_complete;
-        this.repeat_time=repeat_time;
+        this.noteReviews=noteReviews;
     }
 
     public void setMember(Member member){
