@@ -38,8 +38,13 @@ out/
 
 # resources
 application.properties
+application-set1.properties
+application-set2.properties
 application-jwt.yml
 log4jdbc.log4j2.properties
 logback-prod.properties
 logback-spring.xml
 logback-local.properties
+logback-prod_first.properties
+logback-prod_second.properties
+
