@@ -9,10 +9,7 @@ import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.repository.MemberRepository;
 import com.note.plannerweb.note.domain.Note;
 import com.note.plannerweb.note.domain.NoteReview;
-import com.note.plannerweb.note.dto.NoteCreateRequest;
-import com.note.plannerweb.note.dto.NoteResponse;
-import com.note.plannerweb.note.dto.NoteReviewCreateRequest;
-import com.note.plannerweb.note.dto.NoteReviewResponse;
+import com.note.plannerweb.note.dto.*;
 import com.note.plannerweb.note.repository.NoteRepository;
 import com.note.plannerweb.note.repository.NoteReviewRepository;
 import lombok.RequiredArgsConstructor;
@@ -115,6 +112,22 @@ public class NoteService {
         return noteResponse;
     }
 
+    public NoteResponse updateNoteDate(String token, Long noteId, NoteUpdateDateRequest noteUpdateDateRequest) {
+        if (!jwtProvider.validateToken(token)) {
+            throw new CAuthenticationEntryPointException();
+        }
+
+        Member memberByToken = getMemberByToken(token);
+        Note note = noteRepository.findById(noteId).orElseThrow(NoteNotFoundException::new);
+
+        if (!memberByToken.getNotes().contains(note)) {
+            throw new CAuthenticationEntryPointException();
+        }
+        note.setTargetDate(noteUpdateDateRequest.getTargetDate());
+
+        return modelMapper.map(note, NoteResponse.class);
+    }
+
     public NoteResponse getNoteResponse(Note note){
         return this.modelMapper.map(note,NoteResponse.class);
     }
@@ -127,4 +140,6 @@ public class NoteService {
         Long userLongPk=Long.parseLong(userPk);
         return this.memberRepository.findById(userLongPk).orElseThrow(MemberNotFoundCException::new);
     }
+
+
 }

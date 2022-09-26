@@ -22,6 +22,7 @@ public class Plan {
 
     private String category;
 
+    @Column(length = 1000)
     private String content;
 
     private Boolean completion;

@@ -72,8 +72,6 @@ public class PlannerService {
 
         plannerRepository.save(planner);
 
-
-
         return modelMapper.map(planner, PlannerResponse.class);
     }
 

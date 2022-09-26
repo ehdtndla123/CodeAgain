@@ -27,15 +27,16 @@ public class Note {
     @Column(nullable = false)
     private String subject;//문제 제목
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 5000)
     private String description;//문제 설명
 
     @Column(nullable = false)
     private String category;//오답 유형
 
-    @Column(nullable = false)
+    @Column(nullable = false,length = 5000)
     private String code;//코드 내용
 
+    @Column(length = 5000)
     private String memo;//메모
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
@@ -60,6 +61,10 @@ public class Note {
 
     public void setMember(Member member){
         this.member=member;
+    }
+
+    public void setTargetDate(LocalDateTime date){
+        this.targetDate = date;
     }
 
 }
