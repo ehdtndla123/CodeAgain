@@ -22,7 +22,7 @@ import java.util.List;
 @Api(tags = {"1. Member"})
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/api/members")
+@RequestMapping(value="/api/members", produces = "application/json; charset=UTF8")
 public class MemberController {
 
     private final MemberService memberService;
@@ -54,7 +54,7 @@ public class MemberController {
     @ApiOperation(value = "회원정보조회",notes = "회원정보를 조회합니다.")
     @GetMapping("/token")
     public SingleResult<MemberResponseDto> getMember(HttpServletRequest request){
-        return this.responseService.getSingleResult(this.memberService.withdraw(jwtProvider.resolveToken(request)));
+        return this.responseService.getSingleResult(memberService.findByToken(jwtProvider.resolveToken(request)));
     }
 
     /**
@@ -103,7 +103,7 @@ public class MemberController {
     @ApiOperation(value = "회원탈퇴",notes = "회원탈퇴를 합니다.")
     @DeleteMapping("/token")
     public SingleResult<MemberResponseDto> withdraw(HttpServletRequest request){
-        return responseService.getSingleResult(memberService.findByToken(jwtProvider.resolveToken(request)));
+        return responseService.getSingleResult(memberService.withdraw(jwtProvider.resolveToken(request)));
     }
 
 

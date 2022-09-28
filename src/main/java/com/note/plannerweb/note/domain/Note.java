@@ -40,6 +40,7 @@ public class Note {
     private String memo;//메모
 
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+
     private LocalDateTime targetDate;
 
     @ManyToOne

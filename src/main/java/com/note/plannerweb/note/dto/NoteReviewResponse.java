@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class NoteReviewResponse {
     private Long id;
 
+
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime repeat_time;
 

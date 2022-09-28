@@ -20,7 +20,7 @@ import java.util.List;
 
 @Api(tags = {"2. Note"})
 @RestController
-@RequestMapping(value = "/api/notes")
+@RequestMapping(value = "/api/notes", produces = "application/json; charset=UTF8")
 @RequiredArgsConstructor
 public class NoteController {
 

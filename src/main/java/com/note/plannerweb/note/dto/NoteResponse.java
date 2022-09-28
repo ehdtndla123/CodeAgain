@@ -28,6 +28,7 @@ public class NoteResponse {
 
     private String memo;
 
+
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     private LocalDateTime targetDate;
 

@@ -24,7 +24,7 @@ import java.util.Map;
 @Api(tags = "0. SignUp_Login")
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping(value="/api", produces = "application/json; charset=UTF8")
 public class SignController {
 
     private final MemberService memberService;
@@ -42,15 +42,15 @@ public class SignController {
 //
 //        return jwtProvider.createTokenDto(String.valueOf(memberLoginResponseDto.getMemberId()),memberLoginResponseDto.getRoles());
 //    }
-        tokenDto tokendto=this.memberService.login(memberLoginRequestDto);
-        return this.responseService.getSingleResult(tokendto);
+        tokenDto tokendto=memberService.login(memberLoginRequestDto);
+        return responseService.getSingleResult(tokendto);
     }
 
     @ApiOperation(value = "회원가입",notes = "이메일로 회원가입을 합니다.")
     @PostMapping("/signup")
     public SingleResult<Long> signup(@ApiParam(value = "로그인 요청 DTO",required = true)
                            @RequestBody MemberSignupRequestDto memberSignupRequestDto){
-        return this.responseService.getSingleResult(this.memberService.signup(memberSignupRequestDto));
+        return this.responseService.getSingleResult(memberService.signup(memberSignupRequestDto));
     }
 
     @ApiOperation(value = "회원가입 이메일 중복 확인",notes = "이메일 중복을 확인합니다.")
@@ -65,6 +65,6 @@ public class SignController {
     @PostMapping("/reissue")
     public SingleResult<tokenDto> reissue(@ApiParam(value="토큰 재발급 요청 DTO",required = true)
                             @RequestBody TokenRequestDto tokenRequestDto){
-        return this.responseService.getSingleResult(this.memberService.reissue(tokenRequestDto));
+        return this.responseService.getSingleResult(memberService.reissue(tokenRequestDto));
     }
 }

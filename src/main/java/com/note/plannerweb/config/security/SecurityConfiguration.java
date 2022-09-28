@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // 요청에 대한 사용권한 체크
                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll() //cors
-                .antMatchers("/*/login","/*/signup","/*/check/email","/*/members","/profile").permitAll()
+                .antMatchers("/*/login","/*/signup","/*/check/email","/*/members","/profile","/health").permitAll()
                 .antMatchers(HttpMethod.GET,"/exception/**").permitAll()
                 .antMatchers(
                         "/h2-console/**"    // 여기!

@@ -21,7 +21,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Api(tags = {"3. Planner"})
-@RequestMapping(value = "/api/planners")
+@RequestMapping(value = "/api/planners", produces = "application/json; charset=UTF8")
 public class PlannerController {
 
     private final PlannerService plannerService;
