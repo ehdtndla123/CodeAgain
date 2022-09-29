@@ -3,6 +3,7 @@ package com.note.plannerweb.study.service;
 import com.note.plannerweb.config.security.JwtProvider;
 import com.note.plannerweb.except.CAuthenticationEntryPointException;
 import com.note.plannerweb.except.MemberNotFoundCException;
+import com.note.plannerweb.except.StudyNotFoundException;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.repository.MemberRepository;
 import com.note.plannerweb.study.domain.Study;
@@ -59,6 +60,7 @@ public class StudyService {
                 .SNO(studyCreate.getSNO())
                 .targetDate(studyCreate.getTargetDate())
                 .studyMembers(studyMembers)
+                .name(studyCreate.getName())
                 .studyProblems(studyProblems)
                 .build();
 
@@ -73,7 +75,37 @@ public class StudyService {
         return modelMapper.map(study, StudyResponse.class);
     }
 
-    
+    public StudyResponse deleteStudy(String token,Long studyId){
+        tokenValidate(token);
+        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFoundException::new);
+        StudyResponse studyResponse = modelMapper.map(study, StudyResponse.class);
+        studyRepository.delete(study);
+        return studyResponse;
+    }
+
+    public StudyResponse getStudyInfoByToken(String token){
+        tokenValidate(token);
+        Member memberByToken = getMemberByToken(token);
+        StudyMember studyMember = memberByToken.getStudyMember();
+        Study study = studyRepository.findById(studyMember.getStudy().getId()).orElseThrow(StudyNotFoundException::new);
+        return modelMapper.map(study, StudyResponse.class);
+    }
+
+    public StudyResponse getStudyInfoById(Long studyId) {
+        return modelMapper.map(studyRepository.findById(studyId).orElseThrow(StudyNotFoundException::new), StudyResponse.class);
+    }
+
+    public StudyResponse getStudyInfoBySNO(Long SNO) {
+        return modelMapper.map(studyRepository.findBySNO(SNO).orElseThrow(StudyNotFoundException::new),StudyResponse.class);
+    }
+
+    public List<StudyMemberResponse> getStudyMemberList(Long studyId){
+        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFoundException::new);
+
+        return study.getStudyMembers().stream()
+                .map(o->modelMapper.map(o,StudyMemberResponse.class))
+                .collect(Collectors.toList());
+    }
 
     StudyMember createStudyMember(Member member) {
         return StudyMember.builder()

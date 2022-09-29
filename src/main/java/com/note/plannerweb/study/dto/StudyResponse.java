@@ -16,6 +16,8 @@ import java.util.List;
 public class StudyResponse {
     private Long id;
 
+    private String name;
+
     private Long SNO;
 
     private List<StudyMemberResponse> studyMembers = new ArrayList<>();

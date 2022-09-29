@@ -18,6 +18,8 @@ import java.util.List;
 public class StudyCreate {
     private Long SNO;
 
+    private String name;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate targetDate;
 

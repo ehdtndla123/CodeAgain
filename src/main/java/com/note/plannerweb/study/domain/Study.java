@@ -22,6 +22,9 @@ public class Study {
     @NotEmpty
     private Long SNO;
 
+    @NotEmpty
+    private String name;
+
     @OneToMany(mappedBy = "study", cascade = CascadeType.REMOVE)
     private List<StudyMember> studyMembers = new ArrayList<>();
 
