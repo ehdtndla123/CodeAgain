@@ -116,11 +116,6 @@ public class StudyService {
 
 
 
-
-
-
-
-
     void tokenValidate(String token){
         if(!jwtProvider.validateToken(token))
             throw new CAuthenticationEntryPointException();
