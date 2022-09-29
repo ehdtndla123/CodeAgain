@@ -120,7 +120,7 @@ public class StudyService {
 
     void tokenValidate(String token){
         if(!jwtProvider.validateToken(token))
-            throw new CAuthenticationEntryPointException();
+            throw new CAuthenticationEntryPointException("???");
     }
     Member getMemberByToken(String token){
         String userPk = this.jwtProvider.getUserPk(token);
