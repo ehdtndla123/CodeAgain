@@ -93,7 +93,7 @@ public class StudyService {
         tokenValidate(token);
         Member memberByToken = getMemberByToken(token);
         StudyMember studyMember = memberByToken.getStudyMember();
-        if (studyMember == null) {
+        if (studyMember == null) { //이거 잘안되는듯.
             throw new StudyMemberNotFoundException();
         }
         Study study = studyRepository.findById(studyMember.getStudy().getId()).orElseThrow(StudyNotFoundException::new);
