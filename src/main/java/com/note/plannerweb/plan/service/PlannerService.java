@@ -30,12 +30,8 @@ public class PlannerService {
     private final PlannerRepository plannerRepository;
     private final PlanRepository planRepository;
     private final ModelMapper modelMapper;
-
     private final JwtProvider jwtProvider;
-
     private final MemberRepository memberRepository;
-
-    private final ObjectMapper objectMapper;
 
 
     public List<PlannerResponse> getPlannerList(String token){
