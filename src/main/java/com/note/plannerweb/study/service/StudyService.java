@@ -3,6 +3,7 @@ package com.note.plannerweb.study.service;
 import com.note.plannerweb.config.security.JwtProvider;
 import com.note.plannerweb.except.CAuthenticationEntryPointException;
 import com.note.plannerweb.except.MemberNotFoundCException;
+import com.note.plannerweb.except.StudyMemberNotFoundException;
 import com.note.plannerweb.except.StudyNotFoundException;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.repository.MemberRepository;
@@ -18,6 +19,7 @@ import com.note.plannerweb.study.repository.StudyProblemRepository;
 import com.note.plannerweb.study.repository.StudyRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.expression.spel.ast.NullLiteral;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -87,6 +89,9 @@ public class StudyService {
         tokenValidate(token);
         Member memberByToken = getMemberByToken(token);
         StudyMember studyMember = memberByToken.getStudyMember();
+        if (studyMember == null) {
+            throw new StudyMemberNotFoundException();
+        }
         Study study = studyRepository.findById(studyMember.getStudy().getId()).orElseThrow(StudyNotFoundException::new);
         return modelMapper.map(study, StudyResponse.class);
     }

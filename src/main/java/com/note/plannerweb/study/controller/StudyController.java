@@ -50,7 +50,7 @@ public class StudyController {
     })
     @ApiOperation(value = "스터디 생성", notes = "스터디를 생성합니다.")
     @PostMapping
-    public SingleResult<StudyResponse> createStudy(HttpServletRequest request, StudyCreate studyCreate) {
+    public SingleResult<StudyResponse> createStudy(HttpServletRequest request,@RequestBody StudyCreate studyCreate) {
         return responseService.getSingleResult(studyService.createStudy(jwtProvider.resolveToken(request), studyCreate));
     }
 
