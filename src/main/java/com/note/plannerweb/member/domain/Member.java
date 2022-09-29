@@ -92,4 +92,8 @@ public class Member implements UserDetails {
     public void setPassword(String password){
         this.password=password;
     }
+
+    public void setStudyMember(StudyMember studyMember) {
+        this.studyMember = studyMember;
+    }
 }

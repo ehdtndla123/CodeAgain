@@ -44,7 +44,11 @@ public class StudyService {
         tokenValidate(token);
 
         Member memberByToken = getMemberByToken(token);
-        StudyMember studyMember = createStudyMember(memberByToken);
+        StudyMember studyMember = StudyMember.builder()
+                .member(memberByToken)
+                .name(memberByToken.getName())
+                .build();
+        memberByToken.setStudyMember(studyMember);
 
         List<StudyMember> studyMembers = new ArrayList<>();
         studyMembers.add(studyMemberRepository.save(studyMember));
@@ -110,13 +114,6 @@ public class StudyService {
         return study.getStudyMembers().stream()
                 .map(o->modelMapper.map(o,StudyMemberResponse.class))
                 .collect(Collectors.toList());
-    }
-
-    StudyMember createStudyMember(Member member) {
-        return StudyMember.builder()
-                .name(member.getName())
-                .member(member)
-                .build();
     }
 
 
