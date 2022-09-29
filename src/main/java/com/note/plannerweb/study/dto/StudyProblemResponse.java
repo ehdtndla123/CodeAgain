@@ -8,4 +8,9 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class StudyProblemResponse {
+    private Long id;
+
+    private String code;
+
+    private String subject;
 }

@@ -8,4 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class StudyMemberResponse {
+    private Long id;
+
+    private String name;
 }

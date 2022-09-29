@@ -2,10 +2,7 @@ package com.note.plannerweb.study.domain;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
@@ -21,4 +18,10 @@ public class StudyProblem {
 
     private String subject;
 
+    @ManyToOne
+    private Study study;
+
+    public void setStudy(Study study){
+        this.study = study;
+    }
 }
