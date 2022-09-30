@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.note.plannerweb.member.domain.Member;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,11 +32,12 @@ public class Planner {
     private List<Plan> plans = new ArrayList<>();
 
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime targetDate;
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate targetDate;
 
 
-    public void update(LocalDateTime targetDate){
+    public void update(LocalDate targetDate){
         this.targetDate=targetDate;
     }
 }

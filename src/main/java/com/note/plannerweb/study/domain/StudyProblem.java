@@ -19,9 +19,11 @@ public class StudyProblem {
     private String subject;
 
     @ManyToOne
-    private Study study;
+    private StudyPlan studyPlan;
 
-    public void setStudy(Study study){
-        this.study = study;
+
+
+    public void setStudyPlan(StudyPlan studyPlan){
+        this.studyPlan = studyPlan;
     }
 }

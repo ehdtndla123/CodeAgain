@@ -1,10 +1,9 @@
 package com.note.plannerweb.note.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Setter
@@ -15,6 +14,6 @@ public class NoteUpdateDateRequest {
 
     private Long id;
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime targetDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate targetDate;
 }

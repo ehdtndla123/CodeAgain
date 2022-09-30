@@ -1,12 +1,13 @@
 package com.note.plannerweb.note.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import com.note.plannerweb.plan.domain.Planner;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
@@ -19,8 +20,8 @@ public class NoteReview {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime repeat_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate repeat_time;
 
     private Boolean repeat_complete;
 
@@ -28,7 +29,7 @@ public class NoteReview {
     @JoinColumn(name="note_id")
     private Note note;
 
-    public void updateReview(LocalDateTime repeat_time,Boolean repeat_complete) {
+    public void updateReview(LocalDate repeat_time,Boolean repeat_complete) {
         this.repeat_time = repeat_time;
         this.repeat_complete = repeat_complete;
     }

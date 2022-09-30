@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,19 +13,25 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Study {
+public class StudyPlan {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long sno;
+    @Column
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate targetDate;
 
-    private String name;
+    private String location;
 
-    @OneToMany(mappedBy = "study", cascade = CascadeType.REMOVE)
-    private List<StudyMember> studyMembers = new ArrayList<>();
+    private Boolean penaltyTF;
 
-    @OneToMany(mappedBy = "study", cascade = CascadeType.REMOVE)
-    private List<StudyPlan> studyPlans = new ArrayList<>();
+    private String penaltyContent;
+
+    @ManyToOne
+    private Study study;
+
+    @OneToMany(mappedBy = "studyPlan", cascade = CascadeType.REMOVE)
+    private List<StudyProblem> studyProblems = new ArrayList<>();
 
 }

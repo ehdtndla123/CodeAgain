@@ -1,10 +1,12 @@
 package com.note.plannerweb.note.dto;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @AllArgsConstructor
@@ -27,6 +29,6 @@ public class NoteUpdateRequest {
 
     private String repeat_complete;
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
-    private LocalDateTime repeat_time;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate repeat_time;
 }

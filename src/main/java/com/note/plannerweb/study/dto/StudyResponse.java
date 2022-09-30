@@ -18,18 +18,10 @@ public class StudyResponse {
 
     private String name;
 
-    private Long SNO;
+    private Long sno;
 
     private List<StudyMemberResponse> studyMembers = new ArrayList<>();
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate targetDate;
+    private List<StudyPlanResponse> studyPlans = new ArrayList<>();
 
-    private String location;
-
-    private Boolean penaltyTF;
-
-    private String penaltyContent;
-
-    private List<StudyProblemResponse> studyProblems = new ArrayList<>();
 }

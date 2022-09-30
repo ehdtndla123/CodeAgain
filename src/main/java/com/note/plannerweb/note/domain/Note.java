@@ -1,12 +1,11 @@
 package com.note.plannerweb.note.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.note.plannerweb.member.domain.Member;
-import com.note.plannerweb.note.dto.NoteUpdateRequest;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +38,9 @@ public class Note {
     @Column(length = 5000)
     private String memo;//메모
 
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
 
-    private LocalDateTime targetDate;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate targetDate;
 
     @ManyToOne
     @JoinColumn(name="member_id")
@@ -64,7 +63,7 @@ public class Note {
         this.member=member;
     }
 
-    public void setTargetDate(LocalDateTime date){
+    public void setTargetDate(LocalDate date){
         this.targetDate = date;
     }
 

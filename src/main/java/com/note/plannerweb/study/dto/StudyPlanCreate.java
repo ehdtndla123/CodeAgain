@@ -7,15 +7,14 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class StudyUpdate {
-    private Long sno;
-
-    private String name;
+public class StudyPlanCreate {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate targetDate;
@@ -25,4 +24,6 @@ public class StudyUpdate {
     private Boolean penaltyTF;
 
     private String penaltyContent;
+
+    private List<StudyProblemCreate> studyProblems = new ArrayList<>();
 }

@@ -16,19 +16,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudyCreate {
-    private Long SNO;
+    private Long sno;
 
     private String name;
-
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate targetDate;
-
-    private String location;
-
-    private Boolean penaltyTF;
-
-    private String penaltyContent;
-
-    private List<StudyProblemCreate> studyProblems = new ArrayList<>();
 
 }

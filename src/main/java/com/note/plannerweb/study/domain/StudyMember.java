@@ -19,7 +19,6 @@ public class StudyMember {
 
     @OneToOne
     private Member member;
-
     @ManyToOne
     private Study study;
 
