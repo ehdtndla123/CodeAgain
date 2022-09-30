@@ -112,8 +112,8 @@ public class StudyController {
                     required = true, dataType = "String", paramType = "header"
             )
     })
-    @ApiOperation(value = "스터디 참가 by SNO", notes = "스터디에 참가합니다.")
-    @GetMapping(value = "/join/{sno}")
+    @ApiOperation(value = "스터디 참가 By SNO", notes = "스터디에 참가합니다.")
+    @PostMapping(value = "/join/{sno}")
     public SingleResult<StudyMemberResponse> joinBySno(HttpServletRequest request,@PathVariable Long sno) {
         return responseService.getSingleResult(studyService.joinStudy(jwtProvider.resolveToken(request), sno));
     }
@@ -168,7 +168,7 @@ public class StudyController {
                     required = true, dataType = "String", paramType = "header"
             )
     })
-    @ApiOperation(value = "스터디그룹 나가기", notes = "스터디 그룹에서 나갑니다 by token")
+    @ApiOperation(value = "스터디그룹 나가기", notes = "스터디 그룹에서 나갑니다 By token")
     @DeleteMapping(value = "/token/{studyId}")
     public SingleResult<StudyMemberResponse> deleteStudy(HttpServletRequest request, @PathVariable Long studyId) {
         return responseService.getSingleResult(studyService.deleteStudyMember(jwtProvider.resolveToken(request), studyId));
@@ -208,7 +208,7 @@ public class StudyController {
             )
     })
     @ApiOperation(value = "스터디 여부", notes = "스터디에 속해있는지 없는지 T / F")
-    @GetMapping("/check")
+    @PostMapping("/check")
     public SingleResult<Boolean> checkStudy(HttpServletRequest request) {
         return responseService.getSingleResult(studyService.checkGroup(jwtProvider.resolveToken(request)));
     }
