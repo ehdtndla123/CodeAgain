@@ -25,32 +25,6 @@ public class StudyController {
     private final JwtProvider jwtProvider;
     private final ResponseService responseService;
 
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "X-AUTH-TOKEN",
-                    value = "로그인 성공 후 AccessToken",
-                    required = true, dataType = "String", paramType = "header"
-            )
-    })
-    @ApiOperation(value = "자신의 스터디 조회", notes = "자신의 스터디를 조회합니다.")
-    @GetMapping
-    public SingleResult<StudyResponse> getStudyInfo(HttpServletRequest request) {
-        return responseService.getSingleResult(studyService.getStudyInfoByToken(jwtProvider.resolveToken(request)));
-    }
-
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "X-AUTH-TOKEN",
-                    value = "로그인 성공 후 AccessToken",
-                    required = true, dataType = "String", paramType = "header"
-            )
-    })
-    @ApiOperation(value = "스터디에 플랜 추가", notes = "스터디에 플랜을 추가합니다.")
-    @PostMapping(value = "/plan/{studyId}")
-    public SingleResult<StudyPlanResponse> createStudyPlan(HttpServletRequest request, @PathVariable Long studyId, @RequestBody StudyPlanCreate studyPlanCreate) {
-        return responseService.getSingleResult(studyService.createStudyPlan(jwtProvider.resolveToken(request), studyId, studyPlanCreate));
-    }
-
 
     @ApiImplicitParams({
             @ApiImplicitParam(
@@ -64,6 +38,45 @@ public class StudyController {
     public SingleResult<StudyResponse> createStudy(HttpServletRequest request,@RequestBody StudyCreate studyCreate) {
         return responseService.getSingleResult(studyService.createStudy(jwtProvider.resolveToken(request), studyCreate));
     }
+
+
+
+
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "자신의 스터디 조회", notes = "자신의 스터디를 조회합니다.")
+    @GetMapping
+    public SingleResult<StudyResponse> getStudyInfo(HttpServletRequest request) {
+        return responseService.getSingleResult(studyService.getStudyInfoByToken(jwtProvider.resolveToken(request)));
+    }
+
+
+
+
+
+
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "스터디에 플랜 추가", notes = "스터디에 플랜을 추가합니다.")
+    @PostMapping(value = "/plans/{studyId}")
+    public SingleResult<StudyPlanResponse> createStudyPlan(HttpServletRequest request, @PathVariable Long studyId, @RequestBody StudyPlanCreate studyPlanCreate) {
+        return responseService.getSingleResult(studyService.createStudyPlan(jwtProvider.resolveToken(request), studyId, studyPlanCreate));
+    }
+
+
+
 
     @ApiImplicitParams({
             @ApiImplicitParam(
@@ -104,6 +117,21 @@ public class StudyController {
         return responseService.getListResult(studyService.getStudyMemberList(studyId));
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "해당 스터디의 계획들 조회", notes = "해당 스터디의 계획들을 조회합니다.")
+    @GetMapping(value = "/plans/{studyId}")
+    public ListResult<StudyPlanResponse> getStudyPlanList(@PathVariable Long studyId){
+        return responseService.getListResult(studyService.getStudyPlanList(studyId));
+    }
+
+
+
 //    @ApiImplicitParams({
 //            @ApiImplicitParam(
 //                    name = "X-AUTH-TOKEN",
@@ -142,6 +170,7 @@ public class StudyController {
     public ListResult<StudyResponse> getStudyList() {
         return responseService.getListResult(studyService.getStudyList());
     }
+
 
 
 

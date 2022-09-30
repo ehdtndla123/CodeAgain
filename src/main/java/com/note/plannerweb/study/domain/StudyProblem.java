@@ -22,7 +22,6 @@ public class StudyProblem {
     private StudyPlan studyPlan;
 
 
-
     public void setStudyPlan(StudyPlan studyPlan){
         this.studyPlan = studyPlan;
     }

@@ -185,6 +185,14 @@ public class StudyService {
                 .collect(Collectors.toList());
     }
 
+    public List<StudyPlanResponse> getStudyPlanList(Long studyId) {
+        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFoundException::new);
+
+        return study.getStudyPlans().stream()
+                .map(o -> modelMapper.map(o, StudyPlanResponse.class))
+                .collect(Collectors.toList());
+    }
+
     public List<StudyResponse> getStudyList() {
         return studyRepository.findAll().stream()
                 .map(o -> modelMapper.map(o, StudyResponse.class))
