@@ -88,4 +88,10 @@ public class ExceptionAdvice {
     protected CommonResult studyMemberNotFoundException(HttpServletRequest request, StudyMemberNotFoundException e) {
         return responseService.getFailResult("아직 참여한 스터디가 없습니다");
     }
+
+    @ExceptionHandler(StudyPlanNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected CommonResult studyPlanNotFoundException(HttpServletRequest request, StudyPlanNotFoundException e) {
+        return responseService.getFailResult("해당 스터디플랜이 존재하지 않습니다");
+    }
 }

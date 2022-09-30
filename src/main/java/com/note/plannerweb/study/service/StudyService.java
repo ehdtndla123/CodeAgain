@@ -1,10 +1,7 @@
 package com.note.plannerweb.study.service;
 
 import com.note.plannerweb.config.security.JwtProvider;
-import com.note.plannerweb.except.CAuthenticationEntryPointException;
-import com.note.plannerweb.except.MemberNotFoundCException;
-import com.note.plannerweb.except.StudyMemberNotFoundException;
-import com.note.plannerweb.except.StudyNotFoundException;
+import com.note.plannerweb.except.*;
 import com.note.plannerweb.member.domain.Member;
 import com.note.plannerweb.member.repository.MemberRepository;
 import com.note.plannerweb.study.domain.Study;
@@ -46,17 +43,22 @@ public class StudyService {
                 .member(memberByToken)
                 .name(memberByToken.getName())
                 .build();
-
         memberByToken.setStudyMember(studyMember);
+
 
         List<StudyMember> studyMembers = new ArrayList<>();
         studyMembers.add(studyMemberRepository.save(studyMember));
+
 
         Study study = Study.builder()
                 .name(studyCreate.getName())
                 .sno(studyCreate.getSno())
                 .studyMembers(studyMembers)
                 .build();
+
+
+
+        studyMember.setStudy(study);
 
         studyRepository.save(study);
 
@@ -84,6 +86,10 @@ public class StudyService {
                 .studyProblems(studyProblems)
                 .build();
 
+        for (StudyProblem s : studyProblems) {
+            s.setStudyPlan(studyPlan);
+        }
+
         studyPlanRepository.save(studyPlan);
 
         study.getStudyPlans().add(studyPlan);
@@ -92,6 +98,21 @@ public class StudyService {
         return modelMapper.map(studyPlan, StudyPlanResponse.class);
     }
 
+    public StudyProblemResponse createStudyProblem(String token, Long studyPlanId, StudyProblemCreate studyProblemCreate) {
+        tokenValidate(token);
+        StudyPlan plan = studyPlanRepository.findById(studyPlanId).orElseThrow(StudyPlanNotFoundException::new);
+
+        StudyProblem studyProblem= StudyProblem.builder()
+                .subject(studyProblemCreate.getSubject())
+                .code(studyProblemCreate.getCode())
+                .studyPlan(plan)
+                .build();
+        studyProblemRepository.save(studyProblem);
+
+        plan.getStudyProblems().add(studyProblem);
+
+        return modelMapper.map(studyProblem, StudyProblemResponse.class);
+    }
 
 
 //    public StudyResponse createStudy(String token, StudyCreate studyCreate) {
@@ -168,6 +189,23 @@ public class StudyService {
         Study study = studyRepository.findById(studyMember.getStudy().getId()).orElseThrow(StudyNotFoundException::new);
         return modelMapper.map(study, StudyResponse.class);
     }
+
+    public Boolean checkGroup(String token){
+        tokenValidate(token);
+        Member memberByToken = getMemberByToken(token);
+        StudyMember studyMember = memberByToken.getStudyMember();
+
+        if (studyMember == null) {
+            throw new StudyMemberNotFoundException();
+        }
+
+        if (studyMember.getStudy() == null) {
+            throw new StudyMemberNotFoundException();
+        }
+        
+        return true;
+    }
+
 
     public StudyResponse getStudyInfoById(Long studyId) {
         return modelMapper.map(studyRepository.findById(studyId).orElseThrow(StudyNotFoundException::new), StudyResponse.class);

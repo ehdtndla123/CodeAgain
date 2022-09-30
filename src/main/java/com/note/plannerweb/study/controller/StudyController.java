@@ -4,6 +4,7 @@ import com.note.plannerweb.config.model.response.ListResult;
 import com.note.plannerweb.config.model.response.SingleResult;
 import com.note.plannerweb.config.model.service.ResponseService;
 import com.note.plannerweb.config.security.JwtProvider;
+import com.note.plannerweb.study.domain.StudyProblem;
 import com.note.plannerweb.study.dto.*;
 import com.note.plannerweb.study.service.StudyService;
 import io.swagger.annotations.Api;
@@ -171,7 +172,30 @@ public class StudyController {
         return responseService.getListResult(studyService.getStudyList());
     }
 
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "스터디 플랜에 문제 추가", notes = "스터디 플랜에 문제 추가하기")
+    @PostMapping("/problems/{studyPlanId}")
+    public SingleResult<StudyProblemResponse> createStudyProblem(HttpServletRequest request, @PathVariable Long studyPlanId, @RequestBody StudyProblemCreate studyProblemCreate) {
+        return responseService.getSingleResult(studyService.createStudyProblem(jwtProvider.resolveToken(request), studyPlanId, studyProblemCreate));
+    }
 
-
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "스터디 여부", notes = "스터디에 속해있는지 없는지 T / F")
+    @GetMapping("/check")
+    public SingleResult<Boolean> checkStudy(HttpServletRequest request) {
+        return responseService.getSingleResult(studyService.checkGroup(jwtProvider.resolveToken(request)));
+    }
 
 }
