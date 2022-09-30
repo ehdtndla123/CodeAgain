@@ -189,7 +189,20 @@ public class StudyService {
         Study study = studyRepository.findById(studyMember.getStudy().getId()).orElseThrow(StudyNotFoundException::new);
         return modelMapper.map(study, StudyResponse.class);
     }
+    public Long getStudyId(String token) {
 
+        Member memberByToken = getMemberByToken(token);
+        StudyMember studyMember = memberByToken.getStudyMember();
+
+        if (studyMember == null) {
+            throw new StudyMemberNotFoundException();
+        }
+        if (studyMember.getStudy() == null) {
+            throw new StudyMemberNotFoundException();
+        }
+
+        return studyMember.getStudy().getId();
+    }
     public Boolean checkGroup(String token){
         tokenValidate(token);
         Member memberByToken = getMemberByToken(token);
@@ -229,6 +242,25 @@ public class StudyService {
         return study.getStudyPlans().stream()
                 .map(o -> modelMapper.map(o, StudyPlanResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    public StudyMemberResponse joinStudy(String token,Long studyId) {
+        tokenValidate(token);
+        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFoundException::new);
+        Member memberByToken = getMemberByToken(token);
+        StudyMember studyMember=StudyMember.builder()
+                .name(memberByToken.getName())
+                .member(memberByToken)
+                .study(study)
+                .build();
+
+
+        if(checkGroup(token)){
+           throw new RuntimeException("이미 가입 되어 있는 유저입니다.");
+        }
+        study.getStudyMembers().add(studyMemberRepository.save(studyMember));
+
+        return modelMapper.map(studyMember, StudyMemberResponse.class);
     }
 
     public List<StudyResponse> getStudyList() {

@@ -86,7 +86,7 @@ public class StudyController {
                     required = true, dataType = "String", paramType = "header"
             )
     })
-    @ApiOperation(value = "스터디 조회 By 아이디", notes = "스터디를 조회합니다.")
+    @ApiOperation(value = "스터디 조회 By studyId", notes = "스터디를 조회합니다.")
     @GetMapping(value = "/{studyId}")
     public SingleResult<StudyResponse> getStudyInfoById(@PathVariable Long studyId) {
         return responseService.getSingleResult(studyService.getStudyInfoById(studyId));
@@ -104,6 +104,21 @@ public class StudyController {
     public SingleResult<StudyResponse> getStudyInfoBySno(@PathVariable Long studySNO) {
         return responseService.getSingleResult(studyService.getStudyInfoBySNO(studySNO));
     }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "스터디 참가 by studyId", notes = "스터디에 참가합니다.")
+    @GetMapping(value = "/join/{studyId}")
+    public SingleResult<StudyMemberResponse> getStudyInfoBySno(HttpServletRequest request,@PathVariable Long studyId) {
+        return responseService.getSingleResult(studyService.joinStudy(jwtProvider.resolveToken(request), studyId));
+    }
+
+
 
     @ApiImplicitParams({
             @ApiImplicitParam(
