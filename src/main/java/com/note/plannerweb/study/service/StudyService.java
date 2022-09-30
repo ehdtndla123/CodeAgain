@@ -45,14 +45,14 @@ public class StudyService {
                 .build();
         memberByToken.setStudyMember(studyMember);
 
-
+        Long authNo = (long)(Math.random() * (999999 - 100000 + 1)) + 100000;
         List<StudyMember> studyMembers = new ArrayList<>();
         studyMembers.add(studyMemberRepository.save(studyMember));
 
 
         Study study = Study.builder()
                 .name(studyCreate.getName())
-                .sno(studyCreate.getSno())
+                .sno(authNo)
                 .studyMembers(studyMembers)
                 .build();
 
@@ -248,6 +248,7 @@ public class StudyService {
         Long userLongPk = Long.parseLong(userPk);
         return this.memberRepository.findById(userLongPk).orElseThrow(MemberNotFoundCException::new);
     }
+
 
 
 }

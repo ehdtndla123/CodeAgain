@@ -16,7 +16,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StudyCreate {
-    private Long sno;
 
     private String name;
 
