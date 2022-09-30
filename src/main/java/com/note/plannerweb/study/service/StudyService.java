@@ -196,11 +196,11 @@ public class StudyService {
         StudyMember studyMember = memberByToken.getStudyMember();
 
         if (studyMember == null) {
-            throw new StudyMemberNotFoundException();
+            return false;
         }
 
         if (studyMember.getStudy() == null) {
-            throw new StudyMemberNotFoundException();
+            return false;
         }
 
         return true;
