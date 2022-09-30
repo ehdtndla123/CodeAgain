@@ -169,7 +169,7 @@ public class StudyController {
             )
     })
     @ApiOperation(value = "스터디그룹 나가기", notes = "스터디 그룹에서 나갑니다 By token")
-    @DeleteMapping(value = "/token/{studyId}")
+    @DeleteMapping(value = "/{studyId}")
     public SingleResult<StudyMemberResponse> deleteStudy(HttpServletRequest request, @PathVariable Long studyId) {
         return responseService.getSingleResult(studyService.deleteStudyMember(jwtProvider.resolveToken(request), studyId));
     }
