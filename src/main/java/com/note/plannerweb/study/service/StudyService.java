@@ -202,7 +202,7 @@ public class StudyService {
         if (studyMember.getStudy() == null) {
             throw new StudyMemberNotFoundException();
         }
-        
+
         return true;
     }
 
