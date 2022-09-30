@@ -112,10 +112,10 @@ public class StudyController {
                     required = true, dataType = "String", paramType = "header"
             )
     })
-    @ApiOperation(value = "스터디 참가 by studyId", notes = "스터디에 참가합니다.")
-    @GetMapping(value = "/join/{studyId}")
-    public SingleResult<StudyMemberResponse> getStudyInfoBySno(HttpServletRequest request,@PathVariable Long studyId) {
-        return responseService.getSingleResult(studyService.joinStudy(jwtProvider.resolveToken(request), studyId));
+    @ApiOperation(value = "스터디 참가 by SNO", notes = "스터디에 참가합니다.")
+    @GetMapping(value = "/join/{sno}")
+    public SingleResult<StudyMemberResponse> joinBySno(HttpServletRequest request,@PathVariable Long sno) {
+        return responseService.getSingleResult(studyService.joinStudy(jwtProvider.resolveToken(request), sno));
     }
 
 

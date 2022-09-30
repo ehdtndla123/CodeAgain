@@ -244,9 +244,9 @@ public class StudyService {
                 .collect(Collectors.toList());
     }
 
-    public StudyMemberResponse joinStudy(String token,Long studyId) {
+    public StudyMemberResponse joinStudy(String token,Long sno) {
         tokenValidate(token);
-        Study study = studyRepository.findById(studyId).orElseThrow(StudyNotFoundException::new);
+        Study study = studyRepository.findBySno(sno).orElseThrow(StudyNotFoundException::new);
         Member memberByToken = getMemberByToken(token);
         StudyMember studyMember=StudyMember.builder()
                 .name(memberByToken.getName())
