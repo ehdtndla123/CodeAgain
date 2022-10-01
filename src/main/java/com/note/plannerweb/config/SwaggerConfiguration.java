@@ -25,6 +25,6 @@ public class SwaggerConfiguration {
     private ApiInfo swaggerInfo() {
         return new ApiInfoBuilder().title("Spring API Documentation")
                 .description("그리마 프로젝트에 사용되는 서버 API에 대한 연동 문서입니다.")
-                .license("Chang DongSoo").version("4").build();
+                .license("Chang DongSoo(Time Zone)").version("4").build();
     }
 }
