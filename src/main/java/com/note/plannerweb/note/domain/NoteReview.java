@@ -34,6 +34,10 @@ public class NoteReview {
         this.repeat_complete = repeat_complete;
     }
 
+    public void updateReviewComplete(Boolean repeat_complete) {
+        this.repeat_complete = repeat_complete;
+    }
+
     public void setNote(Note note){
         this.note=note;
     }

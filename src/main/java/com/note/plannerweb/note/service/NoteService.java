@@ -133,6 +133,15 @@ public class NoteService {
     }
 
 
+    public NoteReviewResponse updateNoteReview(String token, Long reviewId, NoteReviewUpdate noteReviewUpdate) {
+        if (!jwtProvider.validateToken(token)) {
+            throw new CAuthenticationEntryPointException();
+        }
+        NoteReview noteReview = noteReviewRepository.findById(reviewId).orElseThrow(NoteNotFoundException::new);
+        noteReview.updateReviewComplete(noteReviewUpdate.getRepeat_complete());
+
+        return modelMapper.map(noteReview, NoteReviewResponse.class);
+    }
 
 
     public Member getMemberByToken(String token){

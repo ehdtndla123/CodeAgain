@@ -4,9 +4,7 @@ import com.note.plannerweb.config.model.response.ListResult;
 import com.note.plannerweb.config.model.response.SingleResult;
 import com.note.plannerweb.config.model.service.ResponseService;
 import com.note.plannerweb.config.security.JwtProvider;
-import com.note.plannerweb.note.dto.NoteCreateRequest;
-import com.note.plannerweb.note.dto.NoteResponse;
-import com.note.plannerweb.note.dto.NoteUpdateDateRequest;
+import com.note.plannerweb.note.dto.*;
 import com.note.plannerweb.note.service.NoteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -105,6 +103,19 @@ public class NoteController {
     @PutMapping(value = "/date/{noteId}")
     public SingleResult<NoteResponse> updateNoteDate(HttpServletRequest request,@PathVariable Long noteId ,@RequestBody NoteUpdateDateRequest noteUpdateDateRequest) {
         return responseService.getSingleResult(noteService.updateNoteDate(jwtProvider.resolveToken(request), noteId, noteUpdateDateRequest));
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "오답노트 반복 수정", notes = "Id를 이용해 오답노트 반복을 수정합니다.(완료 여부 및 날짜 수정)")
+    @PutMapping(value = "/review/{reviewId}")
+    public SingleResult<NoteReviewResponse> updateNoteReview(HttpServletRequest request, @PathVariable Long reviewId, @RequestBody NoteReviewUpdate noteReviewUpdate) {
+        return responseService.getSingleResult(noteService.updateNoteReview(jwtProvider.resolveToken(request), reviewId, noteReviewUpdate));
     }
 
 
