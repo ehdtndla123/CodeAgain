@@ -12,6 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 public class StudyProblemCreate {
 
+    private Long studyId;
+
+    private Long studyPlanId;
     private String code;
 
     private String subject;

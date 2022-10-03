@@ -4,6 +4,8 @@ import com.note.plannerweb.member.domain.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -21,6 +23,9 @@ public class StudyMember {
     private Member member;
     @ManyToOne
     private Study study;
+
+    @OneToMany(mappedBy = "studyMember")
+    private List<StudyProblem> studyProblems = new ArrayList<>();
 
     public void setStudy(Study study) {
         this.study = study;

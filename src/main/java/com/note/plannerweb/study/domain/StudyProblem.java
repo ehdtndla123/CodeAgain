@@ -21,6 +21,8 @@ public class StudyProblem {
     @ManyToOne
     private StudyPlan studyPlan;
 
+    @ManyToOne
+    private StudyMember studyMember;
 
     public void setStudyPlan(StudyPlan studyPlan){
         this.studyPlan = studyPlan;

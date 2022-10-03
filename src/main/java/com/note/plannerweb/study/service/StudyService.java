@@ -98,15 +98,37 @@ public class StudyService {
         return modelMapper.map(studyPlan, StudyPlanResponse.class);
     }
 
-    public StudyProblemResponse createStudyProblem(String token, Long studyPlanId, StudyProblemCreate studyProblemCreate) {
+
+    public StudyProblemResponse createStudyProblem(String token, StudyProblemCreate studyProblemCreate) {
         tokenValidate(token);
-        StudyPlan plan = studyPlanRepository.findById(studyPlanId).orElseThrow(StudyPlanNotFoundException::new);
+        Study study = studyRepository.findById(studyProblemCreate.getStudyId()).orElseThrow(StudyNotFoundException::new);
+        List<StudyMember> studyMembers = study.getStudyMembers();
+        StudyPlan plan = studyPlanRepository.findById(studyProblemCreate.getStudyPlanId()).orElseThrow(StudyPlanNotFoundException::new);
+
+/**
+ * 수정 해야 할 부분
+ *
+ */
+
+        for (StudyMember sm : studyMembers) {
+            StudyProblem studyProblem= StudyProblem.builder()
+                    .subject(studyProblemCreate.getSubject())
+                    .code(studyProblemCreate.getCode())
+                    .studyPlan(plan)
+                    .studyMember(sm)
+                    .build();
+            sm.getStudyProblems().add(studyProblem);
+            studyProblemRepository.save(studyProblem);
+        }
+
+
 
         StudyProblem studyProblem= StudyProblem.builder()
                 .subject(studyProblemCreate.getSubject())
                 .code(studyProblemCreate.getCode())
                 .studyPlan(plan)
                 .build();
+
         studyProblemRepository.save(studyProblem);
 
         plan.getStudyProblems().add(studyProblem);

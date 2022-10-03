@@ -195,9 +195,9 @@ public class StudyController {
             )
     })
     @ApiOperation(value = "스터디 플랜에 문제 추가", notes = "스터디 플랜에 문제 추가하기")
-    @PostMapping("/problems/{studyPlanId}")
-    public SingleResult<StudyProblemResponse> createStudyProblem(HttpServletRequest request, @PathVariable Long studyPlanId, @RequestBody StudyProblemCreate studyProblemCreate) {
-        return responseService.getSingleResult(studyService.createStudyProblem(jwtProvider.resolveToken(request), studyPlanId, studyProblemCreate));
+    @PostMapping("/problems")
+    public SingleResult<StudyProblemResponse> createStudyProblem(HttpServletRequest request, @RequestBody StudyProblemCreate studyProblemCreate) {
+        return responseService.getSingleResult(studyService.createStudyProblem(jwtProvider.resolveToken(request), studyProblemCreate));
     }
 
     @ApiImplicitParams({
