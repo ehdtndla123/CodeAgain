@@ -140,6 +140,7 @@ public class NoteService {
         NoteReview noteReview = noteReviewRepository.findById(reviewId).orElseThrow(NoteNotFoundException::new);
         noteReview.updateReviewComplete(noteReviewUpdate.getRepeat_complete());
 
+        noteReviewRepository.save(noteReview);
         return modelMapper.map(noteReview, NoteReviewResponse.class);
     }
 

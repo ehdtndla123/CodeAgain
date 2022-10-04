@@ -56,8 +56,6 @@ public class StudyService {
                 .studyMembers(studyMembers)
                 .build();
 
-
-
         studyMember.setStudy(study);
 
         studyRepository.save(study);
@@ -90,12 +88,35 @@ public class StudyService {
             s.setStudyPlan(studyPlan);
         }
 
+
+
+
+
         studyPlanRepository.save(studyPlan);
 
         study.getStudyPlans().add(studyPlan);
 
         //studyRepository.save(study);
+
+
+        addStudyProblem(study,studyPlan,"","");
+
         return modelMapper.map(studyPlan, StudyPlanResponse.class);
+    }
+
+
+    protected void addStudyProblem(Study study, StudyPlan plan,String subject,String code) {
+        List<StudyMember> studyMembers = study.getStudyMembers();
+        for (StudyMember sm : studyMembers) {
+            StudyProblem studyProblem= StudyProblem.builder()
+                    .subject(subject)
+                    .code(code)
+                    .studyPlan(plan)
+                    .studyMember(sm)
+                    .build();
+            sm.getStudyProblems().add(studyProblem);
+            studyProblemRepository.save(studyProblem);
+        }
     }
 
 
