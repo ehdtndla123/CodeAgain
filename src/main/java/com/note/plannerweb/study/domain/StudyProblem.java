@@ -18,13 +18,18 @@ public class StudyProblem {
 
     private String subject;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private StudyPlan studyPlan;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private StudyMember studyMember;
 
     public void setStudyPlan(StudyPlan studyPlan){
         this.studyPlan = studyPlan;
+    }
+
+    public void updateProblem(String code,String subject){
+        this.code=code;
+        this.subject=subject;
     }
 }

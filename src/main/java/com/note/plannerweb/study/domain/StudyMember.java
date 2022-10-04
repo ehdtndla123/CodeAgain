@@ -24,7 +24,7 @@ public class StudyMember {
     @ManyToOne
     private Study study;
 
-    @OneToMany(mappedBy = "studyMember")
+    @OneToMany(mappedBy = "studyMember",cascade = CascadeType.PERSIST)
     private List<StudyProblem> studyProblems = new ArrayList<>();
 
     public void setStudy(Study study) {

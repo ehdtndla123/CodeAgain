@@ -187,18 +187,18 @@ public class StudyController {
         return responseService.getListResult(studyService.getStudyList());
     }
 
-    @ApiImplicitParams({
-            @ApiImplicitParam(
-                    name = "X-AUTH-TOKEN",
-                    value = "로그인 성공 후 AccessToken",
-                    required = true, dataType = "String", paramType = "header"
-            )
-    })
-    @ApiOperation(value = "스터디 플랜에 문제 추가", notes = "스터디 플랜에 문제 추가하기")
-    @PostMapping("/problems")
-    public SingleResult<StudyProblemResponse> createStudyProblem(HttpServletRequest request, @RequestBody StudyProblemCreate studyProblemCreate) {
-        return responseService.getSingleResult(studyService.createStudyProblem(jwtProvider.resolveToken(request), studyProblemCreate));
-    }
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(
+//                    name = "X-AUTH-TOKEN",
+//                    value = "로그인 성공 후 AccessToken",
+//                    required = true, dataType = "String", paramType = "header"
+//            )
+//    })
+//    @ApiOperation(value = "스터디 플랜에 문제 추가", notes = "스터디 플랜에 문제 추가하기")
+//    @PostMapping("/problems")
+//    public SingleResult<StudyProblemResponse> createStudyProblem(HttpServletRequest request, @RequestBody StudyProblemCreate studyProblemCreate) {
+//        return responseService.getSingleResult(studyService.createStudyProblem(jwtProvider.resolveToken(request), studyProblemCreate));
+//    }
 
     @ApiImplicitParams({
             @ApiImplicitParam(
@@ -211,6 +211,19 @@ public class StudyController {
     @PostMapping("/check")
     public SingleResult<Boolean> checkStudy(HttpServletRequest request) {
         return responseService.getSingleResult(studyService.checkGroup(jwtProvider.resolveToken(request)));
+    }
+
+    @ApiImplicitParams({
+            @ApiImplicitParam(
+                    name = "X-AUTH-TOKEN",
+                    value = "로그인 성공 후 AccessToken",
+                    required = true, dataType = "String", paramType = "header"
+            )
+    })
+    @ApiOperation(value = "문제 답변을 수정합니다.", notes = "문제에 대한 답변을 수정합니다.")
+    @PutMapping("/problems/{studyProblemId}")
+    public SingleResult<StudyProblemResponse> updateStudyProblem(HttpServletRequest request, @PathVariable Long studyProblemId, @RequestBody StudyProblemUpdate studyProblemUpdate) {
+        return responseService.getSingleResult(studyService.updateStudyProblem(jwtProvider.resolveToken(request), studyProblemId, studyProblemUpdate));
     }
 
 }

@@ -75,6 +75,7 @@ public class StudyService {
         studyProblemRepository.saveAll(studyProblems);
 
 
+
         StudyPlan studyPlan= StudyPlan.builder()
                 .location(studyPlanCreate.getLocation())
                 .penaltyContent(studyPlanCreate.getPenaltyContent())
@@ -83,23 +84,30 @@ public class StudyService {
                 .study(study)
                 .studyProblems(studyProblems)
                 .build();
-
-        for (StudyProblem s : studyProblems) {
-            s.setStudyPlan(studyPlan);
-        }
-
-
-
-
-
+        System.out.println("123312");
         studyPlanRepository.save(studyPlan);
 
         study.getStudyPlans().add(studyPlan);
+        for (StudyProblem s : studyProblems) {
+            s.setStudyPlan(studyPlan);
+            for (StudyMember sm : study.getStudyMembers()) {
+                StudyProblem studyPr= StudyProblem.builder()
+                        .studyPlan(studyPlan)
+                        .studyMember(sm)
+                        .subject(s.getSubject())
+                        .code(s.getCode())
+                        .build();
+                studyProblemRepository.save(studyPr);
+                sm.getStudyProblems().add(studyPr);
+            }
+        }
+
+        System.out.println("123aaaa");
+
 
         //studyRepository.save(study);
 
 
-        addStudyProblem(study,studyPlan,"","");
 
         return modelMapper.map(studyPlan, StudyPlanResponse.class);
     }
@@ -114,48 +122,41 @@ public class StudyService {
                     .studyPlan(plan)
                     .studyMember(sm)
                     .build();
-            sm.getStudyProblems().add(studyProblem);
             studyProblemRepository.save(studyProblem);
+            sm.getStudyProblems().add(studyProblem);
         }
     }
 
 
-    public StudyProblemResponse createStudyProblem(String token, StudyProblemCreate studyProblemCreate) {
-        tokenValidate(token);
-        Study study = studyRepository.findById(studyProblemCreate.getStudyId()).orElseThrow(StudyNotFoundException::new);
-        List<StudyMember> studyMembers = study.getStudyMembers();
-        StudyPlan plan = studyPlanRepository.findById(studyProblemCreate.getStudyPlanId()).orElseThrow(StudyPlanNotFoundException::new);
-
-/**
- * 수정 해야 할 부분
- *
- */
-
-        for (StudyMember sm : studyMembers) {
-            StudyProblem studyProblem= StudyProblem.builder()
-                    .subject(studyProblemCreate.getSubject())
-                    .code(studyProblemCreate.getCode())
-                    .studyPlan(plan)
-                    .studyMember(sm)
-                    .build();
-            sm.getStudyProblems().add(studyProblem);
-            studyProblemRepository.save(studyProblem);
-        }
-
-
-
-        StudyProblem studyProblem= StudyProblem.builder()
-                .subject(studyProblemCreate.getSubject())
-                .code(studyProblemCreate.getCode())
-                .studyPlan(plan)
-                .build();
-
-        studyProblemRepository.save(studyProblem);
-
-        plan.getStudyProblems().add(studyProblem);
-
-        return modelMapper.map(studyProblem, StudyProblemResponse.class);
-    }
+//    public StudyProblemResponse createStudyProblem(String token, StudyProblemCreate studyProblemCreate) {
+//        tokenValidate(token);
+//        Study study = studyRepository.findById(studyProblemCreate.getStudyId()).orElseThrow(StudyNotFoundException::new);
+//        List<StudyMember> studyMembers = study.getStudyMembers();
+//        StudyPlan plan = studyPlanRepository.findById(studyProblemCreate.getStudyPlanId()).orElseThrow(StudyPlanNotFoundException::new);
+//
+//        for (StudyMember sm : studyMembers) {
+//            StudyProblem studyProblem= StudyProblem.builder()
+//                    .subject(studyProblemCreate.getSubject())
+//                    .code(studyProblemCreate.getCode())
+//                    .studyPlan(plan)
+//                    .studyMember(sm)
+//                    .build();
+//            sm.getStudyProblems().add(studyProblem);
+//            studyProblemRepository.save(studyProblem);
+//        }
+//
+//        StudyProblem studyProblem= StudyProblem.builder()
+//                .subject(studyProblemCreate.getSubject())
+//                .code(studyProblemCreate.getCode())
+//                .studyPlan(plan)
+//                .build();
+//
+//        studyProblemRepository.save(studyProblem);
+//
+//        plan.getStudyProblems().add(studyProblem);
+//
+//        return modelMapper.map(studyProblem, StudyProblemResponse.class);
+//    }
 
 
 //    public StudyResponse createStudy(String token, StudyCreate studyCreate) {
@@ -306,6 +307,14 @@ public class StudyService {
         return modelMapper.map(studyMember, StudyMemberResponse.class);
     }
 
+
+    public StudyProblemResponse updateStudyProblem(String token, Long studyProblemId, StudyProblemUpdate studyProblemUpdate) {
+        tokenValidate(token);
+        StudyProblem studyProblem = studyProblemRepository.findById(studyProblemId).orElseThrow(StudyProblemNotFoundException::new);
+        studyProblem.updateProblem(studyProblemUpdate.getCode(), studyProblemUpdate.getSubject());
+        studyProblemRepository.save(studyProblem);
+        return modelMapper.map(studyProblem, StudyProblemResponse.class);
+    }
     public List<StudyResponse> getStudyList() {
         return studyRepository.findAll().stream()
                 .map(o -> modelMapper.map(o, StudyResponse.class))
