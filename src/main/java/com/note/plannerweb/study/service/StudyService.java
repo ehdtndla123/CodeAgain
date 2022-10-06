@@ -84,7 +84,8 @@ public class StudyService {
                 .study(study)
                 .studyProblems(studyProblems)
                 .build();
-        System.out.println("123312");
+
+
         studyPlanRepository.save(studyPlan);
 
         study.getStudyPlans().add(studyPlan);
@@ -102,9 +103,6 @@ public class StudyService {
             }
         }
 
-        System.out.println("123aaaa");
-
-
         //studyRepository.save(study);
 
 
@@ -112,6 +110,34 @@ public class StudyService {
         return modelMapper.map(studyPlan, StudyPlanResponse.class);
     }
 
+    public StudyProblemResponse createStudyProblem(String token ,StudyProblemAdd studyProblemAdd) {
+        tokenValidate(token);
+        Study study = studyRepository.findById(studyProblemAdd.getStudyId()).orElseThrow(StudyNotFoundException::new);
+        StudyPlan studyPlan = studyPlanRepository.findById(studyProblemAdd.getStudyPlanId()).orElseThrow(StudyPlanNotFoundException::new);
+        List<StudyMember> studyMembers = study.getStudyMembers();
+
+
+        StudyProblem studyProblem = StudyProblem.builder()
+                .code(studyProblemAdd.getCode())
+                .studyPlan(studyPlan)
+                .subject(studyProblemAdd.getSubject())
+                .build();
+        studyProblemRepository.save(studyProblem);
+        studyPlan.getStudyProblems().add(studyProblem);
+
+        for (StudyMember sm : studyMembers) {
+            StudyProblem studyPr= StudyProblem.builder()
+                    .studyPlan(studyPlan)
+                    .studyMember(sm)
+                    .subject(studyProblemAdd.getSubject())
+                    .code(studyProblemAdd.getCode())
+                    .build();
+            studyProblemRepository.save(studyPr);
+            sm.getStudyProblems().add(studyPr);
+        }
+
+        return modelMapper.map(studyProblem, StudyProblemResponse.class);
+    }
 
     protected void addStudyProblem(Study study, StudyPlan plan,String subject,String code) {
         List<StudyMember> studyMembers = study.getStudyMembers();
