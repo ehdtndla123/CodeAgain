@@ -93,26 +93,25 @@ const ReviewUpdatePage = () => {
   const handleChecked = (e) => {
     setChecked(e.target.value);
   };
-
-  axios
-    .get("http://13.209.48.23/api/notes/" + id, {
-      params: id,
-      headers: {
-        "X-AUTH-TOKEN": accessToken,
-      },
-    })
-    .then(function (response) {
-      console.log(response.data);
-      setDate(response.data.data.targetDate);
-      setCode(response.data.data.code);
-      setDescription(response.data.data.description);
-      setProblemNum(response.data.data.number);
-      setProblemName(response.data.data.subject);
-      setType(response.data.data.category);
-      let checkedType = document.getElementById(type);
-      checkedType.checked = true;
-    });
-
+  useEffect(() => {
+    axios
+      .get("http://13.209.48.23/api/notes/" + id, {
+        params: id,
+        headers: {
+          "X-AUTH-TOKEN": accessToken,
+        },
+      })
+      .then(function (response) {
+        console.log(response.data);
+        setDate(response.data.data.targetDate);
+        setCode(response.data.data.code);
+        setDescription(response.data.data.description);
+        setProblemNum(response.data.data.number);
+        setProblemName(response.data.data.subject);
+        setType(response.data.data.category);
+        setChecked(response.data.data.category);
+      });
+  }, []);
   //코드 상태관리
   const onChangeCode = (e) => {
     setCode(e.target.value);
@@ -166,9 +165,9 @@ const ReviewUpdatePage = () => {
             <div id="circle1"></div>
             <input
               type="radio"
-              value="2"
+              value="mistake"
               id="mistake"
-              checked={checked === "2"}
+              checked={checked === "mistake"}
               onChange={handleChecked}
             />
             <label htmlFor="mistake" class="type">
@@ -177,9 +176,9 @@ const ReviewUpdatePage = () => {
             <div id="circle2"></div>
             <input
               type="radio"
-              value="3"
+              value="better"
               id="better"
-              checked={checked === "3"}
+              checked={checked === "better"}
               onChange={handleChecked}
             />
             <label htmlFor="better" class="type" id="better">
@@ -188,9 +187,9 @@ const ReviewUpdatePage = () => {
             <div id="circle3"></div>
             <input
               type="radio"
-              value="4"
+              value="unsolved"
               id="unsolved"
-              checked={checked === "4"}
+              checked={checked === "unsolved"}
               onChange={handleChecked}
             />
             <label htmlFor="unsolved" class="type" id="unsolved">
@@ -199,9 +198,9 @@ const ReviewUpdatePage = () => {
             <div id="circle4"></div>
             <input
               type="radio"
-              value="5"
+              value="again"
               id="again"
-              checked={checked === "5"}
+              checked={checked === "again"}
               onChange={handleChecked}
             />
             <label htmlFor="again" class="type" id="again">
@@ -210,9 +209,9 @@ const ReviewUpdatePage = () => {
             <div id="circle5"></div>
             <input
               type="radio"
-              value="6"
+              value="etc"
               id="etc"
-              checked={checked === "6"}
+              checked={checked === "etc"}
               onChange={handleChecked}
             />
             <label htmlFor="etc" class="type" id="etc">
