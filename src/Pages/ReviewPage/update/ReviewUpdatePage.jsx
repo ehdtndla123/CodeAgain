@@ -24,35 +24,6 @@ const ReviewUpdatePage = () => {
   );
   const [checkedList, setCheckedList] = useState([]);
 
-  const changeCheck = (e) => {
-    var today = new Date();
-    const id = e.target.id;
-    var date = "";
-    if (id == "tomorrow") {
-      date = new Date(today.setDate(today.getDate() + 1));
-    } else if (id == "3day") {
-      date = new Date(today.setDate(today.getDate() + 3));
-    } else if (id == "7day") {
-      date = new Date(today.setDate(today.getDate() + 7));
-    } else if (id == "1mon") {
-      date = new Date(today.setMonth(today.getMonth() + 1));
-    } else if (id == "1mon") {
-      date = new Date(today.setMonth(today.getMonth() + 1));
-    } else if (id == "2mon") {
-      date = new Date(today.setMonth(today.getMonth() + 2));
-    } else if (id == "3mon") {
-      date = new Date(today.setMonth(today.getMonth() + 3));
-    } else if (id == "6mon") {
-      date = new Date(today.setMonth(today.getMonth() + 6));
-    }
-    date = moment(date).format("YYYY-MM-DD");
-    console.log(date);
-    if (e.target.checked) {
-      setCheckedList([...checkedList, date]);
-    } else {
-      setCheckedList(checkedList.filter((el) => el !== date));
-    }
-  };
   //오답노트 리스트 불러오기
   const ReviewViewPage = (e) => {
     var sp = [];
@@ -91,6 +62,7 @@ const ReviewUpdatePage = () => {
   };
 
   const handleChecked = (e) => {
+    setType(e.target.value);
     setChecked(e.target.value);
   };
   useEffect(() => {

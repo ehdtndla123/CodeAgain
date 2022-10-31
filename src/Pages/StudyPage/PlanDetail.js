@@ -64,7 +64,7 @@ const PlanDetail = () => {
                 <p className="p">장소 : {plan.location}</p>
                 <p className="p"> {plan.penaltyTF==true ? "패널티 : "+ plan.penaltyContent : ""}</p>
                 <Member/>
-                <p>{plan.studyProblems.length}</p>
+                
                 {(plan.studyProblems).filter((p)=>p.subject!="")
                 .map((p) => (
                   <div id="problemlist" key={p.id} >
