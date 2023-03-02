@@ -200,7 +200,7 @@ const PlanAddPage = () => {
       <style jsx>{`
    
       *:not(.react-datepicker-popper *, .react-datepicker *,.react-datepicker__month-container *){
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         .react-datepicker__month-container{
@@ -481,10 +481,10 @@ cursor:pointer;
           cursor: pointer;
         }
         #plus {
-          font-family: "GothicA1-Bold";
+          font-family: 'Pretendard-Regular';
           float: right;
           margin-right: 5px;
-          margin-top: 45px;
+          margin-top: 41px;
           margin-bottom: 0px;
           font-size: 30px;
           color: white;
@@ -659,7 +659,6 @@ cursor:pointer;
         #title {
           display: inline-block;
           color: white;
-          font-family: "GothicA1-Bold";
           font-weight: 400;
           font-size: 25px;
           margin-bottom: 20px;

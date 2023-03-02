@@ -60,10 +60,8 @@ const ResisterPage = () => {
       ...userInfo,
       pw: pwvalue,
     });
-    console.log(pwvalue);
     document.getElementById("disabledCheck").value = null;
     setPwdCheckValid(false);
-    console.log("pwdcheckvalid" + pwdCheckValid);
   };
 
   const onPwdCheckChange = (e) => {
@@ -72,7 +70,6 @@ const ResisterPage = () => {
       ...userInfo,
       pwCheck: value,
     });
-    console.log(value);
     if (value != null) {
       setPwdCheckValid(userInfo.pw == value);
     }
@@ -109,8 +106,6 @@ const ResisterPage = () => {
           setCheckResult(false);
         }
       });
-    console.log("email valid : " + emailValid);
-    console.log("checkResult : " + checkResult);
   };
 
   //전체 검증 로직(모든 필드의 valid 체크)
@@ -235,7 +230,7 @@ const ResisterPage = () => {
         >
           가입하기
         </button>
-
+          {/*
         <button
           id="google"
           // onClick={clickGoogle}
@@ -243,6 +238,7 @@ const ResisterPage = () => {
           <img id="googleIcon" src="../img/google.png" width="30px"></img>
           <p id="googleP">구글 계정으로 가입하기</p>
         </button>
+        */}
       </div>
       <style jsx>{`
         #darkCheck {
@@ -300,7 +296,7 @@ const ResisterPage = () => {
           opacity: 30%;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
 
@@ -513,7 +509,7 @@ const ResisterPage = () => {
           text-align: center;
           color: white;
           background: none;
-          padding-top: 15px;
+          padding-top: 30px;
           font-size: 20px;
           padding-bottom: 20px;
         }

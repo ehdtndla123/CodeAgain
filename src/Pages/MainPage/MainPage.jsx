@@ -23,7 +23,6 @@ const MainPage = () => {
         }
       )
       .then((res) => {
-        console.log("res.data.data : " + res.data.data);
 
         if (res.data.data === true) {
           result = !result;
@@ -55,7 +54,8 @@ const MainPage = () => {
         <p id="p3">코드어게인은</p>
         <p id="p4">
           알고리즘 문제풀이 사이트에서 틀린문제나
-          <br />더 좋은 풀이를 기록하고 반복할 수 있는 곳입니다
+          <br />더 좋은 풀이를 기록하고 반복할 수 있는 곳입니다 <br/>
+          
         </p>
         <input
           type="text"
@@ -74,7 +74,7 @@ const MainPage = () => {
           margin-left: 0px;
         }
         .MainPage {
-          background-image: url("../../img/background.png");
+          background-image: url("/img/background.png");
           background-size: 110%;
           background-repeat: no-repeat;
           background-position: center top;
@@ -82,7 +82,7 @@ const MainPage = () => {
         }
 
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
 

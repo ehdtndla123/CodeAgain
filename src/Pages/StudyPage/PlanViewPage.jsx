@@ -301,7 +301,7 @@ const PlanViewPage = () => {
           font-size: 20px;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         #logo {

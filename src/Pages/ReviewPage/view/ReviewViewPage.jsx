@@ -212,7 +212,7 @@ const ReviewViewPage = () => {
           color: #d9d9d9;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         header {
@@ -385,7 +385,6 @@ const ReviewViewPage = () => {
         }
         #title {
           color: white;
-          font-family: "GothicA1-Bold";
           font-size: 23px;
           margin-top: 80px;
           line-height: 0px;
@@ -445,7 +444,6 @@ const ReviewViewPage = () => {
           color: white;
           font-size: 25px;
           margin-top: 0px;
-          font-family: "GothicA1-Bold";
           margin-bottom: 10px;
         }
         #main {
@@ -463,10 +461,8 @@ const ReviewViewPage = () => {
           display: inline-block;
           margin-right: 5px;
           width: 100px;
-          font-family: "GothicA1-Light";
           color: #d9d9d9;
           margin-top: 5px;
-          font-family: "GothicA1-Light";
 
           float: left;
         }
@@ -480,7 +476,6 @@ const ReviewViewPage = () => {
         #probNum {
           display: inline-block;
           color: #808080;
-          font-family: "GothicA1-Bold";
           width: 100%;
           font-size: 15px;
           margin-top: 50px;
@@ -490,7 +485,6 @@ const ReviewViewPage = () => {
         #probName {
           display: inline-block;
           color: white;
-          font-family: "GothicA1-Bold";
           font-size: 28px;
           margin-top: 15px;
           font-weight: 600;

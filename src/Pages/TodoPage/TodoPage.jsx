@@ -20,7 +20,7 @@ const TodoPage = () => {
       </div>
       <style jsx>{`
         * {
-          font-family: "GothicA1-Light";
+      font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         #noNote {
@@ -35,7 +35,6 @@ const TodoPage = () => {
           margin-top: 15px;
         }
         #dDay {
-          font-family: "GothicA1-Light";
           letter-spacing: 2px;
           color: #d9d9d9;
           font-size: 30px;
@@ -106,7 +105,7 @@ const TodoPage = () => {
         }
         #probName {
           color: #d9d9d9;
-          margin-top: 5px;
+          margin-top: 3px;
           font-size: 20px;
           font-weight: 600;
           margin-bottom: 0px;
@@ -244,7 +243,6 @@ const TodoPage = () => {
         }
         #title {
           color: white;
-          font-family: "GothicA1-Bold";
           font-weight: 400;
           font-size: 25px;
           margin-left: 50px;

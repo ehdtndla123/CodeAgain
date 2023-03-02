@@ -37,7 +37,6 @@ const ReviewPage_add = () => {
       date = new Date(today.setMonth(today.getMonth() + 6));
     }
     date = moment(date).format("YYYY-MM-DD");
-    console.log(date);
     if (e.target.checked) {
       setCheckedList([...checkedList, date]);
     } else {
@@ -392,7 +391,7 @@ const ReviewPage_add = () => {
           color: #d9d9d9;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         header {
@@ -509,7 +508,7 @@ const ReviewPage_add = () => {
         }
         #title {
           color: white;
-          font-family: "GothicA1-Bold";
+          font-family: 'Pretendard-Regular';
           font-size: 25px;
           font-weight: 400;
           margin-top: 80px;
@@ -626,7 +625,7 @@ const ReviewPage_add = () => {
           color: white;
           font-size: 25px;
           margin-top: 0px;
-          font-family: "GothicA1-Bold";
+          font-family: 'Pretendard-Regular';
           margin-bottom: 10px;
         }
         #main {
@@ -639,7 +638,7 @@ const ReviewPage_add = () => {
         }
 
         .subtitle {
-          font-family: "GothicA1-Light";
+          font-family: 'Pretendard-Regular';
           color: #d9d9d9;
           width: 20%;
           float: left;
@@ -744,6 +743,7 @@ const ReviewPage_add = () => {
             border-radius: 5px;
             resize: none;
             color: #D9D9D9;
+            line-height: 23px;
             }
             #addCode{
             display: block;
@@ -760,6 +760,7 @@ const ReviewPage_add = () => {
             border-radius: 5px;
             resize: none;
             color: #D9D9D9;
+            line-height: 23px;
             }
             .subtitle{
             font-size: 13px;

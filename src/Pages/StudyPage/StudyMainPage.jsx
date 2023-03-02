@@ -254,7 +254,6 @@ const StudyMainPage = () => {
           margin-right: 10px;
           margin-top: 41px;
           margin-bottom: -5px;
-          font-size: 30px;
           color: white;
           background: none;
           line-height: 0px;
@@ -322,7 +321,7 @@ const StudyMainPage = () => {
           font-size: 20px;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         #logo {
@@ -430,7 +429,6 @@ const StudyMainPage = () => {
         #title {
           display: inline-block;
           color: white;
-          font-family: "GothicA1-Bold";
           font-weight: 400;
           font-size: 25px;
           margin-bottom: 20px;

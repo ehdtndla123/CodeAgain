@@ -61,10 +61,12 @@ const LoginPage = () => {
         <button id="join" onClick={loginBtnClick}>
           로그인
         </button>
+        {/** 
         <button id="google">
           <img id="googleIcon" src="../img/google.png" width="30px"></img>
           <p id="googleP">구글 계정으로 로그인</p>
         </button>
+        */}
       </div>
       <style jsx>{`
         body {
@@ -103,7 +105,7 @@ const LoginPage = () => {
           color: #d9d9d9;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         #logo {
@@ -150,9 +152,9 @@ const LoginPage = () => {
         #main {
           position: relative;
           display: block;
-          margin: 50px auto auto;
+          margin: 50px auto 0 auto;
           width: 550px;
-          height: 550px;
+          height: 400px;
           background-color: #212529;
           border-radius: 10px;
         }
@@ -285,7 +287,7 @@ const LoginPage = () => {
           text-align: center;
           color: white;
           background: none;
-          padding-top: 15px;
+          padding-top: 30px;
           font-size: 20px;
           padding-bottom: 20px;
         }

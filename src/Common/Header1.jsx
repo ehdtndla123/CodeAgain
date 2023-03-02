@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
 // MainPage, LoginPage Header
 export default function Header1() {
  
@@ -23,7 +22,7 @@ export default function Header1() {
   };
   return (
     <header>
-      <img onClick={mainPage} id="logo" src="../img/logo.png" width="150px" />
+      <img onClick={mainPage} id="logo" src={process.env.PUBLIC_URL + '/img/logo.png'} width="150px" />
       <p id="login" onClick={loginPage}>
        로그인
       </p>

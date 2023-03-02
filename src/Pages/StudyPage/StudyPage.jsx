@@ -116,7 +116,11 @@ const StudyPage = () => {
         <p id="groupAdd" onClick={GroupAdd}>
           그룹 생성
         </p>
-        <p id="plus">+</p>
+        <img
+          id="plus"
+          src="../../img/plus.png"
+          width="14px"
+        />
         <p id="groupFind" onClick={GroupFind}>
           그룹 찾기
         </p>
@@ -164,7 +168,11 @@ const StudyPage = () => {
         <p id="groupAdd" onClick={GroupAdd}>
           그룹 생성
         </p>
-        <p id="plus">+</p>
+        <img
+          id="plus"
+          src="../../img/plus.png"
+          width="14px"
+        />
         <p id="groupFind" onClick={GroupFind}>
           그룹 찾기
         </p>
@@ -293,7 +301,6 @@ const StudyPage = () => {
           margin-right: 5px;
           margin-top: 41px;
           margin-bottom: 0px;
-          font-size: 30px;
           color: white;
           background: none;
           line-height: 0px;
@@ -361,7 +368,7 @@ const StudyPage = () => {
           font-size: 20px;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         #logo {
@@ -469,7 +476,6 @@ const StudyPage = () => {
         #title {
           display: inline-block;
           color: white;
-          font-family: "GothicA1-Bold";
           font-weight: 400;
           font-size: 25px;
           margin-bottom: 20px;

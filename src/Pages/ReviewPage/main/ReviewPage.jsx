@@ -154,7 +154,7 @@ const ReviewPage = () => {
           display: none;
         }
         * {
-          font-family: "GothicA1-Light";
+        font-family: 'Pretendard-Regular';
           background-color: #343a40;
         }
         #logo {
@@ -261,7 +261,6 @@ const ReviewPage = () => {
         }
         #title {
           color: white;
-          font-family: "GothicA1-Bold";
           font-weight: 400;
           font-size: 25px;
           margin-left: 50px;
@@ -469,7 +468,6 @@ const ReviewPage = () => {
           color: white;
           font-size: 25px;
           margin-top: 0;
-          font-family: "GothicA1-Bold";
           margin-bottom: 10px;
           white-space: nowrap;
           overflow: hidden;
