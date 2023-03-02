@@ -22,7 +22,7 @@ export default function Header1() {
   };
   return (
     <header>
-      <img onClick={mainPage} id="logo" src={process.env.PUBLIC_URL + '/img/logo.png'} width="150px" />
+      <img onClick={mainPage} id="logo" src={process.env.PUBLIC_URL + '/img/logo.png'} width="150px" alt="logo"/>
       <p id="login" onClick={loginPage}>
        로그인
       </p>

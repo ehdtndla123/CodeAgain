@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header2 from "../../../Common/Header2";
 import { useLocation } from "react-router-dom";
 import moment from "moment";
@@ -106,13 +106,13 @@ const ReviewUpdatePage = () => {
         <hr id="hr2" />
         <div
           id={
-            type == "mistake"
+            type === "mistake"
               ? "circle1"
-              : type == "better"
+              : type === "better"
               ? "circle2"
-              : type == "again"
+              : type === "again"
               ? "circle4"
-              : type == "unsolved"
+              : type === "unsolved"
               ? "circle3"
               : "circle5"
           }

@@ -80,6 +80,7 @@ export default function Header2() {
         onClick={ReviewPage}
         src="../../img/logo.png"
         width="150px"
+        alt="logo"
       />
       <p id="logout" onClick={mainPage}>
         로그아웃

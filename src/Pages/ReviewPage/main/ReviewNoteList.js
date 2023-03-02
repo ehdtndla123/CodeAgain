@@ -52,7 +52,7 @@ else
       {
         reviewList.map((reviewList)=>{
           return  <div id="content" key={reviewList.id} onClick={()=> viewNote(reviewList.id)}>
-                    <div id={reviewList.category ==="mistake" ? "circle1" : reviewList.category ==="better" ? "circle2" : reviewList.category=="again" ? "circle4" : reviewList.category=="unsolved" ? "circle3":  "circle5"}></div>
+                    <div id={reviewList.category ==="mistake" ? "circle1" : reviewList.category ==="better" ? "circle2" : reviewList.category ==="again" ? "circle4" : reviewList.category ==="unsolved" ? "circle3":  "circle5"}></div>
                     <p className="c_type">{reviewList.category}</p>
                     <p className="date">{(reviewList.targetDate).split("T")[0]}</p>
                     <p className="number">프로그래머스 {reviewList.number}번</p>

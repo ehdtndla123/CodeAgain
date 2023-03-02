@@ -22,7 +22,7 @@ const ResisterPage = () => {
     username: "",
     email: useLocation().state.Email,
   }); //유저정보 저장 필드
-  const { pw, pwCheck, username, email } = userInfo;
+  const { pw, username, email } = userInfo;
 
   const [allValid, setAllVaild] = useState(false); //전체 유효성
 
@@ -146,6 +146,7 @@ const ResisterPage = () => {
           class="check"
           src={checkResult && emailValid ? VERIFIED_IMG_PATH : ERROR_IMG_PATH}
           width="30px"
+          alt="check"
         />
         <p id="error">
           {checkResult && emailValid
@@ -169,6 +170,7 @@ const ResisterPage = () => {
           class="check"
           src={pwdValid ? VERIFIED_IMG_PATH : ERROR_IMG_PATH}
           width="30px"
+          alt="check"
         />
         <p id="error">
           {pwdValid ? "" : "영문, 숫자 조합으로 8-20자리 입력해주세요"}
@@ -187,6 +189,7 @@ const ResisterPage = () => {
           class="check"
           src={pwdCheckValid && pwdValid ? VERIFIED_IMG_PATH : ERROR_IMG_PATH}
           width="30px"
+          alt="check"
         />
         <br />
         {/* <span name="check">일치여부 : {pwdValid} </span>
@@ -203,6 +206,7 @@ const ResisterPage = () => {
         />
         <img
           class="check"
+          alt="check"
           src={
             userInfo.username.length >= USERNAME_MIN_LENGTH
               ? VERIFIED_IMG_PATH

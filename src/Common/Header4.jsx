@@ -17,7 +17,7 @@ export default function Header4() {
   };
   return (
     <header>
-      <img onClick={mainPage} id="logo" src="../img/logo.png" width="150px" />
+      <img onClick={mainPage} id="logo" src="../img/logo.png" width="150px" alt="logo"/>
       <p onClick={resisterPage} id="login">
         회원가입
       </p>

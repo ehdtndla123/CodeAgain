@@ -17,7 +17,7 @@ export default function Header3() {
 
   return (
     <header>
-      <img onClick={mainPage} id="logo" src="../img/logo.png" width="150px" />
+      <img onClick={mainPage} id="logo" src="../img/logo.png" width="150px" alt="logo"/>
       <p onClick={loginPage} id="login">
         로그인
       </p>
