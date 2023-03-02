@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
 import Header2 from "../../Common/Header2";
 import Todo from "./Todo";
 const TodoPage = () => {
-  const [probNum, setProbNum] = useState("문제 번호");
-  const [probName, setProbName] = useState("문제 제목");
-  const [type, setType] = useState("type");
-  const [dDay, setdDay] = useState("D-1");
-  const [date, setdate] = useState("YYYY.MM.DD (M)");
+
   return (
     <div className="PlannerPage">
       <Header2 />
@@ -18,6 +13,7 @@ const TodoPage = () => {
           <Todo />
         </div>
       </div>
+      
       <style jsx>{`
         * {
       font-family: 'Pretendard-Regular';

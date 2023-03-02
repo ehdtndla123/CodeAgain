@@ -1,24 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header2 from "../../Common/Header2";
-import OTPInput, { ResendOTP } from "otp-input-react";
+import OTPInput from "otp-input-react";
 import axios from "axios";
 
 const StudyPage = () => {
   const navigate = useNavigate();
 
-  const ReviewAddPage = (e) => {
-    console.log(e);
-    navigate("/review/add");
-  };
-  const ReviewViewPage = (e) => {
-    console.log(e);
-    navigate("/review/num");
-  };
-  const mainPage = (e) => {
-    console.log(e);
-    navigate("/");
-  };
   const GroupAdd = () => {
     document.getElementById("main").style.display = "none";
     document.getElementById("find").style.display = "none";
@@ -120,11 +108,12 @@ const StudyPage = () => {
           id="plus"
           src="../../img/plus.png"
           width="14px"
+          alt ="plus"
         />
         <p id="groupFind" onClick={GroupFind}>
           그룹 찾기
         </p>
-        <img id="searchIcon" src="../../img/search.png" width="15px" />
+        <img id="searchIcon" src="../../img/search.png" width="15px" alt ="search"/>
         <hr id="hr2" />
         <div id="content">
           <p id="info">그룹을 만들고 스터디원들과 함께 문제를 풀어나가요</p>
@@ -141,11 +130,12 @@ const StudyPage = () => {
           onClick={GroupFind}
           src="../../img/plus.png"
           width="14px"
+          alt ="plus"
         />
         <p id="groupFind" onClick={GroupFind}>
           그룹 찾기
         </p>
-        <img id="searchIcon" src="../../img/search.png" width="15px" />
+        <img id="searchIcon" src="../../img/search.png" width="15px" alt ="search"/>
         <hr id="hr2" />
         <div id="findContent">
           <p>그룹 태그를 입력해주세요</p>
@@ -172,11 +162,12 @@ const StudyPage = () => {
           id="plus"
           src="../../img/plus.png"
           width="14px"
+          alt ="plus"
         />
         <p id="groupFind" onClick={GroupFind}>
           그룹 찾기
         </p>
-        <img id="searchIcon" src="../../img/search.png" width="15px" />
+        <img id="searchIcon" src="../../img/search.png" width="15px" alt ="search"/>
         <hr id="hr2" />
         <div id="findContent">
           <p>그룹 이름을 입력해주세요</p>
@@ -196,7 +187,7 @@ const StudyPage = () => {
         <p id="groupFind" onClick={GroupFind}>
           그룹 찾기
         </p>
-        <img id="searchIcon" src="../../img/search.png" width="15px" />
+        <img id="searchIcon" src="../../img/search.png" width="15px" alt ="search"/>
         <hr id="hr2" />
         <div id="content">
           <p id="info">그룹을 만들고 스터디원들과 함께 문제를 풀어나가요</p>

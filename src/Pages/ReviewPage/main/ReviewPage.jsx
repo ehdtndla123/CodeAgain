@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Header2 from "../../../Common/Header2";
-import axios from "axios";
 import ReviewNoteList from "./ReviewNoteList";
 import Mistake from "./mistake";
 import Unsolved from "./unsolved";
@@ -26,13 +25,7 @@ const ReviewPage = () => {
   const handleChecked = (e) => {
     setChecked(e.target.value);
   };
-  const [type, setType] = useState("type");
-  const [date, setDate] = useState("YYYY-MM-DD");
-  const [problemNum, setProblemNum] = useState("백준 XXXX번");
-  const [problemName, setProblemName] = useState("문제 이름");
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+
   const [value, setValue] = useState("");
   const filter = (e) => {
     setValue(e.target.value);
@@ -129,15 +122,15 @@ const ReviewPage = () => {
       </div>
 
       <div id="list">
-        {value == 2 ? (
+        {value === 2 ? (
           <Mistake />
-        ) : value == 3 ? (
+        ) : value === 3 ? (
           <Better />
-        ) : value == 4 ? (
+        ) : value === 4 ? (
           <Unsolved />
-        ) : value == 5 ? (
+        ) : value === 5 ? (
           <Again />
-        ) : value == 6 ? (
+        ) : value === 6 ? (
           <Etc />
         ) : (
           <ReviewNoteList />

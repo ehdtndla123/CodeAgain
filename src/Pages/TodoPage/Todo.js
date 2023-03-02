@@ -1,17 +1,14 @@
 import React from 'react';
 import axios from 'axios';
  import { useEffect,useState } from "react";
- import { Link, useNavigate } from "react-router-dom";
- import dayjs from 'dayjs';
  import moment from 'moment';
  import 'moment/locale/ko';
 
- const TodoList = (value) => {
+ const TodoList = () => {
   const [reviewList,setReviewList]=useState([]);
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("access_token")
   );
-  const navigate = useNavigate();
 
   const [today,setToday]=useState(new Date());
 
@@ -30,7 +27,7 @@ import axios from 'axios';
     setToday (moment(today).format('YYYY-MM-DD'));
   });
   },[]);
-if(reviewList.length==0) return (<p id="noNote">오답노트를 추가해주세요</p>)
+if(reviewList.length===0) return (<p id="noNote">오답노트를 추가해주세요</p>)
 else
     return (
       <div>
@@ -43,7 +40,7 @@ else
           <div id="left">
             <p id="probNum">프로그래머스 {reviewList.number}번</p>
             <p id="probName">{reviewList.subject}</p>
-            <div id={reviewList.category=="mistake" ? "circle1" : reviewList.category=="better" ? "circle2" : reviewList.category=="again" ? "circle4" : reviewList.category=="unsolved" ? "circle3":  "circle5"}></div>   
+            <div id={reviewList.category==="mistake" ? "circle1" : reviewList.category==="better" ? "circle2" : reviewList.category==="again" ? "circle4" : reviewList.category==="unsolved" ? "circle3":  "circle5"}></div>   
             <p id="type">{reviewList.category}</p>
           </div>
           <div id="right">

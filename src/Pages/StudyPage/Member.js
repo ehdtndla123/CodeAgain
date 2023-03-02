@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
 const Member = () => {
   const [member, setMember] = useState([]);
 
@@ -10,7 +8,6 @@ const Member = () => {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("access_token")
   );
-  const navigate = useNavigate();
   //id get
   axios
     .get("http://13.209.48.23/api/study", {

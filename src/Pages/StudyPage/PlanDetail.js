@@ -1,8 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 import Member from "./Member";
 import { useLocation } from "react-router-dom";
 
@@ -47,7 +46,7 @@ const PlanDetail = () => {
   return (
     <div>
       {plan
-        .filter((plan) => plan.id == pid)
+        .filter((plan) => plan.id === pid)
         .map((plan) => {
           return (
             <div
@@ -62,7 +61,7 @@ const PlanDetail = () => {
                   {plan.targetDate.substr(8, 2)}일
                 </p>
                 <p className="p">장소 : {plan.location}</p>
-                <p className="p"> {plan.penaltyTF==true ? "패널티 : "+ plan.penaltyContent : ""}</p>
+                <p className="p"> {plan.penaltyTF===true ? "패널티 : "+ plan.penaltyContent : ""}</p>
                 <Member/>
                 
                 {(plan.studyProblems).filter((p)=>p.subject!="")

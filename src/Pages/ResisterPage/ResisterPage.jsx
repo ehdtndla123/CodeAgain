@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import Header3 from "../../Common/Header3";
-import { register } from "../../Common/Service/HttpServiceManger";
 
 const USERNAME_MIN_LENGTH = 2;
 const VERIFIED_IMG_PATH = "../img/check.png";
@@ -12,16 +11,6 @@ const ERROR_IMG_PATH = "../img/noneCheck.png";
 const ResisterPage = () => {
   const navigate = useNavigate();
 
-  const loginPage = (e) => {
-    console.log(e);
-    navigate("/login");
-  };
-
-  const mainPage = (e) => {
-    console.log(e);
-    navigate("/");
-  };
-  //  console.log(useLocation());
   const [checkResult, setCheckResult] = useState(useLocation().state.Check);
   const [emailValid, setEmailValid] = useState(useLocation().state.EmailValid); //이메일 유효성
   const [usernameValid, setUsernameValid] = useState(false); //닉네임 확인 유효성
@@ -71,7 +60,7 @@ const ResisterPage = () => {
       pwCheck: value,
     });
     if (value != null) {
-      setPwdCheckValid(userInfo.pw == value);
+      setPwdCheckValid(userInfo.pw === value);
     }
   };
   //email 유효성 검증 (중복 email 체크의 경우 여기서 하기 어려워서 회원가입 버튼 누를 때 axios->post 보낸 뒤  response 에 대한 error handling 으로 진행)
@@ -100,7 +89,7 @@ const ResisterPage = () => {
       )
       .then((res) => {
         console.log(res);
-        if (res.data.data == true) {
+        if (res.data.data === true) {
           setCheckResult(true);
         } else {
           setCheckResult(false);

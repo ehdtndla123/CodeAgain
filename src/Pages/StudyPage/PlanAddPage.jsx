@@ -1,10 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import {useNavigate } from "react-router-dom";
 import Header2 from "../../Common/Header2";
-import OTPInput, { ResendOTP } from "otp-input-react";
 import axios from "axios";
-import Member from "./Member";
-import Plan from "./Plan";
 import DatePicker from "react-datepicker";
 import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,20 +26,6 @@ const PlanAddPage = () => {
       setId(response.data.data.id);
     });
 
-  const ReviewAddPage = (e) => {
-    console.log(e);
-    navigate("/review/add");
-  };
-  const ReviewViewPage = (e) => {
-    console.log(e);
-    navigate("/review/num");
-  };
-  const mainPage = (e) => {
-    console.log(e);
-    navigate("/");
-  };
-
-  let date = new Date();
   const [problemNum, setProblemNum] = useState(2);
   const ProblemAdd = () => {
     setProblemNum(problemNum + 1);
@@ -100,7 +83,6 @@ const PlanAddPage = () => {
     problemId: "",
     problemName: "",
   });
-  const { problemId, problemName } = problem;
   const onProblemChange = (e) => {
     const problemId = e.target.id;
     const value = e.target.value;

@@ -5,9 +5,6 @@ import { useLocation } from "react-router-dom";
 
 const ReviewCheck = () => {
     const [id, setId] = useState(useLocation().state.ID);
-    const [checked1, setChecked1] = useState(false);
-    const [checked2, setChecked2] = useState(false);
-    const [checked3, setChecked3] = useState(false);
     const [accessToken, setAccessToken] = useState(
         localStorage.getItem("access_token")
       );
@@ -32,7 +29,7 @@ const ReviewCheck = () => {
 
        const stickerChange = (e, reviewId) => {
         console.log(reviewId)
-       if (e.target.value==false) {
+       if (e.target.value===false) {
         e.target.src=CHECKED_IMG_PATH;
         e.target.value=true;
         
@@ -55,7 +52,7 @@ const ReviewCheck = () => {
           });
      
         }
-        else if (e.target.value==true) {
+        else if (e.target.value===true) {
           console.log("이거왜안돼")
           e.target.src=UNCHECKED_IMG_PATH;
           e.target.value=false;
@@ -115,7 +112,7 @@ return(
                     className="sticker"
                     id={data.id}
                     value={data.repeat_complete}
-                    src={(data.repeat_complete)==true ? CHECKED_IMG_PATH : UNCHECKED_IMG_PATH}
+                    src={(data.repeat_complete)===true ? CHECKED_IMG_PATH : UNCHECKED_IMG_PATH}
                     width="50px"
                     onClick={(event) => stickerChange(event,data.id)} 
                 ></img>

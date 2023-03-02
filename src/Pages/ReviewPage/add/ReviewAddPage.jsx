@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import Header2 from "../../../Common/Header2";
-import axios from "axios";
 import moment from "moment";
+import {useNavigate } from "react-router-dom";
 import "moment/locale/ko";
+
 const ReviewPage_add = () => {
   const [code, setCode] = useState("");
   const [memo, setMemo] = useState("");
@@ -19,21 +19,21 @@ const ReviewPage_add = () => {
     var today = new Date();
     const id = e.target.id;
     var date = "";
-    if (id == "tomorrow") {
+    if (id === "tomorrow") {
       date = new Date(today.setDate(today.getDate() + 1));
-    } else if (id == "3day") {
+    } else if (id === "3day") {
       date = new Date(today.setDate(today.getDate() + 3));
-    } else if (id == "7day") {
+    } else if (id === "7day") {
       date = new Date(today.setDate(today.getDate() + 7));
-    } else if (id == "1mon") {
+    } else if (id === "1mon") {
       date = new Date(today.setMonth(today.getMonth() + 1));
-    } else if (id == "1mon") {
+    } else if (id === "1mon") {
       date = new Date(today.setMonth(today.getMonth() + 1));
-    } else if (id == "2mon") {
+    } else if (id === "2mon") {
       date = new Date(today.setMonth(today.getMonth() + 2));
-    } else if (id == "3mon") {
+    } else if (id === "3mon") {
       date = new Date(today.setMonth(today.getMonth() + 3));
-    } else if (id == "6mon") {
+    } else if (id === "6mon") {
       date = new Date(today.setMonth(today.getMonth() + 6));
     }
     date = moment(date).format("YYYY-MM-DD");
@@ -59,11 +59,11 @@ const ReviewPage_add = () => {
   var type = "";
   //오답노트 추가
   const addNote = () => {
-    if (checked == "2") type = "mistake";
-    else if (checked == "3") type = "better";
-    else if (checked == "4") type = "unsolved";
-    else if (checked == "5") type = "again";
-    else if (checked == "6") type = "etc";
+    if (checked === "2") type = "mistake";
+    else if (checked === "3") type = "better";
+    else if (checked === "4") type = "unsolved";
+    else if (checked === "5") type = "again";
+    else if (checked === "6") type = "etc";
 
     var sp = [];
     for (var i in checkedList) {
@@ -135,7 +135,7 @@ const ReviewPage_add = () => {
   //문제검색
 
   useEffect(() => {
-    if (probNum != "") {
+    if (probNum !== "") {
       parsing(probNum);
     }
   }, [probNum]);

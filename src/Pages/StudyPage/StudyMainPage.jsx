@@ -1,15 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header2 from "../../Common/Header2";
-import OTPInput, { ResendOTP } from "otp-input-react";
 import axios from "axios";
 import Member from "./Member";
 import Plan from "./Plan";
+
 const StudyMainPage = () => {
   const [accessToken, setAccessToken] = useState(
     localStorage.getItem("access_token")
   );
-  const [inputName, setInputName] = useState("");
 
   const [groupName, setGroupName] = useState("");
   const [groupTag, setGroupTag] = useState("");
@@ -26,18 +25,6 @@ const StudyMainPage = () => {
       setGroupTag(response.data.data.sno);
     });
 
-  const ReviewAddPage = (e) => {
-    console.log(e);
-    navigate("/review/add");
-  };
-  const ReviewViewPage = (e) => {
-    console.log(e);
-    navigate("/review/num");
-  };
-  const mainPage = (e) => {
-    console.log(e);
-    navigate("/");
-  };
   const PlanAdd = () => {
     navigate("/study/add");
   };
@@ -74,7 +61,7 @@ const StudyMainPage = () => {
         <p id="groupAdd" onClick={deleteGroup}>
           그룹 나가기
         </p>
-        <img id="searchIcon" src="../../img/enter.png" width="15px" />
+        <img id="searchIcon" src="../../img/enter.png" width="15px" alt ="search"/>
         <p id="groupFind" onClick={PlanAdd}>
           계획 추가
         </p>
@@ -83,6 +70,7 @@ const StudyMainPage = () => {
           onClick={PlanAdd}
           src="../../img/plus.png"
           width="14px"
+          alt ="plus"
         />
         <hr id="hr2" />
         <div id="content">

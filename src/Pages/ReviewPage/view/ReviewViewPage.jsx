@@ -1,21 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header2 from "../../../Common/Header2";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import ReviewCheck from "./ReviewCheck";
 
-const CHECKED_IMG_PATH = "../../img/smile.png";
-const UNCHECKED_IMG_PATH = "../../img/darkSmile.png";
-
 const ReviewViewPage = () => {
   const navigate = useNavigate();
   const [id, setId] = useState(useLocation().state.ID);
 
-  const ReviewPage = (e) => {
-    console.log(e);
-    navigate("/review");
-  };
   const ReviewUpdatePage = (e) => {
     console.log(e);
     navigate("/review/" + id + "/update", {
@@ -72,23 +65,18 @@ const ReviewViewPage = () => {
       <div id="add">
         <p id="probNum">프로그래머스 {problemNum}번</p>
         <p id="probName">{problemName}</p>
-        <img
-          onClick={ReviewUpdatePage}
-          id="update"
-          src="../../img/update.png"
-          width="27px"
-        ></img>
+        <img onClick={ReviewUpdatePage} id="update" src="../../img/update.png" width="27px" alt="update"></img>
 
         <hr id="hr2" />
         <div
           id={
-            type == "mistake"
+            type === "mistake"
               ? "circle1"
-              : type == "better"
+              : type === "better"
               ? "circle2"
-              : type == "again"
+              : type === "again"
               ? "circle4"
-              : type == "unsolved"
+              : type === "unsolved"
               ? "circle3"
               : "circle5"
           }

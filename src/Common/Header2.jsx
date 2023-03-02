@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // ReviewPage Header
 export default function Header2() {
@@ -21,7 +21,7 @@ export default function Header2() {
       )
       .then((res) => {
         console.log("STUDY PARTICIPATION STATUS SETTING COMPLETE");
-        if (res.data.data == true) setTF(true);
+        if (res.data.data === true) setTF(true);
         else setTF(false);
       });
   }, []);
@@ -66,7 +66,7 @@ export default function Header2() {
   };
   const PlannerPage = (e) => {
     console.log("NAVIGATE TO STUDY PAGE");
-    if (TF == true) navigate("/study/" + id);
+    if (TF === true) navigate("/study/" + id);
     else navigate("/study");
   };
   const TodoPage = (e) => {
