@@ -166,7 +166,7 @@ const ReviewPage_add = () => {
               placeholder="문제번호를 입력해주세요"
             />
             <button onClick={probSearch} id="search">
-              <img id="searchIcon" src="../../img/search.png" width="20px" />
+              <img id="searchIcon" src="../../img/search.png" width="20px" alt="search"/>
             </button>
           </div>
           <br />
