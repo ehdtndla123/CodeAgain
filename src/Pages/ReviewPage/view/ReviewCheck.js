@@ -4,7 +4,7 @@ import { useEffect,useState } from "react";
 import { useLocation } from "react-router-dom";
 
 const ReviewCheck = () => {
-    const [id, setId] = useState(useLocation().state.ID);
+    const id =  useLocation().state.ID;
     const accessToken = localStorage.getItem("access_token")
     const CHECKED_IMG_PATH = "../../img/smile.png";
     const UNCHECKED_IMG_PATH = "../../img/darkSmile.png";
@@ -23,7 +23,7 @@ const ReviewCheck = () => {
      
      setData((response.data.data.noteReviews));
     });
-}, []);
+}, [accessToken,id]);
 
        const stickerChange = (e, reviewId) => {
         console.log(reviewId)
@@ -107,6 +107,7 @@ return(
                 <p id="reviewDate">{data.repeat_time}</p>
                 <label htmlFor={data.id}>
                 <img
+                alt="sticker"
                     className="sticker"
                     id={data.id}
                     value={data.repeat_complete}

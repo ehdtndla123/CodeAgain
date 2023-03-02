@@ -31,7 +31,7 @@ const Member = () => {
         console.log("MEMBER LIST SETTING COMPLETE");
         setMember(response.data.data);
       });
-  }, [id]);
+  }, [id,accessToken]);
   return (
     <div id="memberList">
       {member.map((member) => {
@@ -40,7 +40,7 @@ const Member = () => {
             id="member"
             key={member.id} /*onClick={()=> viewNote(reviewList.id)}*/
           >
-            <img src="../../img/profile.png" className="profile" width="85px" />
+            <img src="../../img/profile.png" className="profile" width="85px" alt = "profile"/>
             <p className="name">{member.name}</p>
           </div>
         );

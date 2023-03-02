@@ -3,9 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 // ReviewPage Header
 export default function Header2() {
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
+ 
   const [TF, setTF] = useState(false);
 
   useEffect(() => {
@@ -24,7 +23,7 @@ export default function Header2() {
         if (res.data.data === true) setTF(true);
         else setTF(false);
       });
-  }, []);
+  }, [accessToken]);
   const [name, setName] = useState("");
 
   useEffect(() => {
@@ -37,21 +36,11 @@ export default function Header2() {
       .then(function (response) {
         console.log("HEADER USERNAME SETTING COMPLETE");
         setName(response.data.data.name);
-      });
-  }, []);
-
-  useEffect(() => {
-    axios
-      .get("http://13.209.48.23/api/study", {
-        headers: {
-          "X-AUTH-TOKEN": accessToken,
-        },
-      })
-      .then(function (response) {
-        console.log("STUDY SERIAL NUMBER SETTING COMPLETE");
         setId(response.data.data.sno);
       });
-  }, []);
+  }, [accessToken]);
+
+
   const [id, setId] = useState("");
   const navigate = useNavigate();
   const mainPage = (e) => {

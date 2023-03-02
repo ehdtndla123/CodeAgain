@@ -5,21 +5,8 @@ import axios from "axios";
 import PlanDetail from "./PlanDetail";
 const PlanViewPage = () => {
   const accessToken = localStorage.getItem("access_token")
-  const [groupName, setGroupName] = useState("");
-  const [groupTag, setGroupTag] = useState("");
   const navigate = useNavigate();
-  axios
-    .get("http://13.209.48.23/api/study", {
-      headers: {
-        "X-AUTH-TOKEN": accessToken,
-      },
-    })
-    .then(function (response) {
-      // 성공 핸들링
-      setGroupName(response.data.data.name);
-      setGroupTag(response.data.data.sno);
-    });
-
+ 
   const studyMain = (e) => {
     console.log(e);
     navigate("/study/" + id);

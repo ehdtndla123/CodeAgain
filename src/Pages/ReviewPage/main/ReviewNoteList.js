@@ -42,7 +42,7 @@ import axios from 'axios';
     setReviewList((response.data.data).reverse());
   });
 
-  },[]);
+  },[accessToken]);
 if(reviewList.length === 0) return (<p id="noNote">오답노트를 추가해주세요</p>)
 else
     return (
@@ -56,7 +56,7 @@ else
                     <p className="number">프로그래머스 {reviewList.number}번</p>
                     <p className="title">{reviewList.subject}</p>
                     {(reviewList.noteReviews).reverse().map((review)=>{
-                      return( <img  src={(review.repeat_complete) === true ? CHECKED_IMG_PATH : UNCHECKED_IMG_PATH} className="sticker" width="33px" />)
+                      return( <img  src={(review.repeat_complete) === true ? CHECKED_IMG_PATH : UNCHECKED_IMG_PATH} className="sticker" width="33px" alt="sticker"/>)
                       
                     })}
                   </div>;

@@ -1,7 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Member from "./Member";
 import { useLocation } from "react-router-dom";
 
@@ -9,8 +8,7 @@ const PlanDetail = () => {
   const [plan, setPlan] = useState([]);
   const [id, setId] = useState("");
   const accessToken = localStorage.getItem("access_token")
-  const navigate = useNavigate();
-  const [pid, setPid] = useState(useLocation().state.pid);
+  const pid = useLocation().state.pid;
 
   // study id get
   axios
@@ -37,7 +35,7 @@ const PlanDetail = () => {
             console.log("STUDY PLAN DETAIL SETTING COMPLETE");
             setPlan(response.data.data);
           });
-      }, [id]);
+      }, [id,accessToken]);
 
     
  

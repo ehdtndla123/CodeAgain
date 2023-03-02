@@ -7,7 +7,7 @@ import ReviewCheck from "./ReviewCheck";
 
 const ReviewViewPage = () => {
   const navigate = useNavigate();
-  const [id, setId] = useState(useLocation().state.ID);
+  const id = useLocation().state.ID;
 
   const ReviewUpdatePage = (e) => {
     console.log(e);

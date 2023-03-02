@@ -16,11 +16,11 @@ const ReviewUpdatePage = () => {
   const [description, setDescription] = useState(
     useLocation().state.Description
   );
-  const [id, setId] = useState(useLocation().state.ID);
+  const id = useLocation().state.ID;
   const [code, setCode] = useState(useLocation().state.Code);
   const [memo, setMemo] = useState(useLocation().state.Memo);
   const accessToken = localStorage.getItem("access_token")
-  const [checkedList, setCheckedList] = useState([]);
+  const checkedList = []
 
   //오답노트 리스트 불러오기
   const ReviewViewPage = (e) => {
@@ -81,7 +81,7 @@ const ReviewUpdatePage = () => {
         setType(response.data.data.category);
         setChecked(response.data.data.category);
       });
-  }, []);
+  }, [accessToken,id]);
   //코드 상태관리
   const onChangeCode = (e) => {
     setCode(e.target.value);

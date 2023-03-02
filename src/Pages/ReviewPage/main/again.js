@@ -39,7 +39,7 @@ import axios from 'axios';
     setReviewList((response.data.data).reverse());
   });
 
-  },[]);
+  },[accessToken]);
   if(reviewList.length === 0) return (<p id="noNote">오답노트를 추가해주세요</p>)
   else
     return (

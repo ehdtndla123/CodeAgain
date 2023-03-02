@@ -29,7 +29,7 @@ const Plan = () => {
         console.log("STUDY PLAN LIST SETTING COMPLETE");
         setPlan(response.data.data.reverse());
       });
-  }, [id]);
+  }, [id,accessToken]);
 
   const viewPlan = (e, planID) => {
     navigate("/study/view/" + planID, { state: { pid: planID } });

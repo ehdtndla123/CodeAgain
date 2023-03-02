@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 // MainPage, LoginPage Header
 export default function Header1() {
  
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
+  const email = "";
   const mainPage = (e) => {
     console.log(e);
     localStorage.removeItem("access_token");

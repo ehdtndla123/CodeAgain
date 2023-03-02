@@ -54,15 +54,14 @@ const StudyPage = () => {
 
   const [OTP, setOTP] = useState("");
 
-  const [groupName, setGroupName] = useState("");
-  const [groupTag, setGroupTag] = useState("");
+  const groupName = "";
+  const groupTag = "";
+  const id = "";
 
   const onGroupNameChange = (e) => {
     const value = e.target.value;
     setInputName(value);
   };
-  const [id, setId] = useState("");
-
   //id가져오기
 
   const join = () => {
