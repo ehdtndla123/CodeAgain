@@ -5,9 +5,7 @@ const Member = () => {
   const [member, setMember] = useState([]);
 
   const [id, setId] = useState("");
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   //id get
   axios
     .get("http://13.209.48.23/api/study", {

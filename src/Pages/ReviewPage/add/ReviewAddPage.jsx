@@ -7,9 +7,7 @@ import "moment/locale/ko";
 const ReviewPage_add = () => {
   const [code, setCode] = useState("");
   const [memo, setMemo] = useState("");
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const [probTitle, setProbTitle] = useState("");
   const [probIntro, setProbIntro] = useState("");
   const [probNum, setProbNum] = useState(0);

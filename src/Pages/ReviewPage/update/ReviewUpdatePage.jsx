@@ -19,9 +19,7 @@ const ReviewUpdatePage = () => {
   const [id, setId] = useState(useLocation().state.ID);
   const [code, setCode] = useState(useLocation().state.Code);
   const [memo, setMemo] = useState(useLocation().state.Memo);
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const [checkedList, setCheckedList] = useState([]);
 
   //오답노트 리스트 불러오기

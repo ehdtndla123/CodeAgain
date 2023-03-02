@@ -17,12 +17,9 @@ const StudyPage = () => {
     document.getElementById("find").style.display = "block";
     document.getElementById("create").style.display = "none";
   };
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const [inputName, setInputName] = useState("");
   const study = () => {
-    console.log(inputName);
     document.getElementById("main").style.display = "none";
     document.getElementById("create").style.display = "none";
     document.getElementById("find").style.display = "none";
@@ -63,7 +60,6 @@ const StudyPage = () => {
   const onGroupNameChange = (e) => {
     const value = e.target.value;
     setInputName(value);
-    console.log(inputName);
   };
   const [id, setId] = useState("");
 
@@ -81,7 +77,6 @@ const StudyPage = () => {
         }
       )
       .then((res) => {
-        console.log("여기왔다");
         axios
           .get("http://13.209.48.23/api/study", {
             headers: {
@@ -89,7 +84,6 @@ const StudyPage = () => {
             },
           })
           .then(function (response) {
-            console.log("여기도왔다");
             navigate("/study/" + response.data.data.sno);
           });
 

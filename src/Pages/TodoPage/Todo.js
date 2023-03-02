@@ -6,9 +6,7 @@ import axios from 'axios';
 
  const TodoList = () => {
   const [reviewList,setReviewList]=useState([]);
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
 
   const [today,setToday]=useState(new Date());
 

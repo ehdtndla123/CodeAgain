@@ -8,9 +8,7 @@ import { useLocation } from "react-router-dom";
 const PlanDetail = () => {
   const [plan, setPlan] = useState([]);
   const [id, setId] = useState("");
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const navigate = useNavigate();
   const [pid, setPid] = useState(useLocation().state.pid);
 
@@ -64,7 +62,7 @@ const PlanDetail = () => {
                 <p className="p"> {plan.penaltyTF===true ? "패널티 : "+ plan.penaltyContent : ""}</p>
                 <Member/>
                 
-                {(plan.studyProblems).filter((p)=>p.subject!="")
+                {(plan.studyProblems).filter((p)=>p.subject!=="")
                 .map((p) => (
                   <div id="problemlist" key={p.id} >
                     <p>{p.subject}</p>

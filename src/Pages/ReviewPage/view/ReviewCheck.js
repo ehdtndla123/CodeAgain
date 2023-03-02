@@ -5,9 +5,7 @@ import { useLocation } from "react-router-dom";
 
 const ReviewCheck = () => {
     const [id, setId] = useState(useLocation().state.ID);
-    const [accessToken, setAccessToken] = useState(
-        localStorage.getItem("access_token")
-      );
+    const accessToken = localStorage.getItem("access_token")
     const CHECKED_IMG_PATH = "../../img/smile.png";
     const UNCHECKED_IMG_PATH = "../../img/darkSmile.png";
     const [data,setData]=useState([]);

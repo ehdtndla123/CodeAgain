@@ -23,9 +23,7 @@ const ReviewViewPage = () => {
   const [code, setCode] = useState("");
   const [description, setDescription] = useState("");
   const [memo, setMemo] = useState("");
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
 
   axios
     .get("http://13.209.48.23/api/notes/" + id, {

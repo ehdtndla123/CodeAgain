@@ -4,9 +4,7 @@ import Header2 from "../../Common/Header2";
 import axios from "axios";
 import PlanDetail from "./PlanDetail";
 const PlanViewPage = () => {
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const [groupName, setGroupName] = useState("");
   const [groupTag, setGroupTag] = useState("");
   const navigate = useNavigate();

@@ -7,9 +7,7 @@ import { ko } from "date-fns/esm/locale";
 import "react-datepicker/dist/react-datepicker.css";
 
 const PlanAddPage = () => {
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const [problemList, setProblemList] = useState([]);
   const navigate = useNavigate();
 

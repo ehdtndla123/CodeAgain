@@ -1,13 +1,11 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Plan = () => {
   const [plan, setPlan] = useState([]);
   const [id, setId] = useState("");
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const navigate = useNavigate();
   //id get
   axios
@@ -37,7 +35,7 @@ const Plan = () => {
     navigate("/study/view/" + planID, { state: { pid: planID } });
   };
 
-  if (plan.length == 0) return <></>;
+  if (plan.length === 0) return <></>;
   else
     return (
       <div>

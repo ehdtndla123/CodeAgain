@@ -109,13 +109,13 @@ const ReviewPage = () => {
           etc
         </label>
 
-        <img id="sort" src="../../img/sort.png" width="20px" />
+        <img id="sort" src="../../img/sort.png" width="20px" alt="sort"/>
         <p className="type">최신순</p>
         <img
           id="plus"
           onClick={ReviewAddPage}
           src="../../img/plus.png"
-          width="20px"
+          width="20px"alt="plus"
         />
 
         <hr id="hr2" />

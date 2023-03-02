@@ -6,9 +6,7 @@ import Member from "./Member";
 import Plan from "./Plan";
 
 const StudyMainPage = () => {
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
 
   const [groupName, setGroupName] = useState("");
   const [groupTag, setGroupTag] = useState("");

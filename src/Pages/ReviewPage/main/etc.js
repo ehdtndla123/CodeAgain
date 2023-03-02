@@ -6,9 +6,7 @@ import axios from 'axios';
  const Etc = () => {
  
   const [reviewList,setReviewList]=useState([]);
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const navigate = useNavigate();
 
   const viewNote = (id) => {
@@ -56,7 +54,7 @@ import axios from 'axios';
                     <p className="date">{dayjs(reviewList.targetDate).format("YYYY-MM-DD")}</p>
                     <p className="number">프로그래머스 {reviewList.number}번</p>
                     <p className="title">{reviewList.subject}</p>
-                    <img src="../../img/smile.png" className="sticker" width="30px" />
+                    <img src="../../img/smile.png" className="sticker" width="30px" alt="sticker"/>
                   </div>;
         })
       }

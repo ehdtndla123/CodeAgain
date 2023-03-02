@@ -8,9 +8,7 @@ import axios from 'axios';
   const CHECKED_IMG_PATH = "../../img/smile.png";
   const UNCHECKED_IMG_PATH = "../../img/darkSmile.png";
   const [reviewList,setReviewList]=useState([]);
-  const [accessToken, setAccessToken] = useState(
-    localStorage.getItem("access_token")
-  );
+  const accessToken = localStorage.getItem("access_token")
   const navigate = useNavigate();
 
   const viewNote = (id) => {
