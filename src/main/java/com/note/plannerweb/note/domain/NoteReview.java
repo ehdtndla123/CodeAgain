@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -24,6 +25,10 @@ public class NoteReview {
     private LocalDate repeat_time;
 
     private Boolean repeat_complete;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @CreatedDate
+    private LocalDate createdDate;
 
     @ManyToOne
     @JoinColumn(name="note_id")

@@ -2,6 +2,7 @@ package com.note.plannerweb.note.domain;
 
 import com.note.plannerweb.member.domain.Member;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -38,6 +39,9 @@ public class Note {
     @Column(length = 5000)
     private String memo;//메모
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @CreatedDate
+    private LocalDate createdDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate targetDate;

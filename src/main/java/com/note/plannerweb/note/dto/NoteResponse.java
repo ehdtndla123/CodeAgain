@@ -1,6 +1,7 @@
 package com.note.plannerweb.note.dto;
 
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -27,6 +28,9 @@ public class NoteResponse {
 
     private String memo;
 
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate createdDate;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate targetDate;

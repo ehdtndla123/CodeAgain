@@ -2,14 +2,12 @@ package com.note.plannerweb.member.domain;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.note.plannerweb.note.domain.Note;
-import com.note.plannerweb.plan.domain.Plan;
 import com.note.plannerweb.plan.domain.Planner;
 import com.note.plannerweb.study.domain.StudyMember;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
