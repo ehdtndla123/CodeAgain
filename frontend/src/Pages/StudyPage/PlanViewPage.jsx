@@ -17,7 +17,7 @@ const PlanViewPage = () => {
   const [id, setId] = useState("");
   //id가져오기
   axios
-    .get("http://13.209.48.23/api/study", {
+    .get("https://codeagain.kro.kr/api/study", {
       headers: {
         "X-AUTH-TOKEN": accessToken,
       },
@@ -28,7 +28,7 @@ const PlanViewPage = () => {
 
   const deleteGroup = () => {
     axios
-      .delete("http://13.209.48.23/api/study/" + id, {
+      .delete("https://codeagain.kro.kr/api/study/" + id, {
         headers: {
           "X-AUTH-TOKEN": accessToken,
         },

@@ -6,32 +6,26 @@ import axios from "axios";
 const LoginPage = () => {
   const navigate = useNavigate();
 
-  const [userInfo, setUserInfo] = useState({
+  const [loginForm, setLoginForm] = useState({
     email: "",
-    pw: "",
+    password: "",
   });
-  const { email, pw } = userInfo;
+
+  const { email, password } = loginForm;
 
   const onEmailChange = (e) => {
-    const value = e.target.value;
-    setUserInfo({
-      ...userInfo,
-      email: value,
-    });
+    setLoginForm({ ...loginForm, email: e.target.value });
   };
 
-  const onPwChange = (e) => {
-    const value = e.target.value;
-    setUserInfo({
-      ...userInfo,
-      pw: value,
-    });
+  const onPasswordChange = (e) => {
+    setLoginForm({ ...loginForm, password: e.target.value });
   };
+
   const loginBtnClick = (e) => {
     axios
       .post(
-        "http://13.209.48.23/api/login",
-        { email: email, password: pw },
+        "https://codeagain.kro.kr/api/login",
+        { email: email, password: password },
         {
           headers: {
             "Content-Type": `application/json`,
@@ -57,7 +51,7 @@ const LoginPage = () => {
         <p className="subTitle">이메일</p>
         <input onChange={onEmailChange} type="text" placeholder="" id="email" />
         <p className="subTitle">비밀번호</p>
-        <input onChange={onPwChange} type="password" placeholder="" id="pw" />
+        <input onChange={onPasswordChange} type="password" placeholder="" id="pw" />
         <button id="join" onClick={loginBtnClick}>
           로그인
         </button>

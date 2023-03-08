@@ -26,7 +26,7 @@ const ReviewViewPage = () => {
   const accessToken = localStorage.getItem("access_token")
 
   axios
-    .get("http://13.209.48.23/api/notes/" + id, {
+    .get("https://codeagain.kro.kr/api/notes/" + id, {
       params: id,
       headers: {
         "X-AUTH-TOKEN": accessToken,
@@ -45,7 +45,7 @@ const ReviewViewPage = () => {
 
   const ReviewDelete = () => {
     axios
-      .delete("http://13.209.48.23/api/notes/" + id, {
+      .delete("https://codeagain.kro.kr/api/notes/" + id, {
         params: id,
         headers: {
           "X-AUTH-TOKEN": accessToken,

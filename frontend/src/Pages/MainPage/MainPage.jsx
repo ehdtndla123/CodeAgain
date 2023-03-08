@@ -14,7 +14,7 @@ const MainPage = () => {
   const resisterPage = (e) => {
     axios
       .post(
-        "http://13.209.48.23/api/check/email",
+        "https://codeagain.kro.kr/api/check/email",
         { email: email },
         {
           headers: {

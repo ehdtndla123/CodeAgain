@@ -15,7 +15,7 @@ const PlanAddPage = () => {
 
   //id가져오기
   axios
-    .get("http://13.209.48.23/api/study", {
+    .get("https://codeagain.kro.kr/api/study", {
       headers: {
         "X-AUTH-TOKEN": accessToken,
       },
@@ -48,7 +48,7 @@ const PlanAddPage = () => {
     }
     axios
       .post(
-        "http://13.209.48.23/api/study/plans/" + id,
+        "https://codeagain.kro.kr/api/study/plans/" + id,
         {
           location: location,
           penaltyContent: panelty,
@@ -67,6 +67,7 @@ const PlanAddPage = () => {
         console.log("NAVIGATE TO STUDY MAIN PAGE");
         navigate("/study/" + id);
       });
+      
   };
 
   const clickAdd = () => {

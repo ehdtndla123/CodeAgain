@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header2 from "../../Common/Header2";
 import axios from "axios";
@@ -12,7 +12,7 @@ const StudyMainPage = () => {
   const [groupTag, setGroupTag] = useState("");
   const navigate = useNavigate();
   axios
-    .get("http://13.209.48.23/api/study", {
+    .get("https://codeagain.kro.kr/api/study", {
       headers: {
         "X-AUTH-TOKEN": accessToken,
       },
@@ -28,8 +28,9 @@ const StudyMainPage = () => {
   };
   const [id, setId] = useState("");
   //id가져오기
+  useEffect(() => {
   axios
-    .get("http://13.209.48.23/api/study", {
+    .get("https://codeagain.kro.kr/api/study", {
       headers: {
         "X-AUTH-TOKEN": accessToken,
       },
@@ -37,10 +38,10 @@ const StudyMainPage = () => {
     .then(function (response) {
       setId(response.data.data.id);
     });
-
+  }, [accessToken]);
   const deleteGroup = () => {
     axios
-      .delete("http://13.209.48.23/api/study/" + id, {
+      .delete("https://codeagain.kro.kr/api/study/" + id, {
         headers: {
           "X-AUTH-TOKEN": accessToken,
         },
@@ -54,8 +55,8 @@ const StudyMainPage = () => {
     <div className="StudyPage">
       <Header2 />
       <div id="study">
-        <p id="title">{groupName}</p>
-        <p id="tag">#{groupTag}</p>
+        {groupName !== "" ? <p id="title">{groupName}</p> : ""}
+        {groupTag !== "" ?<p id="tag">#{groupTag}</p> : ""}
         <p id="groupAdd" onClick={deleteGroup}>
           그룹 나가기
         </p>

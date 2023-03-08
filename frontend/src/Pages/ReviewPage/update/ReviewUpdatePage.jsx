@@ -34,7 +34,7 @@ const ReviewUpdatePage = () => {
 
     axios
       .put(
-        "http://13.209.48.23/api/notes/" + id,
+        "https://codeagain.kro.kr/api/notes/" + id,
         {
           category: type,
           code: code,
@@ -65,7 +65,7 @@ const ReviewUpdatePage = () => {
   };
   useEffect(() => {
     axios
-      .get("http://13.209.48.23/api/notes/" + id, {
+      .get("https://codeagain.kro.kr/api/notes/" + id, {
         params: id,
         headers: {
           "X-AUTH-TOKEN": accessToken,

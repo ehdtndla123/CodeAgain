@@ -8,7 +8,7 @@ const Member = () => {
   const accessToken = localStorage.getItem("access_token")
   //id get
   axios
-    .get("http://13.209.48.23/api/study", {
+    .get("https://codeagain.kro.kr/api/study", {
       
       headers: {
         "X-AUTH-TOKEN": accessToken,
@@ -22,12 +22,13 @@ const Member = () => {
 
   useEffect(() => {
     axios
-      .get("http://13.209.48.23/api/study/members/" + id, {
+      .get("https://codeagain.kro.kr/api/study/members/" + id, {
         headers: {
           "X-AUTH-TOKEN": accessToken,
         },
       })
       .then(function (response) {
+        console.log(response.data.data)
         console.log("MEMBER LIST SETTING COMPLETE");
         setMember(response.data.data);
       });

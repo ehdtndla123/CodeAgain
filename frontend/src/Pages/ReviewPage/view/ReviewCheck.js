@@ -12,7 +12,7 @@ const ReviewCheck = () => {
     
     useEffect(() => {
     axios
-    .get("http://13.209.48.23/api/notes/" + id, {
+    .get("https://codeagain.kro.kr/api/notes/" + id, {
       params: id,
       headers: {
         "X-AUTH-TOKEN": accessToken,
@@ -33,7 +33,7 @@ const ReviewCheck = () => {
         
         axios
         .put(
-          "http://13.209.48.23/api/notes/review/"+reviewId,
+          "https://codeagain.kro.kr/api/notes/review/"+reviewId,
       
           {
             repeat_complete:true,
@@ -56,7 +56,7 @@ const ReviewCheck = () => {
           e.target.value=false;
           axios
           .put(
-            "http://13.209.48.23/api/notes/review/"+reviewId,
+            "https://codeagain.kro.kr/api/notes/review/"+reviewId,
             {
               repeat_complete:false,
             },
@@ -76,7 +76,7 @@ const ReviewCheck = () => {
           e.target.value=true;
           axios
           .put(
-            "http://13.209.48.23/api/notes/review/"+reviewId,
+            "https://codeagain.kro.kr/api/notes/review/"+reviewId,
         
             {
               repeat_complete:true,

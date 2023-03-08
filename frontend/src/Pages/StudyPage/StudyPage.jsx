@@ -25,7 +25,7 @@ const StudyPage = () => {
     document.getElementById("find").style.display = "none";
     axios
       .post(
-        "http://13.209.48.23/api/study",
+        "https://codeagain.kro.kr/api/study",
         {
           name: inputName,
         },
@@ -39,7 +39,7 @@ const StudyPage = () => {
         let id = "";
         console.log(res);
         axios
-          .get("http://13.209.48.23/api/study", {
+          .get("https://codeagain.kro.kr/api/study", {
             headers: {
               "X-AUTH-TOKEN": accessToken,
             },
@@ -67,7 +67,7 @@ const StudyPage = () => {
   const join = () => {
     axios
       .post(
-        "http://13.209.48.23/api/study/join/" + OTP,
+        "https://codeagain.kro.kr/api/study/join/" + OTP,
         {},
         {
           headers: {
@@ -77,7 +77,7 @@ const StudyPage = () => {
       )
       .then((res) => {
         axios
-          .get("http://13.209.48.23/api/study", {
+          .get("https://codeagain.kro.kr/api/study", {
             headers: {
               "X-AUTH-TOKEN": accessToken,
             },

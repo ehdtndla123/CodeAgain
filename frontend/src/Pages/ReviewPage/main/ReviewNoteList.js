@@ -13,7 +13,7 @@ import axios from 'axios';
 
   const viewNote = (id) => {
     axios
-    .get("http://13.209.48.23/api/notes/"+id, {
+    .get("https://codeagain.kro.kr/api/notes/"+id, {
       params : id,
       headers: {
         "X-AUTH-TOKEN": accessToken,
@@ -31,7 +31,7 @@ import axios from 'axios';
   useEffect(() => {
 
   axios
-  .get("http://13.209.48.23/api/notes", {
+  .get("https://codeagain.kro.kr/api/notes", {
     headers: {
       "X-AUTH-TOKEN": accessToken,
     },
@@ -39,7 +39,7 @@ import axios from 'axios';
   .then(function (response) {
     console.log(response)
     console.log("NOTE LIST SETTING COMPLETE");
-    setReviewList((response.data.data).reverse());
+    setReviewList((response.data.data));
   });
 
   },[accessToken]);
@@ -55,7 +55,7 @@ else
                     <p className="date">{(reviewList.targetDate).split("T")[0]}</p>
                     <p className="number">프로그래머스 {reviewList.number}번</p>
                     <p className="title">{reviewList.subject}</p>
-                    {(reviewList.noteReviews).reverse().map((review)=>{
+                    {(reviewList.noteReviews).map((review)=>{
                       return( <img  src={(review.repeat_complete) === true ? CHECKED_IMG_PATH : UNCHECKED_IMG_PATH} className="sticker" width="33px" alt="sticker"/>)
                       
                     })}

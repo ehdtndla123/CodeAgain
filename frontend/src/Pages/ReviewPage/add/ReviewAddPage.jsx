@@ -72,7 +72,7 @@ const ReviewPage_add = () => {
     today = moment(today).format("YYYY-MM-DD");
     axios
       .post(
-        "http://13.209.48.23/api/notes",
+        "https://codeagain.kro.kr/api/notes",
         {
           category: type,
           code: code,

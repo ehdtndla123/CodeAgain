@@ -79,7 +79,7 @@ const ResisterPage = () => {
     }
     axios
       .post(
-        "http://13.209.48.23/api/check/email",
+        "https://codeagain.kro.kr/api/check/email",
         { email: emailValue },
         {
           headers: {
@@ -113,7 +113,7 @@ const ResisterPage = () => {
   async function registerBtnClick() {
     axios
       .post(
-        "http://13.209.48.23/api/signup",
+        "https://codeagain.kro.kr/api/signup",
         { email: email, name: username, password: pw },
         {
           headers: {

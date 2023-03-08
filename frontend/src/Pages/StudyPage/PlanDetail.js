@@ -12,7 +12,7 @@ const PlanDetail = () => {
 
   // study id get
   axios
-    .get("http://13.209.48.23/api/study", {
+    .get("https://codeagain.kro.kr/api/study", {
       headers: {
         "X-AUTH-TOKEN": accessToken,
       },
@@ -25,13 +25,13 @@ const PlanDetail = () => {
  
       useEffect(() => {
         axios
-          .get("http://13.209.48.23/api/study/plans/" + id, {
+          .get("https://codeagain.kro.kr/api/study/plans/" + id, {
             headers: {
               "X-AUTH-TOKEN": accessToken,
             },
           })
           .then(function (response) {
-            console.log(response)
+            console.log(response.data.data)
             console.log("STUDY PLAN DETAIL SETTING COMPLETE");
             setPlan(response.data.data);
           });

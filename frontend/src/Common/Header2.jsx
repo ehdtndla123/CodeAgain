@@ -10,7 +10,7 @@ export default function Header2() {
   useEffect(() => {
     axios
       .post(
-        "http://13.209.48.23/api/study/check",
+        "https://codeagain.kro.kr/api/study/check",
         {},
         {
           headers: {
@@ -28,7 +28,7 @@ export default function Header2() {
 
   useEffect(() => {
     axios
-      .get("http://13.209.48.23/api/members/token", {
+      .get("https://codeagain.kro.kr/api/members/token", {
         headers: {
           "X-AUTH-TOKEN": accessToken,
         },

@@ -9,7 +9,7 @@ const Plan = () => {
   const navigate = useNavigate();
   //id get
   axios
-    .get("http://13.209.48.23/api/study", {
+    .get("https://codeagain.kro.kr/api/study", {
       headers: {
         "X-AUTH-TOKEN": accessToken,
       },
@@ -20,7 +20,7 @@ const Plan = () => {
 
   useEffect(() => {
     axios
-      .get("http://13.209.48.23/api/study/plans/" + id, {
+      .get("https://codeagain.kro.kr/api/study/plans/" + id, {
         headers: {
           "X-AUTH-TOKEN": accessToken,
         },
