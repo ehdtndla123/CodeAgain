@@ -12,7 +12,7 @@ const LoginPage = () => {
   });
 
   const { email, password } = loginForm;
-
+  const [isloginFailed, setIsLoginFailed] = useState(false)
   const onEmailChange = (e) => {
     setLoginForm({ ...loginForm, email: e.target.value });
   };
@@ -20,7 +20,12 @@ const LoginPage = () => {
   const onPasswordChange = (e) => {
     setLoginForm({ ...loginForm, password: e.target.value });
   };
-
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      loginBtnClick()
+      console.log('enter key pressed');
+    }
+  };
   const loginBtnClick = (e) => {
     axios
       .post(
@@ -39,7 +44,12 @@ const LoginPage = () => {
           localStorage.setItem("refresh_token", res.data.data.refreshToken);
           navigate("/review");
         }
-      });
+        
+      })
+      .catch((err) => {
+        setIsLoginFailed(true)
+        console.log(isloginFailed)
+      })
   };
 
   return (
@@ -49,9 +59,10 @@ const LoginPage = () => {
       <div id="main">
         <p id="title">로그인</p>
         <p className="subTitle">이메일</p>
-        <input onChange={onEmailChange} type="text" placeholder="" id="email" />
+        <input onChange={onEmailChange} onKeyPress={handleKeyPress} type="text" placeholder="" id="email" />
         <p className="subTitle">비밀번호</p>
-        <input onChange={onPasswordChange} type="password" placeholder="" id="pw" />
+        <input onChange={onPasswordChange} onKeyPress={handleKeyPress} type="password" placeholder="" id="pw" />
+        <p id="errorMessage">{isloginFailed ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}</p>
         <button id="join" onClick={loginBtnClick}>
           로그인
         </button>
@@ -63,6 +74,13 @@ const LoginPage = () => {
         */}
       </div>
       <style jsx>{`
+      #errorMessage {
+          background: none;
+          font-size: 13px;
+          margin-top: 10px;
+          margin-left: 55px;
+          color: #ffb400;
+        }
         body {
           margin-left: 0px;
         }
@@ -148,7 +166,7 @@ const LoginPage = () => {
           display: block;
           margin: 50px auto 0 auto;
           width: 550px;
-          height: 400px;
+          height: 410px;
           background-color: #212529;
           border-radius: 10px;
         }
@@ -198,7 +216,7 @@ const LoginPage = () => {
           display: block;
           text-align: center;
           background-color: #808080;
-          margin: 40px auto auto auto;
+          margin: 10px auto auto auto;
           height: 40px;
           width: 40%;
           font-size: 16px;
@@ -265,7 +283,7 @@ const LoginPage = () => {
           display: block;
           text-align: center;
           background-color: #808080;
-          margin: 40px auto auto auto;
+          margin: 20px auto auto auto;
           height: 40px;
           width: 200px;
           font-size: 16px;
