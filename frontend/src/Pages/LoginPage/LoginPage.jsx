@@ -23,7 +23,6 @@ const LoginPage = () => {
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
       loginBtnClick()
-      console.log('enter key pressed');
     }
   };
   const loginBtnClick = (e) => {
