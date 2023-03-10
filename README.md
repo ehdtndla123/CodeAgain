@@ -22,19 +22,23 @@ CODE-AGAIN만의 **핵심기능**과 함께 더 편리하게 알고리즘 스터
 
 ### 🔍 문제번호 검색 기능을 통해 간편한 오답노트 입력!
 
-![Group 1.png](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2037b307e89be744fbb3d4bf25f782b8ba/Group_1.png)
+![Group 1](https://user-images.githubusercontent.com/46593078/224277433-ef1ac3fd-527a-47e9-86e4-c69b367b523d.png)
+
 
 ### 👀 반복확인 기능을 통해 복습여부 한눈에 파악하기!
 
-![Group 2.png](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2037b307e89be744fbb3d4bf25f782b8ba/Group_2.png)
+![Group 2](https://user-images.githubusercontent.com/46593078/224277400-18fd16df-c5be-48d5-af25-e187c58c6738.png)
+
 
 ### ✅ TODO 를 통해 풀어야 할 문제 확인하기!
 
-![d.png](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2037b307e89be744fbb3d4bf25f782b8ba/d.png)
+<img width="1438" alt="d" src="https://user-images.githubusercontent.com/46593078/224277269-3a184b94-cabd-45ae-92e1-5004ba06cff8.png">
+
 
 ### 📚 효율적인 스터디 관리!
 
-![198989495-2e784c8b-eaa7-4195-859a-89951d5f7eae.png](%E1%84%8C%E1%85%A6%E1%84%86%E1%85%A9%E1%86%A8%20%E1%84%8B%E1%85%A5%E1%86%B9%E1%84%8B%E1%85%B3%E1%86%B7%2037b307e89be744fbb3d4bf25f782b8ba/198989495-2e784c8b-eaa7-4195-859a-89951d5f7eae.png)
+<img width="1438" alt="198989495-2e784c8b-eaa7-4195-859a-89951d5f7eae" src="https://user-images.githubusercontent.com/46593078/224277250-30ef6fc4-c2da-48ab-9ab4-945cf23ce03f.png">
+
 
 ## 실행 방법
 
