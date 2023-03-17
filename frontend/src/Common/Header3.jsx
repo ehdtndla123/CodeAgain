@@ -5,7 +5,7 @@ export default function Header3() {
   const navigate = useNavigate();
 
   const mainPage = (e) => {
-    navigate("/",{ state: { Visit: "true"} });
+    navigate("/",{ state: { Visit: true} });
   };
   const loginPage = (e) => {
     console.log("LOGIN COMPLETE");

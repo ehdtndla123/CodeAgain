@@ -27,6 +27,7 @@ const ReviewPage = () => {
   };
 
   const [value, setValue] = useState("");
+  console.log(value)
   const filter = (e) => {
     setValue(e.target.value);
   };
@@ -120,15 +121,15 @@ const ReviewPage = () => {
       </div>
 
       <div id="list">
-        {value === 2 ? (
+        {value === "2" ? (
           <Mistake />
-        ) : value === 3 ? (
+        ) : value === "3" ? (
           <Better />
-        ) : value === 4 ? (
+        ) : value === "4" ? (
           <Unsolved />
-        ) : value === 5 ? (
+        ) : value === "5" ? (
           <Again />
-        ) : value === 6 ? (
+        ) : value === "6" ? (
           <Etc />
         ) : (
           <ReviewNoteList />

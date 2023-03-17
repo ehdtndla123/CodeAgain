@@ -36,16 +36,16 @@ import axios from 'axios';
   })
   .then(function (response) {
     console.log("AGAIN REVIEW LIST SETTING COMPLETE");
+    console.log(response.data.data)
     setReviewList((response.data.data).reverse());
   });
 
   },[accessToken]);
-  if(reviewList.length === 0) return (<p id="noNote">오답노트를 추가해주세요</p>)
-  else
+ 
     return (
       <div>
       {
-        reviewList.filter((reviewList)=>reviewList.category ==="again")
+        reviewList.filter((reviewList)=>reviewList.category === "again")
         .map((reviewList)=>{
           return  <div id="content" key={reviewList.id} onClick={()=> viewNote(reviewList.id)}>
                     <div id={reviewList.category==="mistake" ? "circle1" : reviewList.category ==="better" ? "circle2" : reviewList.category ==="again" ? "circle4" : reviewList.category ==="unsolved" ? "circle3":  "circle5"}></div>

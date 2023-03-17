@@ -40,12 +40,11 @@ import axios from 'axios';
   });
 
   },[accessToken]);
-  if(reviewList.length===0) return (<p id="noNote">오답노트를 추가해주세요</p>)
-  else
+ 
     return (
       <div>
       {
-        reviewList.filter((reviewList)=>reviewList.category==="better")
+        reviewList.filter((reviewList)=>reviewList.category === "better")
         .map((reviewList)=>{
           return  <div id="content" key={reviewList.id} onClick={()=> viewNote(reviewList.id)}>
                     <div id={reviewList.category==="mistake" ? "circle1" : reviewList.category==="better" ? "circle2" : reviewList.category==="again" ? "circle4" : reviewList.category==="unsolved" ? "circle3":  "circle5"}></div>

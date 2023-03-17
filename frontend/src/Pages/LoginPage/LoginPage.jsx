@@ -58,9 +58,9 @@ const LoginPage = () => {
       <div id="main">
         <p id="title">로그인</p>
         <p className="subTitle">이메일</p>
-        <input onChange={onEmailChange} onKeyPress={handleKeyPress} type="text" placeholder="" id="email" />
+        <input onChange={onEmailChange} onKeyPress={handleKeyPress} type="text" id="email" autoComplete="email"/>
         <p className="subTitle">비밀번호</p>
-        <input onChange={onPasswordChange} onKeyPress={handleKeyPress} type="password" placeholder="" id="pw" />
+        <input onChange={onPasswordChange} onKeyPress={handleKeyPress} type="password" id="pw" autoComplete="current-password"/>
         <p id="errorMessage">{isloginFailed ? "아이디 또는 비밀번호를 잘못 입력했습니다." : ""}</p>
         <button id="join" onClick={loginBtnClick}>
           로그인

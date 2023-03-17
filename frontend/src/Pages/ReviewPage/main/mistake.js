@@ -4,7 +4,7 @@ import axios from 'axios';
  import { useNavigate } from "react-router-dom";
  import dayjs from 'dayjs';
  const Mistake = () => {
- 
+  console.log("!")
   const [reviewList,setReviewList]=useState([]);
   const accessToken = localStorage.getItem("access_token")
   const navigate = useNavigate();
@@ -37,11 +37,11 @@ import axios from 'axios';
   .then(function (response) {
     console.log("MISTAKE REVIEW LIST SETTING COMPLETE");
     setReviewList((response.data.data).reverse());
+    console.log(reviewList[0].category)
   });
 
   },[accessToken]);
-  if(reviewList.length===0) return (<p id="noNote">오답노트를 추가해주세요</p>)
-  else
+
     return (
       <div>
       {
