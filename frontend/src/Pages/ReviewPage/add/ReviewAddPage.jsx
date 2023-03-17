@@ -52,7 +52,11 @@ const ReviewPage_add = () => {
   const onIntroChange = (e) => {
     setProbIntro(e.target.value);
   };
-  //날짜 체크 리스트 추가
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      probSearch()
+    }
+  };
 
   var type = "";
   //오답노트 추가
@@ -173,7 +177,7 @@ const ReviewPage_add = () => {
         <hr id="hr2" />
         <div id="main">
           <p className="subtitle">문제검색</p>
-          <div id="probSearch">
+          <div id="probSearch" onKeyPress={handleKeyPress}>
             <input
               id="probNum"
               type="text"
